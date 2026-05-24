@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-image: url(./img/imgibiza2.jpg);
+       }
+       
+       .menuBurgeur {   
+       float: right;
+       margin:20px ;
+           }
+       
+       .menuBurgeur span {   
+       font-size: 40px;
+               
+        }   
+       
+       nav {   
+        float: right;
+        margin-right: -400px;
+        background-color: lightskyblue;
+        height: 60vh;
+       width: 20%;
+       text-align: center;
+        transition: 0.5s;
+            }
+                   
+        nav a {      
+        display: block;
+       color: white;
+       text-decoration:none ;
+       margin: 30px;           
+        }
+                   
+       .navOpen {    
+       margin-right: 0;
+       transition: 0.5s;           
+     } 
+       
+       .title h1 {    
+       text-align: center;
+    color: lightblue ;
+    text-shadow: 4px 4px 4px #159a4c;
+    font-size: 70px;
+    
+       }
+    
+     p{  
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size:medium;
+    font-weight: bold;
+    
+     }  
+    .presentation h1 {   
+    text-align: center;
+    color: rgba(4, 132, 174, 0.502) ;
+    text-shadow: 4px 4px 4px #d1c3c3;
+    font-size: 50px;
+    
+        }
+    
+    .nes h2 {   
+    text-align: center;
+    color: rgb(5, 49, 63) ;
+    text-shadow: 2px 2px 2px #6a5e68;
+    font-size: 30px;
+    
+    
+    }
+    
+    .nes {    
+    border: solid 2px;
+    background-color: azure;
+    margin:40px
+    
+    }
+    
+    .nes p {  
+    text-align: center;
+    
+    }
+    
+    .end {  
+    display: flex;
+    justify-content: space-around;
+    
+    }
+    
+    .end p{   
+    text-align: center;
+    
+    }
+    
+    .restaurant  {  
+    text-align: center;
+    background-color: azure;
+    border: solid 2px;
+    margin: 40px;
+    }
+    
+    .restaurant h2{   
+        color: rgb(5, 49, 63) ;
+        text-shadow: 2px 2px 2px #6a5e68;
+        font-size: 30px;       
+    }
+    
+    .voyage h2{    
+        color: rgb(5, 49, 63) ;
+        text-shadow: 2px 2px 2px #6a5e68;
+        font-size: 30px;
+        
+    
+    }
+    
+    .tourisme {   
+        display: flex;
+        justify-content: space-around;
+        border: solid 2px;
+    background-color: azure;
+    margin:40px
+    
+    }
+
+    footer {
+        font-weight: bold;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 20px;
+    }
+    
+    
+    
+    

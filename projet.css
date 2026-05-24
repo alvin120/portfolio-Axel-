@@ -1,0 +1,141 @@
+* {
+	margin:0; 
+	padding: 0;
+}
+
+html {    
+  background-image:url(./img/imgibiza1.jpg);
+
+}
+
+h1{   
+    text-align: center;
+    color: blue ;
+    text-shadow: 4px 4px 4px #000;
+    font-size: 70px;
+
+}
+
+
+.bloc0 h1{   
+    text-align: center;
+    color: blue ;
+    text-shadow: 4px 4px 4px goldenrod;
+    font-size: 50px;
+
+
+
+}
+
+body {
+    max-width: 1180px;
+    background-color: rgba(234, 240, 234, 0.854);
+    font-family: arial, sans-serif;
+    margin: 80px;
+    text-shadow:#888 ;
+    border-radius: 12px 12px 12px 12px  ;
+   
+} 
+
+
+main { 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    }
+
+    .menuBurgeur {   
+      float: right;
+      margin:20px ;
+          }
+      
+      .menuBurgeur span {   
+      font-size: 40px;
+              
+              }   
+      
+      nav {   
+       float: right;
+       margin-right: -400px;
+       background-color: lightskyblue;
+       height: 60vh;
+      width: 20%;
+      text-align: center;
+       transition: 0.5s;
+           }
+                  
+       nav a {      
+       display: block;
+      color: white;
+      text-decoration:none ;
+      margin: 30px;
+                  
+          }
+
+          .navOpen {    
+            margin-right: 0;
+            transition: 0.5s;
+                        
+                } 
+
+
+  article{ 
+    min-height: 300px ;
+    background-color: #f6f6f6;
+    text-align: center;
+   
+    }
+.bloc{  
+display: flex;
+justify-content: center;
+align-items: center;
+padding-right: 50px;
+}
+
+
+.image img{     
+  width: 370px;
+   height: 273px;
+  background-color: rgba(255,255,255,0.5);
+  border: solid 2px black;
+          }
+  
+  .image img:hover{   
+  opacity: 0.5;
+  }
+  .texte{  
+  text-align: left;
+  margin-left: 4px;
+  
+  }
+
+  .bloc1{  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 69px;
+    }
+
+    .bloc3{   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+      }
+
+      .bloc4{   
+      display: flex;
+      justify-content: center;
+      align-items: center;
+        }
+
+
+
+ footer {
+        font-weight: bold;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 20px;
+    }
+    
+

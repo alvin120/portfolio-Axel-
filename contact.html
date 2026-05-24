@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez Axel - Développeur Web Full Stack">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact.css">
+    
+    <script defer src="script.js"></script>
+    <script defer src="contact.js"></script>
+    
+    <title>Contact - Axel Portfolio</title>
+</head>
+<body>
+    <header>
+        <div class="menuBurguer">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="title">
+            <h1>Axel</h1>
+        </div>
+        <nav>
+            <a href="index.html">Présentation</a>
+            <a href="experience.html">Expériences</a>
+            <a href="compétence.html">Compétences</a>
+            <a href="voyages.html">Voyages</a>
+            <a href="accueil.html">Restaurant</a>
+            <a href="contact.html" class="logo">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-section">
+            <div class="contact-container">
+                <h1>Me Contacter</h1>
+                <p class="subtitle">Vous avez une question ou une proposition ? N'hésitez pas à me faire signe !</p>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p><a href="mailto:contact@example.com">contact@example.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Téléphone</h3>
+                                <p><a href="tel:+33612345678">+33 6 12 34 56 78</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Localisation</h3>
+                                <p>France</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" method="POST" action="contact.js">
+                        <div class="form-group">
+                            <label for="name">Nom *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Sujet *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="reservation-section">
+            <div class="contact-container">
+                <h2>Réserver une Table</h2>
+                <p class="subtitle">Souhaitez-vous réserver une table pour le restaurant ?</p>
+                
+                <form class="reservation-form" method="POST" action="contact.js">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-name">Nom *</label>
+                            <input type="text" id="res-name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="res-phone">Téléphone *</label>
+                            <input type="tel" id="res-phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-date">Date *</label>
+                            <input type="date" id="res-date" name="date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="res-time">Heure *</label>
+                            <input type="time" id="res-time" name="time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="res-guests">Nombre de personnes *</label>
+                        <select id="res-guests" name="guests" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6">6 personnes</option>
+                            <option value="7">7 personnes</option>
+                            <option value="8+">8+ personnes</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Réserver</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Portfolio d'Axel. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
