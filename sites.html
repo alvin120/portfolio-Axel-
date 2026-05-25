@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sites internet réalisés par Axel - Développeur Web">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+
+    <script defer src="script.js"></script>
+
+    <title>Sites Internet - Axel Portfolio</title>
+
+    <style>
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .site-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .site-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .site-banner i {
+            font-size: 42px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .site-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-content h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+        }
+
+        .site-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            flex: 1;
+        }
+
+        .site-url {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--accent-color);
+            margin-bottom: 18px;
+            word-break: break-all;
+        }
+
+        .site-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+
+        .site-btn:hover {
+            opacity: 0.9;
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 768px) {
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menuBurguer">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="title">
+            <h1>Axel</h1>
+        </div>
+        <nav>
+            <a href="index.html">Présentation</a>
+            <a href="experience.html">Expériences</a>
+            <a href="compétence.html">Compétences</a>
+            <a href="voyages.html">Voyages</a>
+            <a href="accueil.html">Restaurant</a>
+            <a href="sites.html" class="logo">Sites Internet</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2 class="section-title">Sites Internet</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 50px; font-size: 18px;">
+                Découvrez les sites web que j'ai réalisés pour différents clients et projets.
+            </p>
+
+            <div class="sites-grid">
+
+                <div class="site-card">
+                    <div class="site-banner">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="site-content">
+                        <h3>Wapa Lodge</h3>
+                        <p>Site vitrine d'un lodge en pleine nature, mettant en valeur les hébergements et les activités écotouristiques.</p>
+                        <div class="site-url"><i class="fas fa-link"></i> wapa-lodge.vercel.app</div>
+                        <a href="https://wapa-lodge.vercel.app" target="_blank" rel="noopener" class="site-btn">
+                            <i class="fas fa-external-link-alt"></i> Visiter le site
+                        </a>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-banner" style="background: linear-gradient(135deg, #1565c0, #0288d1);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="site-content">
+                        <h3>Lycée de Guyane</h3>
+                        <p>Site institutionnel d'un lycée en Guyane, avec présentation des filières, des actualités et des informations pratiques.</p>
+                        <div class="site-url"><i class="fas fa-link"></i> lyc-e-guyane.vercel.app</div>
+                        <a href="https://lyc-e-guyane.vercel.app" target="_blank" rel="noopener" class="site-btn">
+                            <i class="fas fa-external-link-alt"></i> Visiter le site
+                        </a>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-banner" style="background: linear-gradient(135deg, #6a1b9a, #00bcd4);">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="site-content">
+                        <h3>ChatGPT Mairie</h3>
+                        <p>Assistant IA intégré pour une mairie, permettant aux citoyens d'obtenir des réponses instantanées à leurs questions administratives.</p>
+                        <div class="site-url"><i class="fas fa-link"></i> chatgptmairie.vercel.app</div>
+                        <a href="https://chatgptmairie.vercel.app" target="_blank" rel="noopener" class="site-btn">
+                            <i class="fas fa-external-link-alt"></i> Visiter le site
+                        </a>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-banner" style="background: linear-gradient(135deg, #2e7d32, #00bcd4);">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="site-content">
+                        <h3>Guyane Code</h3>
+                        <p>Plateforme de formation au développement web en Guyane, pour apprendre à coder et se former aux métiers du numérique.</p>
+                        <div class="site-url"><i class="fas fa-link"></i> guyanecode.vercel.app</div>
+                        <a href="https://guyanecode.vercel.app" target="_blank" rel="noopener" class="site-btn">
+                            <i class="fas fa-external-link-alt"></i> Visiter le site
+                        </a>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-banner" style="background: linear-gradient(135deg, #e65100, #ffa726);">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <div class="site-content">
+                        <h3>Auberge des Îles</h3>
+                        <p>Site de réservation d'une auberge insulaire, avec présentation des chambres, des services et du cadre paradisiaque.</p>
+                        <div class="site-url"><i class="fas fa-link"></i> auberge-des-iles.vercel.app</div>
+                        <a href="https://auberge-des-iles.vercel.app" target="_blank" rel="noopener" class="site-btn">
+                            <i class="fas fa-external-link-alt"></i> Visiter le site
+                        </a>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-banner" style="background: linear-gradient(135deg, #c62828, #f57f17);">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <div class="site-content">
+                        <h3>Pizza Mille Pâtes</h3>
+                        <p>Site vitrine d'une pizzeria artisanale avec carte en ligne, présentation des spécialités et informations de contact.</p>
+                        <div class="site-url"><i class="fas fa-link"></i> pizza-mille-pate.vercel.app</div>
+                        <a href="https://pizza-mille-pate.vercel.app" target="_blank" rel="noopener" class="site-btn">
+                            <i class="fas fa-external-link-alt"></i> Visiter le site
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Portfolio d'Axel. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
