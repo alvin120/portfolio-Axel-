@@ -386,6 +386,153 @@
 
         .service-card:hover .service-arrow { gap: 10px; }
 
+        /* ── Why Section ── */
+        .why-section { margin-bottom: 60px; }
+
+        .why-intro { text-align: center; margin-bottom: 50px; }
+
+        .why-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(26,115,232,0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(26,115,232,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .why-intro h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 14px;
+            letter-spacing: -1px;
+        }
+
+        .why-intro > p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .why-card {
+            background: white;
+            border-radius: 16px;
+            padding: 36px 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .why-card:nth-child(1) { border-bottom-color: var(--primary-color); }
+        .why-card:nth-child(2) { border-bottom-color: var(--accent-color); }
+        .why-card:nth-child(3) { border-bottom-color: #8b5cf6; }
+
+        .why-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .why-icon--blue { background: rgba(26,115,232,0.1); color: var(--primary-color); }
+        .why-icon--teal { background: rgba(0,188,212,0.1); color: var(--accent-color); }
+        .why-icon--purple { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+
+        .why-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .why-hook {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            border-left: 3px solid rgba(26,115,232,0.3);
+            padding-left: 10px;
+        }
+
+        .why-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .why-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .why-list li i {
+            color: #22c55e;
+            font-size: 11px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .why-list li strong { color: var(--primary-color); font-weight: 700; }
+
+        .why-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 36px 48px;
+            background: linear-gradient(135deg, rgba(26,115,232,0.06), rgba(0,188,212,0.06));
+            border-radius: 16px;
+            border: 1px solid rgba(26,115,232,0.12);
+            flex-wrap: wrap;
+        }
+
+        .why-bottom-left h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .why-bottom-left p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin: 0;
+        }
+
         /* ── CTA ── */
         .cta-section {
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
@@ -441,6 +588,9 @@
             .stats-bar { flex-direction: column; }
             .stat-item { border-right: none; border-bottom: 1px solid var(--border-color); padding: 20px; }
             .stat-item:last-child { border-bottom: none; }
+            .why-grid { grid-template-columns: 1fr; }
+            .why-intro h2 { font-size: 28px; }
+            .why-bottom { flex-direction: column; text-align: center; padding: 30px 24px; }
         }
 
         .hero-dot { color: #22c55e; font-size: 8px; }
@@ -453,6 +603,9 @@
             .cta-section { padding: 40px 20px; }
             .cta-section h2 { font-size: 26px; }
             .stat-number { font-size: 36px; }
+            .why-intro h2 { font-size: 24px; }
+            .why-card { padding: 24px 18px; }
+            .why-bottom-left h3 { font-size: 20px; }
         }
     </style>
 </head>
@@ -594,6 +747,78 @@
                     <h3>Curiosité & Créativité</h3>
                     <p>Passionné de voyages et de cultures du monde, je m'inspire de mes expériences pour créer des designs uniques.</p>
                     <span class="service-arrow">Voir mes voyages <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── POURQUOI DIGITAL ── -->
+        <section class="why-section">
+            <div class="why-intro">
+                <span class="why-badge">
+                    <i class="fas fa-chart-line"></i>&nbsp; Pour les entreprises
+                </span>
+                <h2>Pourquoi votre entreprise <span class="gradient-text">doit passer au digital</span></h2>
+                <p>En 2025, ne pas avoir de présence numérique, c'est laisser vos clients à la concurrence. Voici pourquoi agir maintenant.</p>
+            </div>
+
+            <div class="why-grid">
+
+                <!-- Site Internet -->
+                <div class="why-card">
+                    <div class="why-icon why-icon--blue">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Site Internet</h3>
+                    <p class="why-hook">Votre vitrine ouverte 24h/24, 7j/7 — même quand vous dormez.</p>
+                    <ul class="why-list">
+                        <li><i class="fas fa-check-circle"></i><span><strong>97%</strong> des clients recherchent en ligne avant d'acheter</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Augmentez votre crédibilité et votre image de marque</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Attirez des clients au-delà de votre zone géographique</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Visible sur Google 24h/24, sans frais publicitaires constants</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Vos concurrents en ont déjà un — ne prenez pas de retard</span></li>
+                    </ul>
+                </div>
+
+                <!-- Application Mobile -->
+                <div class="why-card">
+                    <div class="why-icon why-icon--teal">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Application Mobile</h3>
+                    <p class="why-hook">60% du trafic web vient du mobile. Soyez là où sont vos clients.</p>
+                    <ul class="why-list">
+                        <li><i class="fas fa-check-circle"></i><span>Fidélisez avec des <strong>notifications push</strong> ciblées</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Expérience ultra-rapide et intuitive pour vos utilisateurs</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Accès à vos services même sans connexion internet</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Paiement simplifié, réservations en un clic</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Démarquez-vous des concurrents sans application</span></li>
+                    </ul>
+                </div>
+
+                <!-- Intelligence Artificielle -->
+                <div class="why-card">
+                    <div class="why-icon why-icon--purple">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Intelligence Artificielle</h3>
+                    <p class="why-hook">L'IA n'est plus un luxe — c'est un avantage concurrentiel décisif.</p>
+                    <ul class="why-list">
+                        <li><i class="fas fa-check-circle"></i><span><strong>Chatbot IA</strong> : répondez à vos clients à toute heure</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Automatisez vos tâches répétitives et gagnez du temps</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Recommandations personnalisées pour chaque visiteur</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Analyse de données pour de meilleures décisions</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Réduisez vos coûts tout en améliorant la qualité</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="why-bottom">
+                <div class="why-bottom-left">
+                    <h3>Prêt à transformer votre entreprise ?</h3>
+                    <p>Ensemble, construisons votre présence digitale et propulsons votre activité.</p>
+                </div>
+                <a href="contact.html" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Démarrer mon projet
                 </a>
             </div>
         </section>
