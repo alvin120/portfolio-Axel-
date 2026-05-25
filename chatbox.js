@@ -1,5 +1,22 @@
 (function () {
 
+    /* ═══════════════════════════════════════════
+       SÉCURITÉ — constantes
+    ═══════════════════════════════════════════ */
+    const MAX_MSG_LENGTH   = 300;   // caractères max par message
+    const RATE_LIMIT_MAX   = 6;     // messages max par fenêtre
+    const RATE_LIMIT_MS    = 60000; // fenêtre = 1 minute
+    const MIN_SEND_INTERVAL= 800;   // ms entre deux envois (anti-spam rapide)
+    const MAX_SAME_MSG     = 2;     // fois qu'un même message peut être répété
+
+    const _ts        = [];          // timestamps des envois
+    let   _lastSend  = 0;           // timestamp du dernier envoi
+    let   _lastText  = '';          // dernier texte envoyé
+    let   _sameCount = 0;           // compteur de répétitions
+
+    /* ═══════════════════════════════════════════
+       RÉPONSES DU BOT
+    ═══════════════════════════════════════════ */
     const RESPONSES = [
         {
             keywords: ['bonjour', 'salut', 'hello', 'bonsoir', 'coucou', 'hi', 'bonne journée'],
@@ -22,15 +39,15 @@
             answer: '🎨 Axel crée des maquettes UI/UX avec Figma avant de coder. Vous voyez le résultat final avant même de commencer — zéro surprise !'
         },
         {
-            keywords: ['prix', 'tarif', 'coût', 'combien', 'devis', 'budget', 'gratuit', 'pas cher'],
+            keywords: ['prix', 'tarif', 'cout', 'combien', 'devis', 'budget', 'gratuit', 'pas cher'],
             answer: '💰 Les tarifs varient selon le projet :\n• Site vitrine : à partir de quelques centaines d\'€\n• Application mobile : selon complexité\n• Devis 100% gratuit et sans engagement\n\nContactez Axel pour une estimation 👉 <a href="contact.html">page contact</a>'
         },
         {
-            keywords: ['délai', 'temps', 'durée', 'rapide', 'quand', 'livraison', 'semaine', 'mois'],
+            keywords: ['delai', 'temps', 'duree', 'rapide', 'quand', 'livraison', 'semaine', 'mois'],
             answer: '⏱️ Délais indicatifs :\n• Site vitrine : 1-2 semaines\n• Site complet : 2-4 semaines\n• Application mobile : 1-3 mois\n\nContactez Axel pour une estimation précise selon votre projet.'
         },
         {
-            keywords: ['contact', 'joindre', 'email', 'téléphone', 'appeler', 'message', 'écrire'],
+            keywords: ['contact', 'joindre', 'email', 'telephone', 'appeler', 'message', 'ecrire'],
             answer: '📬 Contactez Axel :\n• Email : axelavin20@gmail.com\n• Tél : +33 6 65 33 49 65\n\nOu directement via la <a href="contact.html">page contact</a> — réponse sous 24h !'
         },
         {
@@ -38,7 +55,7 @@
             answer: '💻 Stack technique d\'Axel :\n• Front : HTML/CSS, JavaScript, React\n• Back : PHP, Symfony, MySQL\n• Mobile : React Native\n• Design : Figma\n• IA : ChatGPT, Claude, Gemini\n\nVoir les <a href="compétence.html">compétences complètes</a>.'
         },
         {
-            keywords: ['expérience', 'depuis', 'ans', 'année', 'sénior', 'junior', 'niveau'],
+            keywords: ['experience', 'depuis', 'ans', 'annee', 'senior', 'junior', 'niveau'],
             answer: '📅 Axel développe depuis 2020, soit 5+ ans d\'expérience. Il a créé 6+ sites web, des applications mobiles et des projets intégrant l\'IA.'
         },
         {
@@ -46,19 +63,19 @@
             answer: '✈️ En dehors du code, Axel est un grand voyageur — 18 pays visités sur 3 continents ! Cette ouverture culturelle nourrit sa créativité. Voir ses <a href="voyages.html">voyages</a>.'
         },
         {
-            keywords: ['restaurant', 'menu', 'table', 'réservation'],
+            keywords: ['restaurant', 'menu', 'table', 'reservation'],
             answer: '🍽️ Axel a créé un site de restaurant avec carte et réservation en ligne. Découvrez-le dans la section <a href="accueil.html">Restaurant</a>.'
         },
         {
-            keywords: ['pourquoi', 'besoin', 'utilité', 'avantage', 'important'],
+            keywords: ['pourquoi', 'besoin', 'utilite', 'avantage', 'important'],
             answer: '📈 En 2025, avoir un site internet c\'est indispensable :\n• 97% des clients cherchent en ligne\n• Visibilité 24h/24 sur Google\n• Image professionnelle et crédibilité\n• Clients au-delà de votre zone géographique\n\nNe laissez pas vos clients à la concurrence !'
         },
         {
-            keywords: ['merci', 'super', 'parfait', 'ok', 'génial', 'bien', 'top', 'excellent', 'nickel'],
+            keywords: ['merci', 'super', 'parfait', 'ok', 'genial', 'bien', 'top', 'excellent', 'nickel'],
             answer: '😊 Avec plaisir ! N\'hésitez pas si vous avez d\'autres questions. Pour démarrer un projet, contactez Axel 👉 <a href="contact.html">page contact</a>'
         },
         {
-            keywords: ['au revoir', 'bye', 'à bientôt', 'adieu', 'ciao'],
+            keywords: ['au revoir', 'bye', 'a bientot', 'adieu', 'ciao'],
             answer: 'À bientôt ! 👋 N\'hésitez pas à revenir si vous avez des questions. Axel sera ravi de travailler avec vous !'
         },
     ];
@@ -70,40 +87,51 @@
         { label: '📬 Contacter Axel',     text: 'Je veux contacter Axel' },
     ];
 
-    // ── Inject HTML ──
+    /* ═══════════════════════════════════════════
+       INJECT HTML
+    ═══════════════════════════════════════════ */
     document.body.insertAdjacentHTML('beforeend', `
-        <button class="chatbox-btn" id="chatboxBtn" aria-label="Ouvrir le chat">
-            <i class="fas fa-comments icon-open"></i>
-            <i class="fas fa-times icon-close"></i>
-            <span class="chatbox-notif" id="chatNotif">1</span>
+        <button class="chatbox-btn" id="chatboxBtn" aria-label="Ouvrir le chat" aria-expanded="false">
+            <i class="fas fa-comments icon-open" aria-hidden="true"></i>
+            <i class="fas fa-times icon-close"   aria-hidden="true"></i>
+            <span class="chatbox-notif" id="chatNotif" aria-label="1 nouveau message">1</span>
         </button>
 
-        <div class="chatbox-panel" id="chatboxPanel" role="dialog" aria-label="Chat avec l'assistant d'Axel">
+        <div class="chatbox-panel" id="chatboxPanel"
+             role="dialog" aria-modal="true" aria-label="Chat avec l'assistant d'Axel"
+             aria-hidden="true">
             <div class="chat-header">
-                <div class="chat-avatar"><i class="fas fa-user-tie"></i></div>
+                <div class="chat-avatar" aria-hidden="true"><i class="fas fa-user-tie"></i></div>
                 <div class="chat-header-info">
                     <h4>Assistant d'Axel</h4>
-                    <span><span class="online-dot"></span> En ligne &bull; Répond rapidement</span>
+                    <span><span class="online-dot" aria-hidden="true"></span> En ligne &bull; Répond rapidement</span>
                 </div>
                 <button class="chat-close" id="chatboxClose" aria-label="Fermer le chat">
-                    <i class="fas fa-times"></i>
+                    <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </div>
 
-            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Messages"></div>
             <div class="chat-quick"   id="chatQuick"></div>
 
             <div class="chat-input-row">
                 <input type="text" class="chat-input" id="chatInput"
-                       placeholder="Écrivez votre message..." maxlength="300" autocomplete="off">
-                <button class="chat-send" id="chatSend" aria-label="Envoyer">
-                    <i class="fas fa-paper-plane"></i>
+                       placeholder="Écrivez votre message..."
+                       maxlength="${MAX_MSG_LENGTH}"
+                       autocomplete="off"
+                       aria-label="Message à envoyer">
+                <button class="chat-send" id="chatSend" aria-label="Envoyer le message">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
+
+            <div class="chat-rate-warning" id="chatRateWarn" role="alert" aria-live="assertive"></div>
         </div>
     `);
 
-    // ── Elements ──
+    /* ═══════════════════════════════════════════
+       ÉLÉMENTS DOM
+    ═══════════════════════════════════════════ */
     const btn      = document.getElementById('chatboxBtn');
     const panel    = document.getElementById('chatboxPanel');
     const closeBtn = document.getElementById('chatboxClose');
@@ -112,84 +140,171 @@
     const sendBtn  = document.getElementById('chatSend');
     const quick    = document.getElementById('chatQuick');
     const notif    = document.getElementById('chatNotif');
+    const rateWarn = document.getElementById('chatRateWarn');
 
     let opened = false;
+    let botBusy = false;
 
-    // ── Welcome message ──
+    /* ── Message de bienvenue ── */
     setTimeout(() => {
         addBotMsg('👋 Bonjour ! Je suis l\'assistant d\'Axel. Comment puis-je vous aider aujourd\'hui ?');
         buildQuickReplies();
-    }, 800);
+    }, 900);
 
-    // ── Toggle panel ──
-    btn.addEventListener('click', () => {
-        opened = !opened;
-        panel.classList.toggle('open', opened);
-        btn.classList.toggle('active', opened);
-        if (opened) {
-            notif.style.display = 'none';
-            setTimeout(() => input.focus(), 300);
+    /* ═══════════════════════════════════════════
+       TOGGLE PANEL
+    ═══════════════════════════════════════════ */
+    btn.addEventListener('click', togglePanel);
+    closeBtn.addEventListener('click', () => closePanel());
+
+    /* Fermer en cliquant à l'extérieur */
+    document.addEventListener('click', (e) => {
+        if (opened && !panel.contains(e.target) && !btn.contains(e.target)) {
+            closePanel();
         }
     });
 
-    closeBtn.addEventListener('click', () => {
-        opened = false;
-        panel.classList.remove('open');
-        btn.classList.remove('active');
+    /* Fermer avec Échap */
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && opened) closePanel();
     });
 
-    // ── Send ──
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
-
-    function sendMessage() {
-        const text = input.value.trim();
-        if (!text) return;
-        input.value = '';
-        quick.innerHTML = '';
-        addUserMsg(text);
-        setTimeout(() => respond(text), 500);
+    function togglePanel() {
+        opened ? closePanel() : openPanel();
     }
 
+    function openPanel() {
+        opened = true;
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+        notif.style.display = 'none';
+        setTimeout(() => input.focus(), 300);
+    }
+
+    function closePanel() {
+        opened = false;
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+    }
+
+    /* ═══════════════════════════════════════════
+       ENVOI DE MESSAGE
+    ═══════════════════════════════════════════ */
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+    function sendMessage() {
+        if (botBusy) return;
+
+        const raw   = input.value;
+        const clean = sanitize(raw);
+
+        if (!clean) return;
+
+        /* ── Sécurité : vérifications ── */
+        const block = checkSecurity(clean);
+        if (block) { showRateWarn(block); return; }
+
+        /* Tout OK : on envoie */
+        hideRateWarn();
+        input.value = '';
+        quick.innerHTML = '';
+
+        _lastSend  = Date.now();
+        _ts.push(_lastSend);
+
+        if (clean === _lastText) { _sameCount++; } else { _sameCount = 0; }
+        _lastText = clean;
+
+        addUserMsg(clean);
+        setTimeout(() => respond(clean), 500);
+    }
+
+    /* ═══════════════════════════════════════════
+       SÉCURITÉ — vérifications
+    ═══════════════════════════════════════════ */
+    function checkSecurity(text) {
+        const now = Date.now();
+
+        /* 1. Envoi trop rapide (bot) */
+        if (now - _lastSend < MIN_SEND_INTERVAL) {
+            return 'Doucement ! Attendez un instant avant d\'envoyer un autre message. 🙂';
+        }
+
+        /* 2. Rate limiting (> RATE_LIMIT_MAX messages / minute) */
+        const recent = _ts.filter(t => now - t < RATE_LIMIT_MS);
+        if (recent.length >= RATE_LIMIT_MAX) {
+            const wait = Math.ceil((RATE_LIMIT_MS - (now - Math.min(...recent))) / 1000);
+            return `Trop de messages envoyés. Veuillez patienter environ ${wait}s. ⏳`;
+        }
+
+        /* 3. Message répété trop de fois (spam) */
+        if (_sameCount >= MAX_SAME_MSG) {
+            return 'Vous avez déjà envoyé ce message plusieurs fois. Essayez une autre question ! 😊';
+        }
+
+        return null;
+    }
+
+    /* ═══════════════════════════════════════════
+       RÉPONSE DU BOT
+    ═══════════════════════════════════════════ */
     function respond(text) {
+        botBusy = true;
+        input.disabled = true;
+        sendBtn.disabled = true;
         showTyping();
+
         setTimeout(() => {
             removeTyping();
-            const lower = text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+            const norm  = normalize(text);
             const match = RESPONSES.find(r =>
-                r.keywords.some(k => lower.includes(k.normalize('NFD').replace(/[̀-ͯ]/g, '')))
+                r.keywords.some(k => norm.includes(normalize(k)))
             );
             addBotMsg(match
                 ? match.answer
                 : '🤔 Je ne suis pas sûr de comprendre. Pour toute question précise, contactez Axel directement 👉 <a href="contact.html">page contact</a>'
             );
+            botBusy = false;
+            input.disabled = false;
+            sendBtn.disabled = false;
+            input.focus();
         }, 1100);
     }
 
-    // ── Helpers ──
+    /* ═══════════════════════════════════════════
+       HELPERS — AFFICHAGE
+    ═══════════════════════════════════════════ */
     function addBotMsg(html) {
         const div = document.createElement('div');
         div.className = 'chat-msg bot';
+        div.setAttribute('role', 'article');
         div.innerHTML = `<div class="chat-bubble">${html}</div>`;
         messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
+        scrollDown();
     }
 
     function addUserMsg(text) {
         const div = document.createElement('div');
         div.className = 'chat-msg user';
+        div.setAttribute('role', 'article');
         div.innerHTML = `<div class="chat-bubble">${esc(text)}</div>`;
         messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
+        scrollDown();
     }
 
     function showTyping() {
         const div = document.createElement('div');
         div.className = 'chat-msg bot';
         div.id = 'chatTyping';
+        div.setAttribute('aria-label', 'Assistant en train de répondre');
         div.innerHTML = '<div class="chat-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
         messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
+        scrollDown();
     }
 
     function removeTyping() {
@@ -203,22 +318,69 @@
             const b = document.createElement('button');
             b.className = 'quick-btn';
             b.textContent = qr.label;
+            b.setAttribute('type', 'button');
             b.addEventListener('click', () => {
+                if (botBusy) return;
                 quick.innerHTML = '';
                 addUserMsg(qr.label.replace(/^[^\w]+/, '').trim());
+                _lastSend = Date.now();
+                _ts.push(_lastSend);
                 setTimeout(() => respond(qr.text), 500);
             });
             quick.appendChild(b);
         });
     }
 
+    function showRateWarn(msg) {
+        rateWarn.textContent = msg;
+        rateWarn.style.display = 'block';
+    }
+
+    function hideRateWarn() {
+        rateWarn.textContent = '';
+        rateWarn.style.display = 'none';
+    }
+
+    function scrollDown() {
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    /* ═══════════════════════════════════════════
+       HELPERS — SÉCURITÉ / TEXTE
+    ═══════════════════════════════════════════ */
+
+    /* Sanitisation : supprime tout HTML potentiel + limite la longueur */
+    function sanitize(str) {
+        return str
+            .trim()
+            .slice(0, MAX_MSG_LENGTH)
+            .replace(/[<>&"'`]/g, c => ({
+                '<':'&lt;', '>':'&gt;', '&':'&amp;',
+                '"':'&quot;', "'": '&#39;', '`':'&#96;'
+            }[c]));
+    }
+
+    /* Échappement pour affichage dans une bulle utilisateur */
     function esc(str) {
         return str
             .replace(/&/g,  '&amp;')
             .replace(/</g,  '&lt;')
             .replace(/>/g,  '&gt;')
             .replace(/"/g,  '&quot;')
-            .replace(/'/g,  '&#39;');
+            .replace(/'/g,  '&#39;')
+            .replace(/`/g,  '&#96;');
+    }
+
+    /* Normalisation pour la correspondance de mots-clés
+       (accents, casse, caractères spéciaux) */
+    function normalize(str) {
+        return str
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[̀-ͯ]/g, '') // retire les accents
+            .replace(/[^a-z0-9\s]/g, ' ')    // garde lettres, chiffres, espaces
+            .replace(/\s+/g, ' ')
+            .trim();
     }
 
 })();
