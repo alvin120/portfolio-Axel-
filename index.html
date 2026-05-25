@@ -6,15 +6,427 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio d'Axel - Développeur Web Full Stack. Découvrez mes projets, expériences et compétences.">
     <meta name="theme-color" content="#1a73e8">
-    
-    <!-- Fonts -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Scripts -->
+
     <script defer src="script.js"></script>
-    
+
     <title>Axel - Portfolio Développeur Web Full Stack</title>
+
+    <style>
+        /* ── Hero ── */
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(26,115,232,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(26,115,232,0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(26,115,232,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 28px;
+        }
+
+        .hero-tag i { font-size: 12px; }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(42px, 7vw, 82px);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            padding: 15px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(26,115,232,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(26,115,232,0.4);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 13px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Carousel dans hero */
+        .hero-carousel {
+            width: 100%;
+            max-width: 860px;
+            overflow: hidden;
+            border-radius: 18px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .hero-carousel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            pointer-events: none;
+        }
+
+        .hero-carousel .carousel-track img {
+            height: 420px;
+            border-radius: 0;
+        }
+
+        /* ── Stats Bar ── */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 80px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px 50px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .stat-item:last-child { border-right: none; }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+            display: block;
+        }
+
+        /* ── About ── */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 60px;
+            align-items: center;
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 60px;
+        }
+
+        .about-photo-wrap {
+            position: relative;
+        }
+
+        .about-photo-wrap img {
+            width: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+            display: block;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-photo-badge {
+            position: absolute;
+            bottom: -16px;
+            right: -16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 1.4;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .about-text h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .about-text h2 span {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .about-tag {
+            background: rgba(26,115,232,0.08);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(26,115,232,0.15);
+        }
+
+        /* ── Services ── */
+        .services-section {
+            margin-bottom: 60px;
+        }
+
+        .services-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 14px;
+            letter-spacing: -1px;
+        }
+
+        .services-section .sub {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 36px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--primary-color);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(26,115,232,0.1), rgba(0,188,212,0.1));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .service-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-arrow { gap: 10px; }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            opacity: 0.85;
+            margin-bottom: 32px;
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 15px 32px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-section {
+                grid-template-columns: 1fr;
+                padding: 36px 24px;
+                gap: 36px;
+            }
+            .about-photo-badge { right: 10px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .stats-bar { flex-direction: column; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--border-color); padding: 20px; }
+            .stat-item:last-child { border-bottom: none; }
+        }
+
+        .hero-dot { color: #22c55e; font-size: 8px; }
+        .badge-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+        @media (max-width: 600px) {
+            .hero { min-height: unset; padding: 40px 16px; }
+            .hero-carousel .carousel-track img { height: 240px; }
+            .about-text h2, .services-section h2 { font-size: 28px; }
+            .cta-section { padding: 40px 20px; }
+            .cta-section h2 { font-size: 26px; }
+            .stat-number { font-size: 36px; }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -38,23 +450,135 @@
     </header>
 
     <main>
-        <section class="présentation">
-            <h1>Bienvenue</h1>
-            
-            <div class="carousel">
-                <div class="carousel-track">
-                    <img src="./img/Axel2.jpg" alt="Photo de voyage - Axel">
-                    <img src="./img/Axel3.jpg" alt="Photo de voyage - Axel">
-                    <img src="./img/Axel4.jpg" alt="Photo de voyage - Axel">
+
+        <!-- ── HERO ── -->
+        <section class="hero">
+            <span class="hero-tag">
+                <i class="fas fa-circle hero-dot"></i>
+                Disponible pour de nouveaux projets
+            </span>
+
+            <h1 class="hero-title">
+                Bonjour, je suis<br>
+                <span class="gradient-text">Axel</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Développeur Web Full Stack passionné, je conçois des sites modernes, performants et sur mesure depuis 2020.
+            </p>
+
+            <div class="hero-btns">
+                <a href="contact.html" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i> Me contacter
+                </a>
+                <a href="sites.html" class="btn-outline">
+                    <i class="fas fa-globe"></i> Voir mes sites
+                </a>
+            </div>
+
+            <div class="hero-carousel">
+                <div class="carousel">
+                    <div class="carousel-track">
+                        <img src="./img/Axel2.jpg" alt="Axel en voyage">
+                        <img src="./img/Axel3.jpg" alt="Axel en voyage">
+                        <img src="./img/Axel4.jpg" alt="Axel en voyage">
+                    </div>
                 </div>
             </div>
-            
-            <p>
-                Bonjour ! Je suis Axel, développeur web full stack passionné depuis 2020. 
-                J'aime explorer le monde et j'ai eu la chance de visiter 17 pays sur 3 continents. 
-                Découvrez mes projets, expériences et compétences en utilisant la navigation ci-dessus.
-            </p>
         </section>
+
+        <!-- ── STATS ── -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Années d'expérience</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">17</span>
+                <span class="stat-label">Pays visités</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">6+</span>
+                <span class="stat-label">Sites créés</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Continents explorés</span>
+            </div>
+        </div>
+
+        <!-- ── À PROPOS ── -->
+        <section class="about-section">
+            <div class="about-photo-wrap">
+                <img src="./img/Axel2.jpg" alt="Photo d'Axel">
+                <div class="about-photo-badge">
+                    <i class="fas fa-code badge-icon"></i>
+                    Full Stack<br>Developer
+                </div>
+            </div>
+
+            <div class="about-text">
+                <h2>À propos <span>de moi</span></h2>
+                <p>
+                    Je suis Axel, développeur web full stack basé en France. Passionné par le numérique depuis 2020, je crée des sites web et applications modernes alliant performance, design soigné et expérience utilisateur optimale.
+                </p>
+                <p>
+                    Curieux et toujours en veille technologique, je maîtrise aussi bien le front-end (HTML, CSS, JavaScript, React) que le back-end (PHP, Symfony, MySQL). J'intègre également les outils d'intelligence artificielle dans mes projets pour aller plus loin.
+                </p>
+                <p>
+                    En dehors du code, je suis un grand voyageur — 17 pays visités sur 3 continents — ce qui nourrit ma créativité et mon ouverture d'esprit.
+                </p>
+                <div class="about-tags">
+                    <span class="about-tag">HTML & CSS</span>
+                    <span class="about-tag">JavaScript</span>
+                    <span class="about-tag">React</span>
+                    <span class="about-tag">PHP / Symfony</span>
+                    <span class="about-tag">MySQL</span>
+                    <span class="about-tag">Git & GitHub</span>
+                    <span class="about-tag">Figma</span>
+                    <span class="about-tag">IA & ChatGPT</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CE QUE JE FAIS ── -->
+        <section class="services-section">
+            <h2>Ce que je fais</h2>
+            <p class="sub">Des compétences variées pour répondre à tous vos besoins digitaux.</p>
+
+            <div class="services-grid">
+                <a href="compétence.html" class="service-card">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Développement Web</h3>
+                    <p>Création de sites et d'applications web modernes, responsive et performants, du front-end au back-end.</p>
+                    <span class="service-arrow">Voir mes compétences <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="sites.html" class="service-card">
+                    <div class="service-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Intégration IA</h3>
+                    <p>Intégration d'outils d'intelligence artificielle (ChatGPT, Claude, Gemini) pour enrichir vos projets numériques.</p>
+                    <span class="service-arrow">Voir mes sites <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="voyages.html" class="service-card">
+                    <div class="service-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3>Curiosité & Créativité</h3>
+                    <p>Passionné de voyages et de cultures du monde, je m'inspire de mes expériences pour créer des designs uniques.</p>
+                    <span class="service-arrow">Voir mes voyages <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── CTA ── -->
+        <section class="cta-section">
+            <h2>Vous avez un projet en tête ?</h2>
+            <p>N'hésitez pas à me contacter, je serai ravi d'échanger avec vous.</p>
+            <a href="contact.html" class="btn-white">
+                <i class="fas fa-envelope"></i> Me contacter
+            </a>
+        </section>
+
     </main>
 
     <footer>
