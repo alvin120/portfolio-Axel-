@@ -33,11 +33,11 @@
         #mapWrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 66.66%;
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
         }
-        
+
         #map {
             position: absolute;
             top: 0;
@@ -57,29 +57,138 @@
 
         .countries-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
             margin-top: 30px;
             margin-bottom: 50px;
         }
 
         .country-item {
-            background-color: var(--card-bg);
-            padding: 15px;
+            background: white;
+            padding: 14px 16px;
             border-radius: 8px;
             border-left: 4px solid var(--primary-color);
             display: flex;
             align-items: center;
             gap: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .country-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-lg);
         }
 
         .country-item i {
             color: var(--primary-color);
-            font-size: 18px;
+            font-size: 16px;
+            flex-shrink: 0;
         }
 
         .country-item span {
             color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ── Responsive carte ── */
+        @media (max-width: 900px) {
+            #mapWrapper { padding-bottom: 70%; }
+        }
+
+        @media (max-width: 768px) {
+            #mapWrapper { padding-bottom: 80%; }
+
+            .map-container { padding: 12px; }
+
+            .countries-list {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 8px;
+            }
+
+            .country-item {
+                padding: 10px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #mapWrapper { padding-bottom: 100%; }
+
+            .countries-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .country-item {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .country-item span { font-size: 13px; }
+            .country-item i { font-size: 13px; }
+        }
+
+        /* ── Styles de page ── */
+        .voyages-intro {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .voyages-heading {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .voyages-heading--lg {
+            margin-top: 60px;
+        }
+
+        .voyages-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-size: 16px;
+        }
+
+        .voyages-cta {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: var(--light-bg);
+            border-radius: 12px;
+        }
+
+        .voyages-cta h3 {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .voyages-cta p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .voyages-heading { font-size: 19px; }
+            .voyages-cta { padding: 30px 20px; margin-top: 40px; }
+            .voyages-cta h3 { font-size: 20px; }
+            .voyages-subtitle { margin-bottom: 30px; font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .voyages-heading { font-size: 17px; margin-top: 30px; }
+            .voyages-heading--lg { margin-top: 40px; }
+            .voyages-cta { padding: 20px 15px; }
+            .voyages-cta h3 { font-size: 18px; }
         }
     </style>
     
@@ -111,7 +220,7 @@
     <main>
         <section>
             <h2 class="section-title">Mes Voyages</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">
+            <p class="voyages-intro">
                 J'ai eu la chance de visiter 18 pays sur 3 continents. Découvrez mes destinations en bleu sur la carte ci-dessous.
             </p>
 
@@ -121,7 +230,7 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 40px; margin-bottom: 20px;">Pays Visités</h3>
+            <h3 class="voyages-heading">Pays Visités</h3>
             <div class="countries-list">
                 <div class="country-item">
                     <i class="fas fa-map-pin"></i>
@@ -197,8 +306,8 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 60px; margin-bottom: 20px;">Destinations Préférées</h3>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 50px; font-size: 16px;">
+            <h3 class="voyages-heading voyages-heading--lg">Destinations Préférées</h3>
+            <p class="voyages-subtitle">
                 Voici quelques-unes de mes destinations préférées.
             </p>
             
@@ -316,14 +425,9 @@
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 60px; padding: 40px; background: var(--light-bg); border-radius: 12px;">
-                <h3 style="color: var(--primary-color); font-size: 24px; font-weight: 700; margin-bottom: 10px;">
-                    Passionné par les Voyages
-                </h3>
-                <p style="color: var(--text-secondary); margin: 0;">
-                    Mes voyages m'ont permis d'élargir mes horizons, de découvrir différentes cultures et de 
-                    créer des souvenirs inoubliables sur 3 continents.
-                </p>
+            <div class="voyages-cta">
+                <h3>Passionné par les Voyages</h3>
+                <p>Mes voyages m'ont permis d'élargir mes horizons, de découvrir différentes cultures et de créer des souvenirs inoubliables sur 3 continents.</p>
             </div>
         </section>
     </main>

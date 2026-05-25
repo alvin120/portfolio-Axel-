@@ -266,27 +266,52 @@
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .section-title {
         font-size: 32px;
+        margin-bottom: 30px;
     }
 
     .experience-grid,
     .competencies-grid,
-    .projects-grid,
     .menu-grid {
         grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .experience-card,
     .competency-card {
         padding: 20px;
     }
+
+    .project-image {
+        height: 220px;
+    }
+
+    .project-content {
+        padding: 20px;
+    }
+
+    .project-card h3 {
+        font-size: 19px;
+    }
 }
 
 @media (max-width: 480px) {
     .section-title {
         font-size: 24px;
+        margin-bottom: 20px;
     }
 
     .competency-icon {
@@ -295,8 +320,28 @@
 
     .experience-card,
     .competency-card,
-    .project-content,
     .menu-content {
         padding: 15px;
+    }
+
+    .project-image {
+        height: 190px;
+    }
+
+    .project-content {
+        padding: 15px;
+    }
+
+    .project-card h3 {
+        font-size: 17px;
+    }
+
+    .project-card p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .project-location {
+        font-size: 12px;
     }
 }
