@@ -156,6 +156,139 @@ main {
     color: var(--accent-color);
 }
 
+/* ── Section Tech (SEO & Sécurité) ── */
+.restaurant-tech {
+    padding: 60px 0;
+    margin-bottom: 20px;
+}
+
+.restaurant-tech-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.restaurant-tech-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 10px 0 14px;
+    line-height: 1.3;
+}
+
+.restaurant-tech-header p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.tech-card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px 22px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-top: 4px solid transparent;
+}
+
+.tech-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tech-card--seo    { border-top-color: #16a34a; }
+.tech-card--sec    { border-top-color: #7c3aed; }
+.tech-card--mobile { border-top-color: var(--primary-color); }
+.tech-card--perf   { border-top-color: var(--accent-color); }
+
+.tech-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.tech-card--seo    .tech-icon { background: rgba(34,197,94,0.1);   color: #16a34a; }
+.tech-card--sec    .tech-icon { background: rgba(139,92,246,0.1);  color: #7c3aed; }
+.tech-card--mobile .tech-icon { background: rgba(26,115,232,0.1);  color: var(--primary-color); }
+.tech-card--perf   .tech-icon { background: rgba(0,188,212,0.1);   color: var(--accent-color); }
+
+.tech-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 14px;
+}
+
+.tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.tech-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.tech-card--seo    .tech-list li i { color: #16a34a; }
+.tech-card--sec    .tech-list li i { color: #7c3aed; }
+.tech-card--mobile .tech-list li i { color: var(--primary-color); }
+.tech-card--perf   .tech-list li i { color: var(--accent-color); }
+
+.tech-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 36px 40px;
+    background: linear-gradient(135deg, rgba(26,115,232,0.06), rgba(0,188,212,0.06));
+    border-radius: 14px;
+    border: 1px solid rgba(26,115,232,0.12);
+}
+
+.tech-cta p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Responsive tech-grid */
+@media (max-width: 900px) {
+    .tech-grid { grid-template-columns: repeat(2, 1fr); }
+    .restaurant-tech-header h2 { font-size: 26px; }
+}
+
+@media (max-width: 600px) {
+    .tech-grid { grid-template-columns: 1fr; }
+    .restaurant-tech-header h2 { font-size: 22px; }
+    .tech-cta { flex-direction: column; text-align: center; padding: 28px 20px; }
+    .tech-cta p { font-size: 16px; }
+}
+
 /* Responsive pour restaurant hero */
 @media (max-width: 768px) {
     .restaurant-hero {
