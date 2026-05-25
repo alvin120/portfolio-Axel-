@@ -85,28 +85,38 @@
                         </div>
                     </div>
 
-                    <form class="contact-form" method="POST" action="contact.js">
+                    <form id="contactForm" class="contact-form" method="POST" action="contact.js" novalidate>
+                        <!-- Honeypot anti-bot (invisible pour les humains) -->
+                        <div class="honeypot" aria-hidden="true">
+                            <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="form-group">
                             <label for="name">Nom *</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" maxlength="100" required>
+                            <span class="field-error" id="nameError"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" maxlength="150" required>
+                            <span class="field-error" id="emailError"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="subject">Sujet *</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <input type="text" id="subject" name="subject" maxlength="150" required>
+                            <span class="field-error" id="subjectError"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" rows="6" required></textarea>
+                            <label for="message">Message * <small id="charCount" class="char-count">(0/1000)</small></label>
+                            <textarea id="message" name="message" rows="6" maxlength="1000" required></textarea>
+                            <span class="field-error" id="messageError"></span>
                         </div>
 
-                        <button type="submit" class="submit-btn">Envoyer</button>
+                        <div id="formAlert"></div>
+                        <button type="submit" class="submit-btn" id="submitBtn">Envoyer</button>
                     </form>
                 </div>
             </div>

@@ -1,5 +1,19 @@
 /* Styles supplémentaires pour la page Contact */
 
+/* Sécurité - honeypot */
+.honeypot { display: none; }
+
+/* Compteur caractères */
+.char-count { color: var(--text-secondary); font-size: 12px; margin-left: 6px; }
+
+/* Erreurs champs */
+.field-error { color: #e53e3e; font-size: 13px; margin-top: 4px; display: block; }
+
+/* Alertes formulaire */
+.form-alert { padding: 14px 18px; border-radius: 8px; margin-bottom: 16px; font-weight: 500; font-size: 14px; }
+.form-alert--success { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.form-alert--warning { background: #fffbeb; color: #92400e; border: 1px solid #fcd34d; }
+
 .contact-section {
     padding: 40px 20px;
 }
