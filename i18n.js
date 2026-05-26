@@ -59,6 +59,11 @@ fr: {
   restaurant_title:'Galettes, Crêpes et ambiance chaleureuse',
   restaurant_sub:'Découvrez une sélection gourmande de galettes salées et crêpes sucrées, préparées avec soin et ingrédients frais.',
   menu_title:'Notre Menu',
+  skills_tech:'Compétences Techniques', skills_ai:'Intelligence Artificielle & Création', skills_lang:'Langues Étrangères',
+  qual_h2:'Des sites conçus avec les meilleures pratiques',
+  qual_p:'Un site web professionnel ne se limite pas au design — il doit être visible sur Google, rapide et sécurisé.',
+  qual_cta:'Vous voulez un site avec ces fonctionnalités ?',
+  tech_seo:'Référencement SEO', tech_sec:'Sécurité Web', tech_mobile:'Responsive Mobile', tech_perf:'Performance',
 },
 
 /* ──────────────────── ENGLISH ──────────────────── */
@@ -100,6 +105,11 @@ en: {
   restaurant_title:'Galettes, Crêpes and warm atmosphere',
   restaurant_sub:'Discover a gourmet selection of savory galettes and sweet crêpes, prepared with care and fresh ingredients.',
   menu_title:'Our Menu',
+  skills_tech:'Technical Skills', skills_ai:'Artificial Intelligence & Creation', skills_lang:'Foreign Languages',
+  qual_h2:'Websites built with best practices',
+  qual_p:'A professional website is not just about design — it must be visible on Google, fast and secure.',
+  qual_cta:'Want a website with these features?',
+  tech_seo:'SEO Optimization', tech_sec:'Web Security', tech_mobile:'Mobile Responsive', tech_perf:'Performance',
 },
 
 /* ──────────────────── ESPAÑOL ──────────────────── */
@@ -141,6 +151,11 @@ es: {
   restaurant_title:'Galettes, Crêpes y ambiente cálido',
   restaurant_sub:'Descubre una selección gourmet de galettes saladas y crêpes dulces, preparadas con cuidado e ingredientes frescos.',
   menu_title:'Nuestro Menú',
+  skills_tech:'Competencias Técnicas', skills_ai:'Inteligencia Artificial & Creación', skills_lang:'Idiomas Extranjeros',
+  qual_h2:'Sitios web diseñados con las mejores prácticas',
+  qual_p:'Un sitio web profesional no se limita al diseño — debe ser visible en Google, rápido y seguro.',
+  qual_cta:'¿Quieres un sitio con estas funcionalidades?',
+  tech_seo:'SEO & Posicionamiento', tech_sec:'Seguridad Web', tech_mobile:'Responsive Móvil', tech_perf:'Rendimiento',
 },
 
 /* ──────────────────── PORTUGUÊS ──────────────────── */
@@ -182,6 +197,11 @@ pt: {
   restaurant_title:'Galettes, Crêpes e ambiente acolhedor',
   restaurant_sub:'Descubra uma seleção gourmet de galettes salgadas e crêpes doces, preparadas com cuidado e ingredientes frescos.',
   menu_title:'Nosso Cardápio',
+  skills_tech:'Competências Técnicas', skills_ai:'Inteligência Artificial & Criação', skills_lang:'Línguas Estrangeiras',
+  qual_h2:'Sites construídos com as melhores práticas',
+  qual_p:'Um site profissional não se limita ao design — deve ser visível no Google, rápido e seguro.',
+  qual_cta:'Quer um site com estas funcionalidades?',
+  tech_seo:'SEO & Posicionamento', tech_sec:'Segurança Web', tech_mobile:'Responsivo Mobile', tech_perf:'Desempenho',
 },
 
 /* ──────────────────── 中文 ──────────────────── */
@@ -223,6 +243,11 @@ zh: {
   restaurant_title:'可丽饼与温馨氛围',
   restaurant_sub:'精选咸味可丽饼和甜味薄饼，精心制作，使用新鲜食材。',
   menu_title:'菜单',
+  skills_tech:'技术能力', skills_ai:'人工智能与创作', skills_lang:'外语能力',
+  qual_h2:'按照最佳实践构建的网站',
+  qual_p:'专业网站不仅仅是设计——它必须在谷歌上可见、快速且安全。',
+  qual_cta:'想要拥有这些功能的网站？',
+  tech_seo:'SEO优化', tech_sec:'网络安全', tech_mobile:'移动端响应式', tech_perf:'性能',
 },
 
 /* ──────────────────── DEUTSCH ──────────────────── */
@@ -264,6 +289,11 @@ de: {
   restaurant_title:'Galettes, Crêpes und gemütliche Atmosphäre',
   restaurant_sub:'Entdecken Sie eine feine Auswahl herzhafter Galettes und süßer Crêpes, sorgfältig mit frischen Zutaten zubereitet.',
   menu_title:'Unsere Speisekarte',
+  skills_tech:'Technische Kompetenzen', skills_ai:'Künstliche Intelligenz & Kreation', skills_lang:'Fremdsprachen',
+  qual_h2:'Websites nach Best Practices entwickelt',
+  qual_p:'Eine professionelle Website beschränkt sich nicht auf das Design — sie muss auf Google sichtbar, schnell und sicher sein.',
+  qual_cta:'Sie möchten eine Website mit diesen Funktionen?',
+  tech_seo:'SEO-Optimierung', tech_sec:'Web-Sicherheit', tech_mobile:'Mobile Responsive', tech_perf:'Performance',
 },
 
 /* ──────────────────── ITALIANO ──────────────────── */
@@ -305,6 +335,11 @@ it: {
   restaurant_title:'Galettes, Crêpes e atmosfera accogliente',
   restaurant_sub:'Scoprite una selezione gourmand di galettes salate e crêpes dolci, preparate con cura e ingredienti freschi.',
   menu_title:'Il Nostro Menu',
+  skills_tech:'Competenze Tecniche', skills_ai:'Intelligenza Artificiale & Creazione', skills_lang:'Lingue Straniere',
+  qual_h2:'Siti web realizzati con le migliori pratiche',
+  qual_p:'Un sito web professionale non si limita al design — deve essere visibile su Google, veloce e sicuro.',
+  qual_cta:'Volete un sito con queste funzionalità?',
+  tech_seo:'SEO & Posizionamento', tech_sec:'Sicurezza Web', tech_mobile:'Responsive Mobile', tech_perf:'Prestazioni',
 },
 
 /* ──────────────────── 日本語 ──────────────────── */
@@ -346,6 +381,11 @@ ja: {
   restaurant_title:'ガレット、クレープ、温かい雰囲気',
   restaurant_sub:'新鮮な食材を丁寧に使ったしょっぱいガレットと甘いクレープをお楽しみください。',
   menu_title:'メニュー',
+  skills_tech:'テクニカルスキル', skills_ai:'AI・クリエイション', skills_lang:'外国語',
+  qual_h2:'ベストプラクティスで構築されたウェブサイト',
+  qual_p:'プロのウェブサイトはデザインだけではありません — Googleで見つかり、速くて、安全でなければなりません。',
+  qual_cta:'これらの機能を備えたウェブサイトが欲しいですか？',
+  tech_seo:'SEO最適化', tech_sec:'Webセキュリティ', tech_mobile:'モバイル対応', tech_perf:'パフォーマンス',
 },
 
 }; // end T
@@ -487,12 +527,10 @@ function createSwitcher(lang) {
 }
 
 /* ═══════════════════════════════════════════════════
-   INIT
+   INIT — defer garantit que le DOM est prêt
 ═══════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
-  const lang = localStorage.getItem('i18n_lang') || 'fr';
-  createSwitcher(lang);
-  if (lang !== 'fr') apply(lang);
-});
+const lang = localStorage.getItem('i18n_lang') || 'fr';
+createSwitcher(lang);
+apply(lang);
 
 })();
