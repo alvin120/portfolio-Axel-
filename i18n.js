@@ -1171,13 +1171,13 @@ ja: {
 ═══════════════════════════════════════════════════ */
 const SELMAP = [
   // Navigation par href
-  { s:'a[href="index.html"]',           k:'nav_home' },
-  { s:'a[href="experience.html"]',      k:'nav_exp' },
-  { s:'a[href="comp\\e9tence.html"]',   k:'nav_skills' },
-  { s:'a[href="voyages.html"]',         k:'nav_trips' },
-  { s:'a[href="accueil.html"]',         k:'nav_restaurant' },
-  { s:'a[href="sites.html"]',           k:'nav_sites' },
-  { s:'nav a[href="contact.html"]',     k:'nav_contact' },
+  { s:'nav a[href="index.html"]',           k:'nav_home' },
+  { s:'nav a[href="experience.html"]',      k:'nav_exp' },
+  { s:'nav a[href="comp\\e9tence.html"]',   k:'nav_skills' },
+  { s:'nav a[href="voyages.html"]',         k:'nav_trips' },
+  { s:'nav a[href="accueil.html"]',         k:'nav_restaurant' },
+  { s:'nav a[href="sites.html"]',           k:'nav_sites' },
+  { s:'nav a[href="contact.html"]',         k:'nav_contact' },
   // Footer
   { s:'footer p', k:'footer' },
 ];
