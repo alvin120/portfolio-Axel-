@@ -26,10 +26,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chatbox.css">
     <link rel="stylesheet" href="pages.css">
-    
+    <link rel="stylesheet" href="i18n.css">
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-    
+
     <style>
         #mapWrapper {
             position: relative;
@@ -194,7 +195,8 @@
     </style>
     
     <script defer src="script.js"></script>
-    
+    <script defer src="i18n.js"></script>
+
     <title>Voyages - Axel Portfolio</title>
 </head>
 <body>
@@ -220,8 +222,8 @@
 
     <main>
         <section>
-            <h2 class="section-title">Mes Voyages</h2>
-            <p class="voyages-intro">
+            <h2 class="section-title" data-i18n-text="trips_title">Mes Voyages</h2>
+            <p class="voyages-intro" data-i18n-text="trips_intro">
                 J'ai eu la chance de visiter 18 pays sur 3 continents. Découvrez mes destinations en bleu sur la carte ci-dessous.
             </p>
 
@@ -231,7 +233,7 @@
                 </div>
             </div>
 
-            <h3 class="voyages-heading">Pays Visités</h3>
+            <h3 class="voyages-heading" data-i18n-text="trips_countries">Pays Visités</h3>
             <div class="countries-list">
                 <div class="country-item">
                     <i class="fas fa-map-pin"></i>
@@ -307,7 +309,7 @@
                 </div>
             </div>
 
-            <h3 class="voyages-heading voyages-heading--lg">Destinations Préférées</h3>
+            <h3 class="voyages-heading voyages-heading--lg" data-i18n-text="trips_favorites">Destinations Préférées</h3>
             <p class="voyages-subtitle">
                 Voici quelques-unes de mes destinations préférées.
             </p>

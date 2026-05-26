@@ -26,8 +26,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chatbox.css">
     <link rel="stylesheet" href="accueil.css">
-    
+    <link rel="stylesheet" href="i18n.css">
+
     <script defer src="script.js"></script>
+    <script defer src="i18n.js"></script>
     
     <title>Restaurant - Axel Portfolio</title>
 </head>
@@ -56,8 +58,8 @@
         <section class="restaurant-hero">
             <div class="restaurant-hero-content">
                 <p class="section-label">Restaurant & spécialités</p>
-                <h2>Galettes, Crêpes et ambiance chaleureuse</h2>
-                <p>Découvrez une sélection gourmande de galettes salées et crêpes sucrées, préparées avec soin et ingrédients frais.</p>
+                <h2 data-i18n-text="restaurant_title">Galettes, Crêpes et ambiance chaleureuse</h2>
+                <p data-i18n-text="restaurant_sub">Découvrez une sélection gourmande de galettes salées et crêpes sucrées, préparées avec soin et ingrédients frais.</p>
                 <a href="#menu" class="submit-btn">Voir le menu</a>
             </div>
             <div class="restaurant-hero-image">
@@ -140,7 +142,7 @@
         </section>
 
         <section id="menu" class="restaurant-menu">
-            <h2 class="section-title">Notre Menu</h2>
+            <h2 class="section-title" data-i18n-text="menu_title">Notre Menu</h2>
             <div class="menu-grid">
                 <div class="menu-card">
                     <div class="menu-image"><img src="./img/image1.jpg" alt="Galette fromage"></div>

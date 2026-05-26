@@ -26,9 +26,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chatbox.css">
     <link rel="stylesheet" href="contact.css">
-    
+    <link rel="stylesheet" href="i18n.css">
+
     <script defer src="script.js"></script>
     <script defer src="contact.js"></script>
+    <script defer src="i18n.js"></script>
     
     <title>Contact - Axel Portfolio</title>
 </head>
@@ -56,8 +58,8 @@
     <main>
         <section class="contact-section">
             <div class="contact-container">
-                <h1>Me Contacter</h1>
-                <p class="subtitle">Vous avez une question ou une proposition ? N'hésitez pas à me faire signe !</p>
+                <h1 data-i18n-text="contact_title">Me Contacter</h1>
+                <p class="subtitle" data-i18n-text="contact_sub">Vous avez une question ou une proposition ? N'hésitez pas à me faire signe !</p>
                 
                 <div class="contact-content">
                     <div class="contact-info">
@@ -93,19 +95,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Nom *</label>
+                            <label for="name" data-i18n-label="form_name">Nom *</label>
                             <input type="text" id="name" name="name" maxlength="100" required>
                             <span class="field-error" id="nameError"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email *</label>
+                            <label for="email" data-i18n-label="form_email">Email *</label>
                             <input type="email" id="email" name="email" maxlength="150" required>
                             <span class="field-error" id="emailError"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="subject">Sujet *</label>
+                            <label for="subject" data-i18n-label="form_subject">Sujet *</label>
                             <input type="text" id="subject" name="subject" maxlength="150" required>
                             <span class="field-error" id="subjectError"></span>
                         </div>
@@ -117,7 +119,7 @@
                         </div>
 
                         <div id="formAlert"></div>
-                        <button type="submit" class="submit-btn" id="submitBtn">Envoyer</button>
+                        <button type="submit" class="submit-btn" id="submitBtn" data-i18n-text="form_send">Envoyer</button>
                     </form>
                 </div>
             </div>
@@ -125,36 +127,36 @@
 
         <section class="reservation-section">
             <div class="contact-container">
-                <h2>Réserver une Table</h2>
-                <p class="subtitle">Souhaitez-vous réserver une table pour le restaurant ?</p>
+                <h2 data-i18n-text="res_title">Réserver une Table</h2>
+                <p class="subtitle" data-i18n-text="res_sub">Souhaitez-vous réserver une table pour le restaurant ?</p>
                 
                 <form class="reservation-form" method="POST" action="contact.js">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="res-name">Nom *</label>
+                            <label for="res-name" data-i18n-label="res_name">Nom *</label>
                             <input type="text" id="res-name" name="name" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="res-phone">Téléphone *</label>
+                            <label for="res-phone" data-i18n-label="res_phone">Téléphone *</label>
                             <input type="tel" id="res-phone" name="phone" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="res-date">Date *</label>
+                            <label for="res-date" data-i18n-label="res_date">Date *</label>
                             <input type="date" id="res-date" name="date" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="res-time">Heure *</label>
+                            <label for="res-time" data-i18n-label="res_time">Heure *</label>
                             <input type="time" id="res-time" name="time" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="res-guests">Nombre de personnes *</label>
+                        <label for="res-guests" data-i18n-label="res_guests">Nombre de personnes *</label>
                         <select id="res-guests" name="guests" required>
                             <option value="">Sélectionner...</option>
                             <option value="1">1 personne</option>
@@ -168,7 +170,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="submit-btn">Réserver</button>
+                    <button type="submit" class="submit-btn" data-i18n-text="res_btn">Réserver</button>
                 </form>
             </div>
         </section>

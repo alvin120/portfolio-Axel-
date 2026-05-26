@@ -100,8 +100,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chatbox.css">
+    <link rel="stylesheet" href="i18n.css">
 
     <script defer src="script.js"></script>
+    <script defer src="i18n.js"></script>
 
     <title>Axel Tagrou - Développeur Web Full Stack & IA | Portfolio</title>
 
@@ -721,24 +723,24 @@
         <section class="hero">
             <span class="hero-tag">
                 <i class="fas fa-circle hero-dot"></i>
-                Disponible pour de nouveaux projets
+                <span data-i18n-text="hero_tag">Disponible pour de nouveaux projets</span>
             </span>
 
             <h1 class="hero-title">
-                Bonjour, je suis<br>
+                <span data-i18n-text="hero_greeting">Bonjour, je suis</span><br>
                 <span class="gradient-text">Axel Tagrou</span>
             </h1>
 
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
                 Développeur Web Full Stack & IA passionné, je conçois des sites modernes, applications mobiles, maquettes design et expériences sur mesure depuis 2020.
             </p>
 
             <div class="hero-btns">
                 <a href="contact.html" class="btn-primary">
-                    <i class="fas fa-paper-plane"></i> Me contacter
+                    <i class="fas fa-paper-plane"></i> <span data-i18n-text="hero_cta_contact">Me contacter</span>
                 </a>
                 <a href="sites.html" class="btn-outline">
-                    <i class="fas fa-globe"></i> Voir mes sites
+                    <i class="fas fa-globe"></i> <span data-i18n-text="hero_cta_sites">Voir mes sites</span>
                 </a>
             </div>
 
@@ -757,19 +759,19 @@
         <div class="stats-bar">
             <div class="stat-item">
                 <span class="stat-number">5+</span>
-                <span class="stat-label">Années d'expérience</span>
+                <span class="stat-label" data-i18n-text="stat_exp">Années d'expérience</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">18</span>
-                <span class="stat-label">Pays visités</span>
+                <span class="stat-label" data-i18n-text="stat_countries">Pays visités</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">6+</span>
-                <span class="stat-label">Sites créés</span>
+                <span class="stat-label" data-i18n-text="stat_sites">Sites créés</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">3</span>
-                <span class="stat-label">Continents explorés</span>
+                <span class="stat-label" data-i18n-text="stat_continents">Continents explorés</span>
             </div>
         </div>
 
@@ -784,14 +786,14 @@
             </div>
 
             <div class="about-text">
-                <h2>À propos <span>de moi</span></h2>
-                <p>
+                <h2 data-i18n="about_title">À propos <span>de moi</span></h2>
+                <p data-i18n-text="about_p1">
                     Je suis Axel, développeur web full stack basé en France. Passionné par le numérique depuis 2020, je crée des sites web et applications modernes alliant performance, design soigné et expérience utilisateur optimale.
                 </p>
-                <p>
+                <p data-i18n-text="about_p2">
                     Curieux et toujours en veille technologique, je maîtrise aussi bien le front-end (HTML, CSS, JavaScript, React) que le back-end (PHP, Symfony, MySQL). J'intègre également les outils d'intelligence artificielle dans mes projets pour aller plus loin.
                 </p>
-                <p>
+                <p data-i18n-text="about_p3">
                     En dehors du code, je suis un grand voyageur — 18 pays visités sur 3 continents — ce qui nourrit ma créativité et mon ouverture d'esprit.
                 </p>
                 <div class="about-tags">
@@ -811,47 +813,47 @@
 
         <!-- ── CE QUE JE FAIS ── -->
         <section class="services-section">
-            <h2>Ce que je fais</h2>
-            <p class="sub">Des compétences variées pour répondre à tous vos besoins digitaux.</p>
+            <h2 data-i18n-text="services_title">Ce que je fais</h2>
+            <p class="sub" data-i18n-text="services_sub">Des compétences variées pour répondre à tous vos besoins digitaux.</p>
 
             <div class="services-grid">
                 <a href="compétence.html" class="service-card">
                     <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3>Développement Web</h3>
-                    <p>Création de sites et d'applications web modernes, responsive et performants, du front-end au back-end.</p>
-                    <span class="service-arrow">Voir mes compétences <i class="fas fa-arrow-right"></i></span>
+                    <h3 data-i18n-text="svc_web_title">Développement Web</h3>
+                    <p data-i18n-text="svc_web_desc">Création de sites et d'applications web modernes, responsive et performants, du front-end au back-end.</p>
+                    <span class="service-arrow"><span data-i18n-text="svc_arrow">Voir mes compétences</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="sites.html" class="service-card">
                     <div class="service-icon"><i class="fas fa-robot"></i></div>
-                    <h3>Intégration IA</h3>
-                    <p>Intégration d'outils d'intelligence artificielle (ChatGPT, Claude, Gemini) pour enrichir vos projets numériques.</p>
-                    <span class="service-arrow">Voir mes sites <i class="fas fa-arrow-right"></i></span>
+                    <h3 data-i18n-text="svc_ai_title">Intégration IA</h3>
+                    <p data-i18n-text="svc_ai_desc">Intégration d'outils d'intelligence artificielle (ChatGPT, Claude, Gemini) pour enrichir vos projets numériques.</p>
+                    <span class="service-arrow"><span data-i18n-text="svc_arrow_sites">Voir mes sites</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="voyages.html" class="service-card">
                     <div class="service-icon"><i class="fas fa-globe-americas"></i></div>
-                    <h3>Curiosité & Créativité</h3>
-                    <p>Passionné de voyages et de cultures du monde, je m'inspire de mes expériences pour créer des designs uniques.</p>
-                    <span class="service-arrow">Voir mes voyages <i class="fas fa-arrow-right"></i></span>
+                    <h3 data-i18n-text="svc_creative_title">Curiosité & Créativité</h3>
+                    <p data-i18n-text="svc_creative_desc">Passionné de voyages et de cultures du monde, je m'inspire de mes expériences pour créer des designs uniques.</p>
+                    <span class="service-arrow"><span data-i18n-text="svc_arrow_trips">Voir mes voyages</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="compétence.html" class="service-card service-card--seo">
                     <div class="service-icon service-icon--seo">
                         <i class="fas fa-search"></i>
                     </div>
-                    <h3>Référencement SEO</h3>
-                    <p>Optimisation Google : balises meta, données structurées JSON-LD, sitemap, vitesse de chargement. Votre site en première page.</p>
-                    <span class="service-arrow service-arrow--seo">Voir mes compétences <i class="fas fa-arrow-right"></i></span>
+                    <h3 data-i18n-text="svc_seo_title">Référencement SEO</h3>
+                    <p data-i18n-text="svc_seo_desc">Optimisation Google : balises meta, données structurées JSON-LD, sitemap, vitesse de chargement. Votre site en première page.</p>
+                    <span class="service-arrow service-arrow--seo"><span data-i18n-text="svc_arrow">Voir mes compétences</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="compétence.html" class="service-card service-card--sec">
                     <div class="service-icon service-icon--sec">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Sécurité Web & App</h3>
-                    <p>Protection XSS, injections, HTTPS, en-têtes de sécurité, validation des formulaires et rate-limiting. Votre site et vos données protégés.</p>
-                    <span class="service-arrow service-arrow--sec">Voir mes compétences <i class="fas fa-arrow-right"></i></span>
+                    <h3 data-i18n-text="svc_sec_title">Sécurité Web & App</h3>
+                    <p data-i18n-text="svc_sec_desc">Protection XSS, injections, HTTPS, en-têtes de sécurité, validation des formulaires et rate-limiting. Votre site et vos données protégés.</p>
+                    <span class="service-arrow service-arrow--sec"><span data-i18n-text="svc_arrow">Voir mes compétences</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
         </section>
@@ -930,10 +932,10 @@
 
         <!-- ── CTA ── -->
         <section class="cta-section">
-            <h2>Vous avez un projet en tête ?</h2>
-            <p>N'hésitez pas à me contacter, je serai ravi d'échanger avec vous.</p>
+            <h2 data-i18n-text="cta_title">Vous avez un projet en tête ?</h2>
+            <p data-i18n-text="cta_sub">N'hésitez pas à me contacter, je serai ravi d'échanger avec vous.</p>
             <a href="contact.html" class="btn-white">
-                <i class="fas fa-envelope"></i> Me contacter
+                <i class="fas fa-envelope"></i> <span data-i18n-text="cta_btn">Me contacter</span>
             </a>
         </section>
 
