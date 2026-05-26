@@ -32,6 +32,140 @@
     <script defer src="i18n.js"></script>
 
     <title>Compétences - Axel Portfolio</title>
+
+    <style>
+        /* ── Section Qualité & Professionnel ── */
+        .qual-section {
+            padding: 60px 0;
+            margin-bottom: 20px;
+        }
+
+        .qual-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .qual-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 10px 0 14px;
+            line-height: 1.3;
+        }
+
+        .qual-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tech-card {
+            background: white;
+            border-radius: 14px;
+            padding: 28px 22px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid transparent;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tech-card--seo    { border-top-color: #16a34a; }
+        .tech-card--sec    { border-top-color: #7c3aed; }
+        .tech-card--mobile { border-top-color: var(--primary-color); }
+        .tech-card--perf   { border-top-color: var(--accent-color); }
+
+        .tech-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .tech-card--seo    .tech-icon { background: rgba(34,197,94,0.1);  color: #16a34a; }
+        .tech-card--sec    .tech-icon { background: rgba(139,92,246,0.1); color: #7c3aed; }
+        .tech-card--mobile .tech-icon { background: rgba(26,115,232,0.1); color: var(--primary-color); }
+        .tech-card--perf   .tech-icon { background: rgba(0,188,212,0.1);  color: var(--accent-color); }
+
+        .tech-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 14px;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .tech-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .tech-card--seo    .tech-list li i { color: #16a34a; }
+        .tech-card--sec    .tech-list li i { color: #7c3aed; }
+        .tech-card--mobile .tech-list li i { color: var(--primary-color); }
+        .tech-card--perf   .tech-list li i { color: var(--accent-color); }
+
+        .tech-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding: 36px 40px;
+            background: linear-gradient(135deg, rgba(26,115,232,0.06), rgba(0,188,212,0.06));
+            border-radius: 14px;
+            border: 1px solid rgba(26,115,232,0.12);
+        }
+
+        .tech-cta p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
+            .qual-header h2 { font-size: 26px; }
+        }
+
+        @media (max-width: 600px) {
+            .tech-grid { grid-template-columns: 1fr; }
+            .qual-header h2 { font-size: 22px; }
+            .tech-cta { flex-direction: column; text-align: center; padding: 28px 20px; }
+            .tech-cta p { font-size: 16px; }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -264,6 +398,72 @@
                         <div class="proficiency-fill" style="width: 80%"></div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Qualité & Professionnel -->
+        <section class="qual-section">
+            <div class="qual-header">
+                <span class="section-label">Qualité & Professionnel</span>
+                <h2>Des sites conçus avec les meilleures pratiques</h2>
+                <p>Un site web professionnel ne se limite pas au design — il doit être visible sur Google, rapide et sécurisé.</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-card tech-card--seo">
+                    <div class="tech-icon"><i class="fas fa-search"></i></div>
+                    <h3>Référencement SEO</h3>
+                    <ul class="tech-list">
+                        <li><i class="fas fa-check-circle"></i> Balises meta optimisées</li>
+                        <li><i class="fas fa-check-circle"></i> Open Graph (réseaux sociaux)</li>
+                        <li><i class="fas fa-check-circle"></i> Données structurées JSON-LD</li>
+                        <li><i class="fas fa-check-circle"></i> Sitemap & robots.txt</li>
+                        <li><i class="fas fa-check-circle"></i> Canonical URL configurée</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card tech-card--sec">
+                    <div class="tech-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Sécurité Web</h3>
+                    <ul class="tech-list">
+                        <li><i class="fas fa-check-circle"></i> En-têtes HTTP sécurisés</li>
+                        <li><i class="fas fa-check-circle"></i> Protection anti-XSS</li>
+                        <li><i class="fas fa-check-circle"></i> Anti-clickjacking (X-Frame)</li>
+                        <li><i class="fas fa-check-circle"></i> Formulaire avec honeypot</li>
+                        <li><i class="fas fa-check-circle"></i> Rate limiting anti-spam</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card tech-card--mobile">
+                    <div class="tech-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Responsive Mobile</h3>
+                    <ul class="tech-list">
+                        <li><i class="fas fa-check-circle"></i> Design adaptatif tous écrans</li>
+                        <li><i class="fas fa-check-circle"></i> Menu burger sur mobile</li>
+                        <li><i class="fas fa-check-circle"></i> Images optimisées</li>
+                        <li><i class="fas fa-check-circle"></i> Touch-friendly</li>
+                        <li><i class="fas fa-check-circle"></i> Viewport configuré</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card tech-card--perf">
+                    <div class="tech-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Performance</h3>
+                    <ul class="tech-list">
+                        <li><i class="fas fa-check-circle"></i> Cache navigateur activé</li>
+                        <li><i class="fas fa-check-circle"></i> Scripts chargés en defer</li>
+                        <li><i class="fas fa-check-circle"></i> CSS & JS minifiables</li>
+                        <li><i class="fas fa-check-circle"></i> Chargement &lt; 2 secondes</li>
+                        <li><i class="fas fa-check-circle"></i> Hébergement OVH professionnel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tech-cta">
+                <p>Vous voulez un site avec ces fonctionnalités ?</p>
+                <a href="contact.html" class="submit-btn">
+                    <i class="fas fa-rocket"></i> Obtenir mon site
+                </a>
             </div>
         </section>
 
