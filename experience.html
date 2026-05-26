@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="i18n.css">
 
     <script defer src="script.js"></script>
-    <script defer src="i18n.js"></script>
+    <script defer src="i18n.js?v=3"></script>
 
     <title>Expériences - Axel Portfolio</title>
 </head>
@@ -57,31 +57,34 @@
     <main>
         <section>
             <h2 class="section-title" data-i18n-text="exp_title">Expériences Professionnelles</h2>
-            
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 50px; font-size: 18px;" data-i18n-text="exp_sub">
+                Mon parcours professionnel depuis 2020, entre développement web et expériences variées.
+            </p>
+
             <div class="experience-grid">
                 <div class="experience-card">
-                    <h3>Développeur Web Full Stack</h3>
+                    <h3 data-i18n-text="exp1_title">Développeur Web Full Stack</h3>
                     <div class="experience-date">
                         <i class="far fa-calendar"></i>
                         Nes Proworking (28 Mars - 8 Juin 2022)
                     </div>
-                    <p>Stage de fin d'études de 11 semaines au sein de Nes Proworking.</p>
-                    
+                    <p data-i18n-text="exp1_desc">Stage de fin d'études de 11 semaines au sein de Nes Proworking.</p>
+
                     <div style="margin-top: 20px;">
-                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;">Frontend</h4>
+                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;" data-i18n-text="exp_frontend">Frontend</h4>
                         <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary);">
-                            <li>Élaboration du cahier des charges</li>
-                            <li>Création d'un site e-commerce</li>
-                            <li>Création et gestion des pages</li>
+                            <li data-i18n-text="exp1_fe1">Élaboration du cahier des charges</li>
+                            <li data-i18n-text="exp1_fe2">Création d'un site e-commerce</li>
+                            <li data-i18n-text="exp1_fe3">Création et gestion des pages</li>
                         </ul>
                     </div>
 
                     <div style="margin-top: 15px;">
-                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;">Backend</h4>
+                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;" data-i18n-text="exp_backend">Backend</h4>
                         <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary);">
-                            <li>Sécurité et paiement d'achat</li>
-                            <li>Enregistrement des données personnelles</li>
-                            <li>Création base de données utilisateur</li>
+                            <li data-i18n-text="exp1_be1">Sécurité et paiement d'achat</li>
+                            <li data-i18n-text="exp1_be2">Enregistrement des données personnelles</li>
+                            <li data-i18n-text="exp1_be3">Création base de données utilisateur</li>
                         </ul>
                     </div>
 
@@ -94,27 +97,27 @@
                 </div>
 
                 <div class="experience-card">
-                    <h3>Formation Développeur</h3>
+                    <h3 data-i18n-text="exp2_title">Formation Développeur</h3>
                     <div class="experience-date">
                         <i class="fas fa-graduation-cap"></i>
                         IFCASS (6 Septembre 2021 - 22 Juin 2022)
                     </div>
-                    <p>Formation intensive en développement web.</p>
-                    
+                    <p data-i18n-text="exp2_desc">Formation intensive en développement web.</p>
+
                     <div style="margin-top: 20px;">
-                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;">Frontend</h4>
+                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;" data-i18n-text="exp_frontend">Frontend</h4>
                         <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary);">
-                            <li>Création de pages statiques et dynamiques</li>
-                            <li>Portfolio avec HTML et CSS</li>
+                            <li data-i18n-text="exp2_fe1">Création de pages statiques et dynamiques</li>
+                            <li data-i18n-text="exp2_fe2">Portfolio avec HTML et CSS</li>
                         </ul>
                     </div>
 
                     <div style="margin-top: 15px;">
-                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;">Backend</h4>
+                        <h4 style="font-size: 14px; font-weight: 600; color: var(--primary-color); margin-bottom: 10px;" data-i18n-text="exp_backend">Backend</h4>
                         <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary);">
-                            <li>Gestion des bases de données MySQL</li>
-                            <li>Réservation en ligne d'un restaurant</li>
-                            <li>Programmation PHP</li>
+                            <li data-i18n-text="exp2_be1">Gestion des bases de données MySQL</li>
+                            <li data-i18n-text="exp2_be2">Réservation en ligne d'un restaurant</li>
+                            <li data-i18n-text="exp2_be3">Programmation PHP</li>
                         </ul>
                     </div>
 
@@ -127,13 +130,13 @@
                 </div>
 
                 <div class="experience-card">
-                    <h3>Employé Polyvalent</h3>
+                    <h3 data-i18n-text="exp3_title">Employé Polyvalent</h3>
                     <div class="experience-date">
                         <i class="fas fa-utensils"></i>
                         Secteur Restauration
                     </div>
-                    <p>Expérience en secteur de la restauration et des services.</p>
-                    
+                    <p data-i18n-text="exp3_desc">Expérience en secteur de la restauration et des services.</p>
+
                     <ul style="margin: 15px 0; padding-left: 20px; color: var(--text-secondary);">
                         <li>Restaurant "3 CANARDS" (Saint-Georges de Reneins)</li>
                         <li>Hôpital Léon Bérard</li>
@@ -148,17 +151,17 @@
                 </div>
 
                 <div class="experience-card">
-                    <h3>Agent de Voyage</h3>
+                    <h3 data-i18n-text="exp4_title">Agent de Voyage</h3>
                     <div class="experience-date">
                         <i class="fas fa-plane"></i>
                         Jal Voyage (Guyane)
                     </div>
-                    <p>Gestion des réservations touristiques et organisation de voyages.</p>
-                    
+                    <p data-i18n-text="exp4_desc">Gestion des réservations touristiques et organisation de voyages.</p>
+
                     <ul style="margin: 15px 0; padding-left: 20px; color: var(--text-secondary);">
-                        <li>Réservation des lieux touristiques de Guyane</li>
-                        <li>Tableau synoptique pour groupes de voyageurs</li>
-                        <li>Gestion du calendrier de disponibilités</li>
+                        <li data-i18n-text="exp4_li1">Réservation des lieux touristiques de Guyane</li>
+                        <li data-i18n-text="exp4_li2">Tableau synoptique pour groupes de voyageurs</li>
+                        <li data-i18n-text="exp4_li3">Gestion du calendrier de disponibilités</li>
                     </ul>
 
                     <div class="skills-list">
@@ -169,13 +172,13 @@
                 </div>
 
                 <div class="experience-card">
-                    <h3>Organisateur de Voyage</h3>
+                    <h3 data-i18n-text="exp5_title">Organisateur de Voyage</h3>
                     <div class="experience-date">
                         <i class="fas fa-map"></i>
                         Association Ailleurs et Autrement
                     </div>
-                    <p>Service administratif et accueil des voyageurs internationaux.</p>
-                    
+                    <p data-i18n-text="exp5_desc">Service administratif et accueil des voyageurs internationaux.</p>
+
                     <div class="skills-list">
                         <span class="skill-tag">Accueil</span>
                         <span class="skill-tag">Administration</span>
@@ -184,17 +187,17 @@
                 </div>
 
                 <div class="experience-card">
-                    <h3>Chargé d'Accueil</h3>
+                    <h3 data-i18n-text="exp6_title">Chargé d'Accueil</h3>
                     <div class="experience-date">
                         <i class="fas fa-info-circle"></i>
                         Office de Tourisme d'Iracoubo
                     </div>
-                    <p>Accueil et information des visiteurs sur les attractions locales.</p>
-                    
+                    <p data-i18n-text="exp6_desc">Accueil et information des visiteurs sur les attractions locales.</p>
+
                     <ul style="margin: 15px 0; padding-left: 20px; color: var(--text-secondary);">
-                        <li>Accueil des clients</li>
-                        <li>Visite des lieux touristiques</li>
-                        <li>Création de supports marketing</li>
+                        <li data-i18n-text="exp6_li1">Accueil des clients</li>
+                        <li data-i18n-text="exp6_li2">Visite des lieux touristiques</li>
+                        <li data-i18n-text="exp6_li3">Création de supports marketing</li>
                     </ul>
 
                     <div class="skills-list">

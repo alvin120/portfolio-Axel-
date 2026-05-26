@@ -103,7 +103,7 @@
     <link rel="stylesheet" href="i18n.css">
 
     <script defer src="script.js"></script>
-    <script defer src="i18n.js"></script>
+    <script defer src="i18n.js?v=3"></script>
 
     <title>Axel Tagrou - Développeur Web Full Stack & IA | Portfolio</title>
 
@@ -814,14 +814,14 @@
         <!-- ── CE QUE JE FAIS ── -->
         <section class="services-section">
             <h2 data-i18n-text="services_title">Ce que je fais</h2>
-            <p class="sub" data-i18n-text="services_sub">Des compétences variées pour répondre à tous vos besoins digitaux.</p>
+            <p class="sub" data-i18n-text="services_sub">Des savoir-faire variés pour répondre à tous vos besoins digitaux.</p>
 
             <div class="services-grid">
                 <a href="compétence.html" class="service-card">
                     <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3 data-i18n-text="svc_web_title">Développement Web</h3>
                     <p data-i18n-text="svc_web_desc">Création de sites et d'applications web modernes, responsive et performants, du front-end au back-end.</p>
-                    <span class="service-arrow"><span data-i18n-text="svc_arrow">Voir mes compétences</span> <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-arrow"><span data-i18n-text="svc_arrow_web">En savoir plus</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="sites.html" class="service-card">
@@ -844,7 +844,7 @@
                     </div>
                     <h3 data-i18n-text="svc_seo_title">Référencement SEO</h3>
                     <p data-i18n-text="svc_seo_desc">Optimisation Google : balises meta, données structurées JSON-LD, sitemap, vitesse de chargement. Votre site en première page.</p>
-                    <span class="service-arrow service-arrow--seo"><span data-i18n-text="svc_arrow">Voir mes compétences</span> <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-arrow service-arrow--seo"><span data-i18n-text="svc_arrow_seo">Optimiser votre SEO</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="compétence.html" class="service-card service-card--sec">
@@ -853,7 +853,7 @@
                     </div>
                     <h3 data-i18n-text="svc_sec_title">Sécurité Web & App</h3>
                     <p data-i18n-text="svc_sec_desc">Protection XSS, injections, HTTPS, en-têtes de sécurité, validation des formulaires et rate-limiting. Votre site et vos données protégés.</p>
-                    <span class="service-arrow service-arrow--sec"><span data-i18n-text="svc_arrow">Voir mes compétences</span> <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-arrow service-arrow--sec"><span data-i18n-text="svc_arrow_sec">Sécuriser votre site</span> <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
         </section>
@@ -862,10 +862,10 @@
         <section class="why-section">
             <div class="why-intro">
                 <span class="why-badge">
-                    <i class="fas fa-chart-line"></i>&nbsp; Pour les entreprises
+                    <i class="fas fa-chart-line"></i>&nbsp; <span data-i18n-text="why_badge">Pour les entreprises</span>
                 </span>
-                <h2>Pourquoi votre entreprise <span class="gradient-text">doit passer au digital</span></h2>
-                <p>En 2025, ne pas avoir de présence numérique, c'est laisser vos clients à la concurrence. Voici pourquoi agir maintenant.</p>
+                <h2 data-i18n="why_h2">Pourquoi votre entreprise <span class="gradient-text">doit passer au digital</span></h2>
+                <p data-i18n-text="why_sub">En 2025, ne pas avoir de présence numérique, c'est laisser vos clients à la concurrence. Voici pourquoi agir maintenant.</p>
             </div>
 
             <div class="why-grid">
@@ -875,14 +875,14 @@
                     <div class="why-icon why-icon--blue">
                         <i class="fas fa-globe"></i>
                     </div>
-                    <h3>Site Internet</h3>
-                    <p class="why-hook">Votre vitrine ouverte 24h/24, 7j/7 — même quand vous dormez.</p>
+                    <h3 data-i18n-text="why_web_h3">Site Internet</h3>
+                    <p class="why-hook" data-i18n-text="why_web_hook">Votre vitrine ouverte 24h/24, 7j/7 — même quand vous dormez.</p>
                     <ul class="why-list">
-                        <li><i class="fas fa-check-circle"></i><span><strong>97%</strong> des clients recherchent en ligne avant d'acheter</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Augmentez votre crédibilité et votre image de marque</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Attirez des clients au-delà de votre zone géographique</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Visible sur Google 24h/24, sans frais publicitaires constants</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Vos concurrents en ont déjà un — ne prenez pas de retard</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n="why_web_li1"><strong>97%</strong> des clients recherchent en ligne avant d'acheter</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_web_li2">Augmentez votre crédibilité et votre image de marque</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_web_li3">Attirez des clients au-delà de votre zone géographique</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_web_li4">Visible sur Google 24h/24, sans frais publicitaires constants</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_web_li5">Vos concurrents en ont déjà un — ne prenez pas de retard</span></li>
                     </ul>
                 </div>
 
@@ -891,14 +891,14 @@
                     <div class="why-icon why-icon--teal">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Application Mobile</h3>
-                    <p class="why-hook">60% du trafic web vient du mobile. Soyez là où sont vos clients.</p>
+                    <h3 data-i18n-text="why_app_h3">Application Mobile</h3>
+                    <p class="why-hook" data-i18n-text="why_app_hook">60% du trafic web vient du mobile. Soyez là où sont vos clients.</p>
                     <ul class="why-list">
-                        <li><i class="fas fa-check-circle"></i><span>Fidélisez avec des <strong>notifications push</strong> ciblées</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Expérience ultra-rapide et intuitive pour vos utilisateurs</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Accès à vos services même sans connexion internet</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Paiement simplifié, réservations en un clic</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Démarquez-vous des concurrents sans application</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n="why_app_li1">Fidélisez avec des <strong>notifications push</strong> ciblées</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_app_li2">Expérience ultra-rapide et intuitive pour vos utilisateurs</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_app_li3">Accès à vos services même sans connexion internet</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_app_li4">Paiement simplifié, réservations en un clic</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_app_li5">Démarquez-vous des concurrents sans application</span></li>
                     </ul>
                 </div>
 
@@ -907,25 +907,25 @@
                     <div class="why-icon why-icon--purple">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3>Intelligence Artificielle</h3>
-                    <p class="why-hook">L'IA n'est plus un luxe — c'est un avantage concurrentiel décisif.</p>
+                    <h3 data-i18n-text="why_ai_h3">Intelligence Artificielle</h3>
+                    <p class="why-hook" data-i18n-text="why_ai_hook">L'IA n'est plus un luxe — c'est un avantage concurrentiel décisif.</p>
                     <ul class="why-list">
-                        <li><i class="fas fa-check-circle"></i><span><strong>Chatbot IA</strong> : répondez à vos clients à toute heure</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Automatisez vos tâches répétitives et gagnez du temps</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Recommandations personnalisées pour chaque visiteur</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Analyse de données pour de meilleures décisions</span></li>
-                        <li><i class="fas fa-check-circle"></i><span>Réduisez vos coûts tout en améliorant la qualité</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n="why_ai_li1"><strong>Chatbot IA</strong> : répondez à vos clients à toute heure</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_ai_li2">Automatisez vos tâches répétitives et gagnez du temps</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_ai_li3">Recommandations personnalisées pour chaque visiteur</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_ai_li4">Analyse de données pour de meilleures décisions</span></li>
+                        <li><i class="fas fa-check-circle"></i><span data-i18n-text="why_ai_li5">Réduisez vos coûts tout en améliorant la qualité</span></li>
                     </ul>
                 </div>
             </div>
 
             <div class="why-bottom">
                 <div class="why-bottom-left">
-                    <h3>Prêt à transformer votre entreprise ?</h3>
-                    <p>Ensemble, construisons votre présence digitale et propulsons votre activité.</p>
+                    <h3 data-i18n-text="why_cta_h3">Prêt à transformer votre entreprise ?</h3>
+                    <p data-i18n-text="why_cta_p">Ensemble, construisons votre présence digitale et propulsons votre activité.</p>
                 </div>
                 <a href="contact.html" class="btn-primary">
-                    <i class="fas fa-rocket"></i> Démarrer mon projet
+                    <i class="fas fa-rocket"></i> <span data-i18n-text="why_cta_btn">Démarrer mon projet</span>
                 </a>
             </div>
         </section>
