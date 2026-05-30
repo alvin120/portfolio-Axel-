@@ -1,189 +1,165 @@
-/* Styles communs — Experience, Compétences, Voyages, Sites (dark theme) */
+/* Styles communs pour les pages Experience, Compétence, Projet, Accueil */
 
-/* ── Section title ── */
 .section-title {
-    font-family: 'Archivo', sans-serif;
-    font-size: 38px;
-    font-weight: 800;
-    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--primary-color);
     text-align: center;
-    margin-bottom: 48px;
-    letter-spacing: -0.5px;
+    margin-bottom: 50px;
 }
 
-/* ── Experience Page ── */
+/* Experience Page */
 .experience-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
     margin-bottom: 60px;
 }
 
 .experience-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: white;
+    border-radius: 12px;
     padding: 30px;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    border-left: 3px solid var(--accent);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    cursor: default;
+    border-left: 4px solid var(--primary-color);
 }
 
 .experience-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg), var(--glow);
-    border-color: var(--border-h);
-    border-left-color: var(--accent);
-    background: var(--bg-card-h);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-left-color: var(--accent-color);
 }
 
 .experience-card h3 {
-    font-family: 'Archivo', sans-serif;
-    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-primary);
     margin: 0 0 10px 0;
-    letter-spacing: -0.3px;
 }
 
 .experience-date {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--accent);
+    color: var(--accent-color);
     font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 14px;
+    font-size: 14px;
+    margin-bottom: 15px;
 }
 
 .experience-card p {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     line-height: 1.8;
     margin: 0;
-    font-size: 15px;
 }
 
 .skills-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .skill-tag {
     display: inline-block;
-    background: var(--accent-low);
-    color: var(--accent);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-    padding: 5px 14px;
-    border-radius: 50px;
-    font-size: 12px;
+    background: linear-gradient(135deg, rgba(26, 115, 232, 0.1), rgba(0, 188, 212, 0.1));
+    color: var(--primary-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
     font-weight: 600;
     transition: var(--transition);
-    cursor: default;
 }
 
 .skill-tag:hover {
-    background: var(--accent-mid);
-    border-color: var(--accent);
-    color: var(--text);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
 }
 
-/* ── Compétences Page ── */
+/* Compétences Page */
 .competencies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
     margin-bottom: 60px;
 }
 
 .competency-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: white;
+    border-radius: 12px;
     padding: 30px;
     text-align: center;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    cursor: default;
 }
 
 .competency-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg), var(--glow);
-    border-color: var(--border-h);
-    background: var(--bg-card-h);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .competency-icon {
-    font-size: 40px;
-    color: var(--accent);
-    margin-bottom: 14px;
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
 }
 
 .competency-card h3 {
-    font-family: 'Archivo', sans-serif;
-    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--text);
-    margin: 14px 0 10px;
-    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin: 15px 0;
 }
 
 .competency-card p {
-    color: var(--text-muted);
-    line-height: 1.65;
+    color: var(--text-secondary);
+    line-height: 1.6;
     margin: 0;
-    font-size: 14px;
 }
 
 .proficiency-bar {
-    background: var(--accent-low);
-    height: 6px;
-    border-radius: 3px;
-    margin-top: 16px;
+    background: var(--light-bg);
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 15px;
     overflow: hidden;
 }
 
 .proficiency-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent), #86efac);
-    border-radius: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 4px;
     transition: var(--transition);
 }
 
-/* ── Voyages / Projects Page ── */
+/* Projets/Voyages Page */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
+    gap: 30px;
     margin-bottom: 60px;
 }
 
 .project-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: white;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    cursor: pointer;
 }
 
 .project-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg), var(--glow);
-    border-color: var(--border-h);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .project-image {
     width: 100%;
-    height: 240px;
+    height: 250px;
     overflow: hidden;
 }
 
@@ -192,71 +168,64 @@
     height: 100%;
     object-fit: cover;
     transition: var(--transition);
-    filter: brightness(0.85);
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.06);
-    filter: brightness(1);
+    transform: scale(1.08);
 }
 
 .project-content {
-    padding: 26px;
+    padding: 30px;
 }
 
 .project-location {
     display: flex;
     align-items: center;
-    gap: 7px;
-    color: var(--accent);
+    gap: 8px;
+    color: var(--accent-color);
     font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
 .project-card h3 {
-    font-family: 'Archivo', sans-serif;
-    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-primary);
     margin: 0 0 10px 0;
-    letter-spacing: -0.3px;
 }
 
 .project-card p {
-    color: var(--text-muted);
-    line-height: 1.75;
+    color: var(--text-secondary);
+    line-height: 1.8;
     margin: 0;
-    font-size: 14px;
 }
 
-/* ── Menu cards (restaurant) in pages.css ── */
+/* Restaurant/Accueil Page */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
     margin-bottom: 60px;
 }
 
 .menu-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: white;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    cursor: pointer;
 }
 
 .menu-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg), var(--glow);
-    border-color: var(--border-h);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .menu-image {
     width: 100%;
-    height: 260px;
+    height: 280px;
     overflow: hidden;
 }
 
@@ -265,52 +234,49 @@
     height: 100%;
     object-fit: cover;
     transition: var(--transition);
-    filter: brightness(0.8);
 }
 
 .menu-card:hover .menu-image img {
-    transform: scale(1.07);
-    filter: brightness(0.95);
+    transform: scale(1.08);
 }
 
 .menu-content {
-    padding: 22px;
+    padding: 25px;
 }
 
 .menu-card h3 {
-    font-family: 'Archivo', sans-serif;
-    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--text);
-    margin: 0 0 8px 0;
+    color: var(--text-primary);
+    margin: 0 0 10px 0;
 }
 
 .menu-card p {
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin: 0 0 14px 0;
-    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 15px 0;
 }
 
 .price {
-    font-family: 'Archivo', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
-    font-weight: 800;
-    color: var(--accent);
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
-/* ── Responsive ── */
+/* Responsive */
 @media (max-width: 900px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        gap: 20px;
     }
 }
 
 @media (max-width: 768px) {
     .section-title {
-        font-size: 28px;
-        margin-bottom: 28px;
+        font-size: 32px;
+        margin-bottom: 30px;
     }
 
     .experience-grid,
@@ -321,7 +287,7 @@
 
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 20px;
     }
 
     .experience-card,
@@ -330,36 +296,40 @@
     }
 
     .project-image {
-        height: 200px;
+        height: 220px;
     }
 
     .project-content {
-        padding: 18px;
+        padding: 20px;
+    }
+
+    .project-card h3 {
+        font-size: 19px;
     }
 }
 
 @media (max-width: 480px) {
     .section-title {
-        font-size: 22px;
+        font-size: 24px;
         margin-bottom: 20px;
     }
 
     .competency-icon {
-        font-size: 32px;
+        font-size: 36px;
     }
 
     .experience-card,
     .competency-card,
     .menu-content {
-        padding: 16px;
+        padding: 15px;
     }
 
     .project-image {
-        height: 175px;
+        height: 190px;
     }
 
     .project-content {
-        padding: 14px;
+        padding: 15px;
     }
 
     .project-card h3 {
@@ -368,5 +338,10 @@
 
     .project-card p {
         font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .project-location {
+        font-size: 12px;
     }
 }
