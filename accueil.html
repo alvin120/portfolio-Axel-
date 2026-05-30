@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="i18n.css">
 
     <script defer src="script.js"></script>
-    <script defer src="i18n.js?v=3"></script>
-    
+    <script defer src="i18n.js?v=4"></script>
+
     <title>Restaurant - Axel Portfolio</title>
 </head>
 <body>
@@ -55,58 +55,120 @@
     </header>
 
     <main>
+
+        <!-- ── Hero Bento ── -->
         <section class="restaurant-hero">
-            <div class="restaurant-hero-content">
-                <p class="section-label" data-i18n-text="res_label">Restaurant & spécialités</p>
-                <h2 data-i18n-text="restaurant_title">Galettes, Crêpes et ambiance chaleureuse</h2>
+
+            <!-- Text card (col 1-2) -->
+            <div class="hero-text-card">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span data-i18n-text="res_label">Restaurant &amp; spécialités</span>
+                </div>
+                <h2 data-i18n-text="restaurant_title">Galettes, Crêpes<br>et ambiance chaleureuse</h2>
                 <p data-i18n-text="restaurant_sub">Découvrez une sélection gourmande de galettes salées et crêpes sucrées, préparées avec soin et ingrédients frais.</p>
-                <a href="#menu" class="submit-btn" data-i18n-text="res_menu_btn">Voir le menu</a>
+                <div class="hero-cta">
+                    <a href="#menu" class="btn-primary">
+                        <i class="fas fa-utensils"></i>
+                        <span data-i18n-text="res_menu_btn">Voir le menu</span>
+                    </a>
+                    <a href="contact.html" class="btn-ghost">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Nous trouver
+                    </a>
+                </div>
             </div>
-            <div class="restaurant-hero-image">
-                <img src="./img/image1.jpg" alt="Galette fromage">
+
+            <!-- Image card (col 3, rows 1-2) -->
+            <div class="hero-image-card">
+                <img src="./img/image1.jpg" alt="Galette fromage — spécialité maison" loading="eager">
+                <div class="hero-img-badge">
+                    <i class="fas fa-star"></i>
+                    Notre signature
+                </div>
             </div>
+
+            <!-- Stat card (col 1, row 2) -->
+            <div class="hero-stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-leaf stat-leaf-icon"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-label">Ingrédients frais</span>
+                </div>
+            </div>
+
+            <!-- Vibe card (col 2, row 2) -->
+            <div class="hero-vibe-card">
+                <i class="fas fa-fire-alt"></i>
+                <span>Cuisine artisanale</span>
+            </div>
+
         </section>
 
+        <!-- ── Menu Bento ── -->
         <section id="menu" class="restaurant-menu">
-            <h2 class="section-title" data-i18n-text="menu_title">Notre Menu</h2>
-            <div class="menu-grid">
-                <div class="menu-card">
-                    <div class="menu-image"><img src="./img/image1.jpg" alt="Galette fromage"></div>
-                    <div class="menu-content">
+
+            <div class="menu-section-header">
+                <span class="section-label" data-i18n-text="menu_section_label">Notre Sélection</span>
+                <h2 class="section-title" data-i18n-text="menu_title">Le Menu</h2>
+            </div>
+
+            <div class="menu-bento">
+
+                <!-- Featured — col 1, rows 1-2 -->
+                <div class="menu-bento-card featured-card">
+                    <div class="card-image">
+                        <img src="./img/image1.jpg" alt="Galette fromage" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-badge">En vedette</span>
                         <h3>Galette Fromage</h3>
                         <p data-i18n-text="menu1_desc">Galette généreuse au fromage fondant et légumes croquants.</p>
-                        <div class="price">10 €</div>
+                        <div class="price-tag">10 €</div>
                     </div>
                 </div>
 
-                <div class="menu-card">
-                    <div class="menu-image"><img src="./img/image2.jpg" alt="Crêpe caramel"></div>
-                    <div class="menu-content">
+                <!-- Crêpe Caramel — col 2, row 1 -->
+                <div class="menu-bento-card">
+                    <div class="card-image">
+                        <img src="./img/image2.jpg" alt="Crêpe caramel" loading="lazy">
+                    </div>
+                    <div class="card-content">
                         <h3>Crêpe Caramel</h3>
                         <p data-i18n-text="menu2_desc">Crêpe sucrée nappée de caramel maison.</p>
-                        <div class="price">8 €</div>
+                        <div class="price-tag">8 €</div>
                     </div>
                 </div>
 
-                <div class="menu-card">
-                    <div class="menu-image"><img src="./img/image5.jpg" alt="Crêpe banane"></div>
-                    <div class="menu-content">
+                <!-- Crêpe Banane — col 3, row 1 -->
+                <div class="menu-bento-card">
+                    <div class="card-image">
+                        <img src="./img/image5.jpg" alt="Crêpe banane" loading="lazy">
+                    </div>
+                    <div class="card-content">
                         <h3>Crêpe Banane</h3>
                         <p data-i18n-text="menu3_desc">Crêpe gourmande à la banane et chocolat.</p>
-                        <div class="price">9 €</div>
+                        <div class="price-tag">9 €</div>
                     </div>
                 </div>
 
-                <div class="menu-card">
-                    <div class="menu-image"><img src="./img/image6.jpg" alt="Galette oeufs"></div>
-                    <div class="menu-content">
+                <!-- Galette Oeufs — col 2-3, row 2 (wide) -->
+                <div class="menu-bento-card">
+                    <div class="card-image">
+                        <img src="./img/image6.jpg" alt="Galette oeufs" loading="lazy">
+                    </div>
+                    <div class="card-content">
                         <h3>Galette Oeufs</h3>
                         <p data-i18n-text="menu4_desc">Galette complet avec oeufs frais et salade verte.</p>
-                        <div class="price">11 €</div>
+                        <div class="price-tag">11 €</div>
                     </div>
                 </div>
+
             </div>
         </section>
+
     </main>
 
     <footer>
