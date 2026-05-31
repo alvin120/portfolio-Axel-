@@ -13,23 +13,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          log-level: verbose
-          server-dir: /www/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            .ovhconfig
-            *.py
-            *.bat
-            *.js.map
-            README.md
-            .vercel/**
+      - name: Deploy via FTP (curl)
+        run: |
+          find . -type f \
+            ! -path './.git/*' \
+            ! -path './.github/*' \
+            ! -path './.vercel/*' \
+            ! -name '.env' \
+            ! -name 'deploy.ps1' \
+            ! -name '*.py' \
+            ! -name '*.bat' \
+            ! -name 'README.md' \
+            ! -name '.ovhconfig' \
+            | while IFS= read -r file; do
+              remote="${file#./}"
+              curl --silent --show-error \
+                -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
+                --ftp-create-dirs \
+                -T "$file" \
+                "ftp://${{ secrets.FTP_SERVER }}/www/$remote" || echo "WARN: failed $file"
+            done
+          echo "Deploy complete."
