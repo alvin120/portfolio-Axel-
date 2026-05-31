@@ -13,16 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 22
-          local_path: ./*
-          remote_path: /www/
-          sftp_only: true
+          port: 21
+          protocol: ftps
+          server-dir: /www/
           exclude: |
             **/.git*
             **/.git*/**
@@ -32,3 +31,4 @@ jobs:
             *.bat
             *.js.map
             README.md
+            .vercel/**
