@@ -1,42 +1,82 @@
 DirectoryIndex index.html
 AddDefaultCharset UTF-8
 
-# Redirection HTTP → HTTPS (à activer quand SSL est configuré)
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# ── Désactiver le listing de répertoire ──
+Options -Indexes -MultiViews
 
-# Redirection sans www → avec www
+# ════════════════════════════════════════
+#  REDIRECTIONS HTTP → HTTPS + WWW
+# ════════════════════════════════════════
 RewriteEngine On
+
+# 1. HTTP → HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# 2. Sans www → avec www (HTTPS)
+RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^axeltagrou\.fr$ [NC]
-RewriteRule ^(.*)$ http://www.axeltagrou.fr/$1 [R=301,L]
+RewriteRule ^(.*)$ https://www.axeltagrou.fr/$1 [R=301,L]
 
-# ── Sécurité ──
-# Bloquer le clickjacking
-Header always set X-Frame-Options "SAMEORIGIN"
+# ════════════════════════════════════════
+#  EN-TÊTES DE SÉCURITÉ
+# ════════════════════════════════════════
+<IfModule mod_headers.c>
 
-# Bloquer le MIME sniffing
-Header always set X-Content-Type-Options "nosniff"
+    # HSTS — forcer HTTPS pendant 6 mois
+    Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains" env=HTTPS
 
-# Activer le filtre XSS du navigateur
-Header always set X-XSS-Protection "1; mode=block"
+    # Empêcher le clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
 
-# Contrôler les informations de référence
-Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Empêcher le MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
 
-# Désactiver les fonctionnalités sensibles
-Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # Filtre XSS du navigateur
+    Header always set X-XSS-Protection "1; mode=block"
 
-# Masquer la version du serveur
+    # Politique de référent
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Désactiver les fonctionnalités sensibles
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=()"
+
+    # Isolation de la fenêtre (protection CSRF cross-origin)
+    Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+    Header always set Cross-Origin-Resource-Policy "same-site"
+
+    # Masquer la signature du serveur
+    Header always unset X-Powered-By
+    Header always unset Server
+
+    # ── Content Security Policy ──
+    # Autorise : self + Font Awesome (cdnjs) + Google Fonts + Leaflet + TopoJSON + world-atlas
+    Header always set Content-Security-Policy "\
+default-src 'self'; \
+script-src 'self' cdnjs.cloudflare.com 'unsafe-inline'; \
+style-src 'self' cdnjs.cloudflare.com fonts.googleapis.com 'unsafe-inline'; \
+font-src 'self' cdnjs.cloudflare.com fonts.gstatic.com data:; \
+img-src 'self' data: *.tile.openstreetmap.org; \
+connect-src 'self' cdn.jsdelivr.net; \
+frame-src 'none'; \
+object-src 'none'; \
+base-uri 'self'; \
+form-action 'self';"
+
+</IfModule>
+
+# Masquer la version Apache
 ServerSignature Off
 
-# Bloquer l'accès aux fichiers sensibles
-<FilesMatch "\.(htaccess|htpasswd|ovhconfig|json|xml|log|git)$">
+# ════════════════════════════════════════
+#  PROTECTION DES FICHIERS SENSIBLES
+# ════════════════════════════════════════
+<FilesMatch "(^\.htaccess|^\.htpasswd|^\.env|^\.git|\.ovhconfig|\.log|\.bat|\.py|\.ps1|\.map|\.json\.map)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Autoriser sitemap.xml et robots.txt
+# Exceptions explicites
 <Files "sitemap.xml">
     Order allow,deny
     Allow from all
@@ -46,11 +86,43 @@ ServerSignature Off
     Allow from all
 </Files>
 
-# Cache navigateur
+# Bloquer les tentatives d'injection dans l'URL
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ - [F,L]
+
+# Bloquer les user-agents malveillants connus
+RewriteCond %{HTTP_USER_AGENT} (libwww-perl|wget|python|nikto|scan|nmap|masscan|zgrab|sqlmap) [NC]
+RewriteRule ^(.*)$ - [F,L]
+
+# ════════════════════════════════════════
+#  CACHE NAVIGATEUR
+# ════════════════════════════════════════
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType image/jpeg "access plus 1 month"
-    ExpiresByType image/png "access plus 1 month"
-    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType image/jpeg        "access plus 1 month"
+    ExpiresByType image/png         "access plus 1 month"
+    ExpiresByType image/webp        "access plus 1 month"
+    ExpiresByType image/svg+xml     "access plus 1 month"
+    ExpiresByType image/x-icon      "access plus 1 year"
+    ExpiresByType text/css          "access plus 1 week"
     ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/javascript   "access plus 1 week"
+    ExpiresByType font/woff2        "access plus 1 year"
+    ExpiresByType application/x-font-woff "access plus 1 year"
+    ExpiresByType text/html         "access plus 0 seconds"
+</IfModule>
+
+# ════════════════════════════════════════
+#  COMPRESSION GZIP
+# ════════════════════════════════════════
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
