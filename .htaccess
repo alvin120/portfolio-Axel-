@@ -53,7 +53,7 @@ RewriteRule ^(.*)$ https://www.axeltagrou.fr/$1 [R=301,L]
     # Autorise : self + Font Awesome (cdnjs) + Google Fonts + Leaflet + TopoJSON + world-atlas
     Header always set Content-Security-Policy "\
 default-src 'self'; \
-script-src 'self' cdnjs.cloudflare.com 'unsafe-inline'; \
+script-src 'self' cdnjs.cloudflare.com; \
 style-src 'self' cdnjs.cloudflare.com fonts.googleapis.com 'unsafe-inline'; \
 font-src 'self' cdnjs.cloudflare.com fonts.gstatic.com data:; \
 img-src 'self' data: *.tile.openstreetmap.org; \

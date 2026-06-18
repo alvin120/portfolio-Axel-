@@ -452,56 +452,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" integrity="sha384-9dCJK6nh7skY14HrcvlLYlFga9/MehJjL9ONWRflmiXNRuf8p2jiF4Y5PR881PTq" crossorigin="anonymous"></script>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const map = L.map('map', {
-                center: [20, 0],
-                zoom: 2,
-                scrollWheelZoom: true
-            });
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
-
-            // Mapping flexible des noms de pays
-            const visitedCountryNames = new Set([
-                'France', 'Spain', 'United Kingdom', 'Italy', 'Switzerland', 'Belgium',
-                'Vatican', 'Monaco', 'Norway', 'Germany', 'Austria', 'Slovakia',
-                'Gabon', 'Côte d\'Ivoire', 'Cameroon', 'Suriname', 'Argentina', 'Brazil',
-                // Variantes possibles
-                'Holy See', 'Ivory Coast', 'Northern Ireland'
-            ]);
-
-            fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-                .then(r => r.json())
-                .then(data => {
-                    const countries = topojson.feature(data, data.objects.countries);
-                    
-                    L.geoJSON(countries.features, {
-                        style: feature => {
-                            const name = feature.properties.name;
-                            const isVisited = visitedCountryNames.has(name);
-                            
-                            return {
-                                fillColor: isVisited ? '#1a73e8' : '#e8e8e8',
-                                weight: 0.5,
-                                opacity: 1,
-                                color: '#999',
-                                fillOpacity: isVisited ? 0.9 : 0.7
-                            };
-                        },
-                        onEachFeature: (feature, layer) => {
-                            const name = feature.properties.name;
-                            const isVisited = visitedCountryNames.has(name);
-                            layer.bindPopup(`<strong>${name}</strong><br>${isVisited ? '✓ Visité' : 'Non visité'}`);
-                        }
-                    }).addTo(map);
-                })
-                .catch(e => console.error('Erreur carte:', e));
-        });
-    </script>
+    <script src="voyages-map.js"></script>
     <script src="chatbox.js"></script>
 </body>
 </html>
