@@ -65,15 +65,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!valid) return;
 
-        // ── 4. Envoi réussi ──
-        localStorage.setItem('lastFormSent', Date.now().toString());
+        // ── 4. Envoi réel via PHP ──
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.textContent = 'Envoyé ✓';
-        showAlert('Merci ! Votre message a bien été envoyé. Je vous répondrai sous 24h.', 'success');
-        form.reset();
-        if (charCount) charCount.textContent = '(0/1000)';
-        setTimeout(() => { btn.disabled = false; btn.textContent = 'Envoyer'; }, 5000);
+        btn.textContent = 'Envoi…';
+
+        const formData = new FormData();
+        formData.append('name',    name);
+        formData.append('email',   email);
+        formData.append('subject', subject);
+        formData.append('message', message);
+        formData.append('website', document.getElementById('website').value);
+
+        fetch('send-mail.php', { method: 'POST', body: formData })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('lastFormSent', Date.now().toString());
+                    showAlert('Merci ! Votre message a bien été envoyé. Je vous répondrai sous 24h.', 'success');
+                    form.reset();
+                    if (charCount) charCount.textContent = '(0/1000)';
+                    btn.textContent = 'Envoyé ✓';
+                    setTimeout(() => { btn.disabled = false; btn.textContent = 'Envoyer'; }, 5000);
+                } else if (data.message === 'rate_limit') {
+                    showAlert('Merci de patienter quelques minutes avant d\'envoyer un autre message.', 'warning');
+                    btn.disabled = false;
+                    btn.textContent = 'Envoyer';
+                } else {
+                    showAlert('Une erreur est survenue. Veuillez réessayer ou m\'écrire directement à axelalvin20@gmail.com.', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Envoyer';
+                }
+            })
+            .catch(() => {
+                showAlert('Impossible de contacter le serveur. Écrivez-moi à axelalvin20@gmail.com.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Envoyer';
+            });
     });
 
     // ── Helpers ──
