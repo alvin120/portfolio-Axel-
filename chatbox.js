@@ -579,15 +579,14 @@
        HELPERS — SÉCURITÉ / TEXTE
     ═══════════════════════════════════════════ */
 
-    /* Sanitisation : supprime tout HTML potentiel + limite la longueur */
+    /* Normalise l'entrée : espaces superflus et longueur maximale.
+       L'échappement HTML n'est PAS fait ici : il a lieu une seule fois,
+       au moment de l'affichage (esc()). Échapper deux fois transformait
+       « j'ai un projet » en « j&#39;ai un projet » à l'écran. */
     function sanitize(str) {
         return str
             .trim()
-            .slice(0, MAX_MSG_LENGTH)
-            .replace(/[<>&"'`]/g, c => ({
-                '<':'&lt;', '>':'&gt;', '&':'&amp;',
-                '"':'&quot;', "'": '&#39;', '`':'&#96;'
-            }[c]));
+            .slice(0, MAX_MSG_LENGTH);
     }
 
     /* Échappement pour affichage dans une bulle utilisateur */

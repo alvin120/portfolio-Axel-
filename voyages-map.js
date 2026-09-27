@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    /* Échappe le HTML : les noms de pays proviennent d'un CDN tiers
+       (world-atlas via jsDelivr), donc d'une source non fiable. */
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, c => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+    }
+
     const map = L.map('map', {
         center: [20, 0],
         zoom: 2,
@@ -37,7 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 onEachFeature: (feature, layer) => {
                     const name = feature.properties.name;
                     const isVisited = visitedCountryNames.has(name);
-                    layer.bindPopup(`<strong>${name}</strong><br>${isVisited ? '✓ Visité' : 'Non visité'}`);
+                    // Le nom vient d'un CDN tiers : on l'échappe avant de l'injecter en HTML
+                    layer.bindPopup(`<strong>${escapeHtml(name)}</strong><br>${isVisited ? '✓ Visité' : 'Non visité'}`);
                 }
             }).addTo(map);
         })

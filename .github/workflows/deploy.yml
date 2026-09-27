@@ -1,5 +1,10 @@
 name: Deploy to axeltagrou.fr
 
+# ATTENTION — le secret FTP_SERVER doit valoir ftp.cluster029.hosting.ovh.net
+# et non ftp.axeltagrou.fr : ce dernier ne répond pas depuis les runners GitHub,
+# ce qui faisait tourner ce job pendant deux heures avant de se déclarer
+# « success » sans avoir rien envoyé. Le job échoue désormais franchement.
+
 on:
   push:
     branches:
@@ -13,24 +18,69 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy via FTP (curl)
+      # Échoue en quelques secondes si le serveur FTP est injoignable,
+      # au lieu d'enchaîner un timeout par fichier.
+      - name: Vérifier que le serveur FTP répond
+        shell: bash
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          find . -type f \
+          set -uo pipefail
+          if [ -z "${FTP_SERVER:-}" ]; then
+            echo "::error::le secret FTP_SERVER n'est pas défini"
+            exit 1
+          fi
+          if ! curl --silent --show-error --fail \
+                 --connect-timeout 15 --max-time 30 \
+                 -u "$FTP_USERNAME:$FTP_PASSWORD" \
+                 "ftp://$FTP_SERVER/www/" -o /dev/null; then
+            echo "::error::connexion FTP impossible vers $FTP_SERVER (vérifier le secret FTP_SERVER, l'identifiant et le mot de passe)"
+            exit 1
+          fi
+          echo "Connexion FTP établie."
+
+      - name: Envoyer les fichiers
+        shell: bash
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -uo pipefail
+          envoyes=0
+          echecs=0
+
+          # Les fichiers d'outillage et les secrets ne partent jamais en ligne.
+          while IFS= read -r file; do
+            remote="${file#./}"
+            if curl --silent --show-error --fail \
+                 --connect-timeout 15 --max-time 120 \
+                 -u "$FTP_USERNAME:$FTP_PASSWORD" \
+                 --ftp-create-dirs \
+                 -T "$file" "ftp://$FTP_SERVER/www/$remote"; then
+              envoyes=$((envoyes + 1))
+            else
+              echo "::error::échec de l'envoi de $remote"
+              echecs=$((echecs + 1))
+            fi
+          done < <(find . -type f \
             ! -path './.git/*' \
             ! -path './.github/*' \
             ! -path './.vercel/*' \
             ! -name '.env' \
+            ! -name '.env.*' \
             ! -name 'deploy.ps1' \
             ! -name '*.py' \
             ! -name '*.bat' \
-            ! -name 'README.md' \
-            ! -name '.ovhconfig' \
-            | while IFS= read -r file; do
-              remote="${file#./}"
-              curl --silent --show-error \
-                -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
-                --ftp-create-dirs \
-                -T "$file" \
-                "ftp://${{ secrets.FTP_SERVER }}/www/$remote" || echo "WARN: failed $file"
-            done
-          echo "Deploy complete."
+            ! -name '*.md' \
+            ! -name '.gitignore')
+
+          echo "Fichiers envoyés : $envoyes — échecs : $echecs"
+
+          # Un déploiement partiel est un déploiement cassé : on le signale.
+          if [ "$echecs" -ne 0 ]; then
+            echo "::error::$echecs fichier(s) n'ont pas été envoyés, le site est peut-être incohérent"
+            exit 1
+          fi

@@ -23,8 +23,8 @@ RewriteRule ^(.*)$ https://www.axeltagrou.fr/$1 [R=301,L]
 # ════════════════════════════════════════
 <IfModule mod_headers.c>
 
-    # HSTS — forcer HTTPS pendant 6 mois
-    Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains" env=HTTPS
+    # HSTS — forcer HTTPS pendant 1 an
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
 
     # Empêcher le clickjacking
     Header always set X-Frame-Options "SAMEORIGIN"
@@ -32,8 +32,8 @@ RewriteRule ^(.*)$ https://www.axeltagrou.fr/$1 [R=301,L]
     # Empêcher le MIME sniffing
     Header always set X-Content-Type-Options "nosniff"
 
-    # Filtre XSS du navigateur
-    Header always set X-XSS-Protection "1; mode=block"
+    # X-XSS-Protection retiré : en-tête obsolète (supprimé des navigateurs
+    # modernes) qui a lui-même introduit des failles dans d'anciennes versions.
 
     # Politique de référent
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
@@ -61,6 +61,7 @@ connect-src 'self' cdn.jsdelivr.net; \
 frame-src 'none'; \
 object-src 'none'; \
 base-uri 'self'; \
+frame-ancestors 'self'; \
 form-action 'self';"
 
 </IfModule>
@@ -71,7 +72,7 @@ ServerSignature Off
 # ════════════════════════════════════════
 #  PROTECTION DES FICHIERS SENSIBLES
 # ════════════════════════════════════════
-<FilesMatch "(^\.htaccess|^\.htpasswd|^\.env|^\.git|\.ovhconfig|\.log|\.bat|\.py|\.ps1|\.map|\.json\.map)$">
+<FilesMatch "(^\.htaccess|^\.htpasswd|^\.env|^\.env\..*|^\.git|\.ovhconfig|\.log|\.bat|\.py|\.ps1|\.map|\.json\.map|\.yml|\.yaml|\.md|\.bak|\.old|\.sql|\.sh|\.ini|~)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
@@ -92,9 +93,10 @@ RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
 RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
 RewriteRule ^(.*)$ - [F,L]
 
-# Bloquer les user-agents malveillants connus
-RewriteCond %{HTTP_USER_AGENT} (libwww-perl|wget|python|nikto|scan|nmap|masscan|zgrab|sqlmap) [NC]
-RewriteRule ^(.*)$ - [F,L]
+# Le filtrage par User-Agent a été retiré : un en-tête se falsifie en une ligne,
+# donc il n'arrêtait aucun attaquant réel, mais il bloquait des outils légitimes
+# (sondes de monitoring, Wget, scripts Python). Les vraies protections sont
+# au-dessus : en-têtes de sécurité, CSP, et blocage des fichiers sensibles.
 
 # ════════════════════════════════════════
 #  CACHE NAVIGATEUR

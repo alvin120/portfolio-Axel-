@@ -1320,7 +1320,11 @@ function createSwitcher(lang) {
 /* ═══════════════════════════════════════════════════
    INIT — defer garantit que le DOM est prêt
 ═══════════════════════════════════════════════════ */
-const lang = localStorage.getItem('i18n_lang') || 'fr';
+/* La langue vient du localStorage : on la valide contre LANGS avant usage.
+   hasOwnProperty évite qu'une valeur comme "__proto__" ou "constructor"
+   remonte la chaîne de prototypes et casse LANGS[lang].flag. */
+const stored = localStorage.getItem('i18n_lang');
+const lang = (stored && Object.prototype.hasOwnProperty.call(LANGS, stored)) ? stored : 'fr';
 createSwitcher(lang);
 apply(lang);
 

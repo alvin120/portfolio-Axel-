@@ -13,6 +13,7 @@
 .form-alert { padding: 14px 18px; border-radius: 8px; margin-bottom: 16px; font-weight: 500; font-size: 14px; }
 .form-alert--success { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
 .form-alert--warning { background: #fffbeb; color: #92400e; border: 1px solid #fcd34d; }
+.form-alert--error   { background: #fff5f5; color: #9b2c2c; border: 1px solid #feb2b2; }
 
 .contact-section {
     padding: 40px 20px;

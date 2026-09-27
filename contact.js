@@ -1,135 +1,190 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── Menu burger ──
+    /* ─────────────────────────────────────────────
+       Menu burger
+    ───────────────────────────────────────────── */
     const burger = document.querySelector('.menuBurguer');
     const nav = document.querySelector('nav');
     if (burger && nav) {
         burger.addEventListener('click', () => nav.classList.toggle('navOpen'));
     }
 
-    const form = document.getElementById('contactForm');
-    if (!form) return;
+    /* ─────────────────────────────────────────────
+       Helpers partagés
 
+       Note sécurité : ces contrôles servent uniquement le confort de
+       l'utilisateur (retour immédiat, moins d'allers-retours réseau).
+       La validation qui compte est celle de send-mail.php, côté serveur,
+       car tout ce qui est fait ici est contournable depuis la console.
+    ───────────────────────────────────────────── */
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    }
+
+    function isValidPhone(phone) {
+        return /^[0-9+\s().-]{6,20}$/.test(phone);
+    }
+
+    function setFieldError(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    }
+
+    /* Construit l'alerte via textContent plutôt qu'innerHTML :
+       aucune chaîne ne peut être interprétée comme du HTML. */
+    function showAlert(container, text, type) {
+        if (!container) return;
+        container.textContent = '';
+        const box = document.createElement('div');
+        box.className = `form-alert form-alert--${type}`;
+        box.textContent = text;
+        container.appendChild(box);
+    }
+
+    /* Traduit la réponse du serveur en message lisible */
+    function serverMessage(data) {
+        if (data && data.message === 'rate_limit') {
+            return 'Vous avez envoyé plusieurs messages coup sur coup. Merci de patienter quelques minutes.';
+        }
+        if (data && data.message === 'invalid_date') {
+            return 'La date choisie n\'est pas valide. Merci de sélectionner une date à venir.';
+        }
+        return 'Une erreur est survenue. Réessayez ou écrivez-moi directement à axelalvin20@gmail.com.';
+    }
+
+    /* ─────────────────────────────────────────────
+       Formulaire de contact
+    ───────────────────────────────────────────── */
+    const form = document.getElementById('contactForm');
     const msg = document.getElementById('message');
     const charCount = document.getElementById('charCount');
+    const formAlert = document.getElementById('formAlert');
 
-    // Compteur de caractères
     if (msg && charCount) {
         msg.addEventListener('input', () => {
             charCount.textContent = `(${msg.value.length}/1000)`;
         });
     }
 
-    form.addEventListener('submit', (e) => {
+    if (form) form.addEventListener('submit', (e) => {
         e.preventDefault();
-        clearErrors();
+        ['nameError', 'emailError', 'subjectError', 'messageError'].forEach(id => setFieldError(id, ''));
+        if (formAlert) formAlert.textContent = '';
 
-        // ── 1. Honeypot : si rempli → bot détecté ──
+        // Honeypot : rempli = robot, on ne fait rien
         const honeypot = document.getElementById('website');
         if (honeypot && honeypot.value.trim() !== '') return;
 
-        // ── 2. Rate limiting : 1 envoi toutes les 5 minutes ──
-        const lastSent = localStorage.getItem('lastFormSent');
-        if (lastSent && Date.now() - parseInt(lastSent) < 5 * 60 * 1000) {
-            showAlert('Merci de patienter quelques minutes avant d\'envoyer un autre message.', 'warning');
-            return;
-        }
-
-        // ── 3. Validation des champs ──
-        const name    = sanitize(document.getElementById('name').value.trim());
+        /* Les valeurs partent telles que saisies. L'ancienne version les
+           échappait en HTML ici, ce qui faisait arriver « j&#39;ai » dans
+           les emails reçus. L'échappement n'a pas sa place à l'envoi :
+           send-mail.php applique strip_tags côté serveur. */
+        const name    = document.getElementById('name').value.trim();
         const email   = document.getElementById('email').value.trim();
-        const subject = sanitize(document.getElementById('subject').value.trim());
-        const message = sanitize(msg.value.trim());
+        const subject = document.getElementById('subject').value.trim();
+        const message = msg.value.trim();
 
         let valid = true;
-
-        if (name.length < 2) {
-            showFieldError('nameError', 'Le nom doit contenir au moins 2 caractères.');
-            valid = false;
-        }
-
-        if (!isValidEmail(email)) {
-            showFieldError('emailError', 'Adresse email invalide.');
-            valid = false;
-        }
-
-        if (subject.length < 3) {
-            showFieldError('subjectError', 'Le sujet doit contenir au moins 3 caractères.');
-            valid = false;
-        }
-
-        if (message.length < 10) {
-            showFieldError('messageError', 'Le message doit contenir au moins 10 caractères.');
-            valid = false;
-        }
-
+        if (name.length < 2)       { setFieldError('nameError',    'Le nom doit contenir au moins 2 caractères.'); valid = false; }
+        if (!isValidEmail(email))  { setFieldError('emailError',   'Adresse email invalide.'); valid = false; }
+        if (subject.length < 3)    { setFieldError('subjectError', 'Le sujet doit contenir au moins 3 caractères.'); valid = false; }
+        if (message.length < 10)   { setFieldError('messageError', 'Le message doit contenir au moins 10 caractères.'); valid = false; }
         if (!valid) return;
 
-        // ── 4. Envoi réel via PHP ──
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.textContent = 'Envoi…';
+        const body = new FormData();
+        body.append('type', 'contact');
+        body.append('name', name);
+        body.append('email', email);
+        body.append('subject', subject);
+        body.append('message', message);
+        body.append('website', honeypot ? honeypot.value : '');
 
-        const formData = new FormData();
-        formData.append('name',    name);
-        formData.append('email',   email);
-        formData.append('subject', subject);
-        formData.append('message', message);
-        formData.append('website', document.getElementById('website').value);
+        send('send-mail.php', body, btn, 'Envoyer', formAlert,
+             'Merci ! Votre message a bien été envoyé. Je vous répondrai sous 24h.',
+             () => {
+                 form.reset();
+                 if (charCount) charCount.textContent = '(0/1000)';
+             });
+    });
 
-        fetch('send-mail.php', { method: 'POST', body: formData })
-            .then(r => r.json())
+    /* ─────────────────────────────────────────────
+       Formulaire de réservation de table
+    ───────────────────────────────────────────── */
+    const resForm  = document.getElementById('reservationForm');
+    const resAlert = document.getElementById('resAlert');
+
+    if (resForm) resForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (resAlert) resAlert.textContent = '';
+
+        const honeypot = document.getElementById('res-website');
+        if (honeypot && honeypot.value.trim() !== '') return;
+
+        const name   = document.getElementById('res-name').value.trim();
+        const phone  = document.getElementById('res-phone').value.trim();
+        const date   = document.getElementById('res-date').value;
+        const time   = document.getElementById('res-time').value;
+        const guests = document.getElementById('res-guests').value;
+
+        let erreur = '';
+        if (name.length < 2)                        erreur = 'Merci d\'indiquer votre nom.';
+        else if (!isValidPhone(phone))              erreur = 'Merci d\'indiquer un numéro de téléphone valide.';
+        else if (!date)                             erreur = 'Merci de choisir une date.';
+        else if (!time)                             erreur = 'Merci de choisir une heure.';
+        else if (!guests)                           erreur = 'Merci d\'indiquer le nombre de personnes.';
+        else {
+            // Comparaison sur des dates locales, sans fuseau, comme le serveur
+            const today = new Date();
+            const jour = new Date(date + 'T00:00:00');
+            today.setHours(0, 0, 0, 0);
+            if (jour < today) erreur = 'La date choisie est déjà passée.';
+        }
+
+        if (erreur) { showAlert(resAlert, erreur, 'error'); return; }
+
+        const btn = document.getElementById('resSubmitBtn');
+        const body = new FormData();
+        body.append('type', 'reservation');
+        body.append('name', name);
+        body.append('phone', phone);
+        body.append('date', date);
+        body.append('time', time);
+        body.append('guests', guests);
+        body.append('website', honeypot ? honeypot.value : '');
+
+        send('send-mail.php', body, btn, 'Réserver', resAlert,
+             'Merci ! Votre demande de réservation est bien reçue. Vous serez rappelé pour confirmation.',
+             () => resForm.reset());
+    });
+
+    /* ─────────────────────────────────────────────
+       Envoi commun aux deux formulaires
+    ───────────────────────────────────────────── */
+    function send(url, body, btn, labelInitial, alertBox, messageSucces, onSuccess) {
+        const rendreBouton = () => {
+            if (btn) { btn.disabled = false; btn.textContent = labelInitial; }
+        };
+
+        if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+
+        fetch(url, { method: 'POST', body })
+            .then(r => r.json().catch(() => ({ success: false })))
             .then(data => {
                 if (data.success) {
-                    localStorage.setItem('lastFormSent', Date.now().toString());
-                    showAlert('Merci ! Votre message a bien été envoyé. Je vous répondrai sous 24h.', 'success');
-                    form.reset();
-                    if (charCount) charCount.textContent = '(0/1000)';
-                    btn.textContent = 'Envoyé ✓';
-                    setTimeout(() => { btn.disabled = false; btn.textContent = 'Envoyer'; }, 5000);
-                } else if (data.message === 'rate_limit') {
-                    showAlert('Merci de patienter quelques minutes avant d\'envoyer un autre message.', 'warning');
-                    btn.disabled = false;
-                    btn.textContent = 'Envoyer';
+                    showAlert(alertBox, messageSucces, 'success');
+                    if (onSuccess) onSuccess();
+                    if (btn) btn.textContent = 'Envoyé ✓';
+                    setTimeout(rendreBouton, 5000);
                 } else {
-                    showAlert('Une erreur est survenue. Veuillez réessayer ou m\'écrire directement à axelalvin20@gmail.com.', 'error');
-                    btn.disabled = false;
-                    btn.textContent = 'Envoyer';
+                    const type = data.message === 'rate_limit' ? 'warning' : 'error';
+                    showAlert(alertBox, serverMessage(data), type);
+                    rendreBouton();
                 }
             })
             .catch(() => {
-                showAlert('Impossible de contacter le serveur. Écrivez-moi à axelalvin20@gmail.com.', 'error');
-                btn.disabled = false;
-                btn.textContent = 'Envoyer';
+                showAlert(alertBox, 'Impossible de contacter le serveur. Écrivez-moi à axelalvin20@gmail.com.', 'error');
+                rendreBouton();
             });
-    });
-
-    // ── Helpers ──
-    function sanitize(str) {
-        return str.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-    }
-
-    function showFieldError(id, text) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    }
-
-    function clearErrors() {
-        ['nameError','emailError','subjectError','messageError'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = '';
-        });
-        const alert = document.getElementById('formAlert');
-        if (alert) alert.innerHTML = '';
-    }
-
-    function showAlert(text, type) {
-        const alert = document.getElementById('formAlert');
-        if (!alert) return;
-        alert.innerHTML = `<div class="form-alert form-alert--${type}">${text}</div>`;
     }
 });
