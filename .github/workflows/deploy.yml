@@ -75,7 +75,8 @@ jobs:
             ! -name '*.py' \
             ! -name '*.bat' \
             ! -name '*.md' \
-            ! -name '.gitignore')
+            ! -name '.gitignore' \
+            ! -name '.ovhconfig')
 
           echo "Fichiers envoyés : $envoyes — échecs : $echecs"
 
