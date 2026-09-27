@@ -318,4 +318,28 @@ footer {
     .carousel-track img {
         height: 200px;
     }
+}/* ── Liens légaux dans le pied de page ── */
+.footer-legal {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+}
+
+.footer-legal a {
+    color: inherit;
+    opacity: 0.8;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-legal a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-legal span[aria-hidden] {
+    opacity: 0.45;
 }

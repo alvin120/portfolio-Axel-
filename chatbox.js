@@ -97,7 +97,7 @@
         },
         {
             id: 'securite',
-            keywords: ['securite', 'securise', 'rgpd', 'protection', 'xss', 'ssl', 'https', 'hsts', 'csp', 'confidentialite', 'piratage', 'hack', 'spam', 'injection'],
+            keywords: ['securite', 'securise', 'protection', 'xss', 'ssl', 'https', 'hsts', 'csp', 'piratage', 'hack', 'spam', 'injection'],
             answer: '🔒 La sécurité est prise au sérieux — ce site en est la démonstration :\n• HTTPS / HSTS forcé\n• CSP stricte (Content-Security-Policy)\n• En-têtes HTTP sécurisés, anti-clickjacking (X-Frame-Options)\n• Protection anti-XSS et anti-injection\n• Formulaires avec honeypot anti-bot\n• Rate limiting anti-spam (y compris sur ce chat)\n• Hashs SRI sur les ressources externes\n\nTous les sites livrés suivent les mêmes bonnes pratiques.'
         },
         {
@@ -289,6 +289,12 @@
             id: 'reservation-table',
             keywords: ['reserver', 'reservation', 'table', 'reserver une table', 'booking'],
             answer: '📅 Le site inclut un <strong>formulaire de réservation de table</strong> (nom, téléphone, date, heure, nombre de personnes jusqu\'à 8+) — un exemple de ce qu\'Axel peut intégrer sur le site d\'un restaurant.\n\n👉 <a href="contact.html">Essayer le formulaire</a>'
+        },
+
+        {
+            id: 'donnees-personnelles',
+            keywords: ['rgpd', 'gdpr', 'donnees personnelles', 'donnee personnelle', 'vie privee', 'confidentialite', 'cookie', 'cookies', 'mentions legales', 'traceur', 'consentement', 'cnil'],
+            answer: '🔐 Ce site ne dépose <strong>aucun cookie</strong> et n\'utilise aucun outil de mesure d\'audience ni traceur publicitaire.\n\nSeules les informations que vous saisissez dans un formulaire sont collectées, uniquement pour vous répondre. Votre adresse IP est hachée — jamais stockée en clair — pendant 15 minutes, le temps de bloquer les robots de spam.\n\n• <a href="politique-confidentialite.html">Politique de confidentialité</a>\n• <a href="mentions-legales.html">Mentions légales</a>'
         },
 
         /* ── Méta ─────────────────────────────── */
