@@ -5,15 +5,21 @@
  * Défenses, dans l'ordre : méthode HTTP, origine, honeypot, limitation par IP,
  * puis validation stricte champ par champ selon le type de formulaire.
  * Aucune donnée n'est stockée hormis un compteur d'IP haché, hors racine web.
+ *
+ * COMPATIBILITÉ — ce fichier reste volontairement compatible PHP 5.4, parce que
+ * c'est la version réellement servie par l'hébergement aujourd'hui (vérifié :
+ * 5.4.45). D'où l'absence de l'opérateur ?? et des fonctions fléchées, qui
+ * provoquaient une erreur de parsing et donc un HTTP 500 muet sur chaque envoi.
+ * Le code fonctionne à l'identique sur PHP 8.x : la montée de version, qui
+ * reste vivement recommandée, ne cassera rien ici.
  */
 
 header('Content-Type: application/json; charset=UTF-8');
 header('Cache-Control: no-store');
 
-// L'ini d'OVH peut différer de la valeur par défaut : on fixe l'encodage
-// explicitement pour que mb_substr/mb_strlen traitent bien l'UTF-8.
+// L'ini de l'hébergeur peut différer de la valeur par défaut : on fixe
+// l'encodage pour que mb_substr/mb_strlen traitent bien l'UTF-8.
 mb_internal_encoding('UTF-8');
-
 
 /** Renvoie une réponse JSON et termine. Les messages restent volontairement
  *  génériques : pas de chemin, pas de détail interne côté client. */
@@ -23,30 +29,40 @@ function reply($code, $payload) {
     exit;
 }
 
-/* ─────────────────────────────────────────────
-   1. Méthode
-───────────────────────────────────────────── */
-if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
-    header('Allow: POST');
-    reply(405, ['success' => false]);
+/** Lecture d'un champ POST, sans ?? pour rester compatible PHP 5.4 */
+function post_field($key, $default = '') {
+    return isset($_POST[$key]) && is_string($_POST[$key]) ? $_POST[$key] : $default;
+}
+
+/** Lecture d'un en-tête / variable serveur */
+function server_field($key, $default = '') {
+    return isset($_SERVER[$key]) && is_string($_SERVER[$key]) ? $_SERVER[$key] : $default;
 }
 
 /* ─────────────────────────────────────────────
-   2. Origine — ancrage obligatoire, sinon
+   1. Méthode
+───────────────────────────────────────────── */
+if (server_field('REQUEST_METHOD') !== 'POST') {
+    header('Allow: POST');
+    reply(405, array('success' => false));
+}
+
+/* ─────────────────────────────────────────────
+   2. Origine — l'ancrage est indispensable, sinon
       « https://axeltagrou.fr.attaquant.com » passerait.
 ───────────────────────────────────────────── */
-$origin  = $_SERVER['HTTP_ORIGIN']  ?? '';
-$referer = $_SERVER['HTTP_REFERER'] ?? '';
+$origin  = server_field('HTTP_ORIGIN');
+$referer = server_field('HTTP_REFERER');
 $allowed = '#^https://(www\.)?axeltagrou\.fr(/|$)#i';
 if (!preg_match($allowed, $origin) && !preg_match($allowed, $referer)) {
-    reply(403, ['success' => false]);
+    reply(403, array('success' => false));
 }
 
 /* ─────────────────────────────────────────────
    3. Honeypot — champ invisible pour les humains
 ───────────────────────────────────────────── */
-if (!empty($_POST['website'])) {
-    reply(200, ['success' => true]);   // silence volontaire : le bot croit avoir réussi
+if (post_field('website') !== '') {
+    reply(200, array('success' => true));   // silence volontaire : le bot croit avoir réussi
 }
 
 /* ─────────────────────────────────────────────
@@ -84,11 +100,11 @@ function rate_limited($ip) {
     $raw  = stream_get_contents($fh);
     $prev = json_decode($raw !== '' ? $raw : '[]', true);
     if (!is_array($prev)) {
-        $prev = [];
+        $prev = array();
     }
 
     // Fenêtre glissante : on ne garde que les envois encore dans la fenêtre
-    $hits = [];
+    $hits = array();
     foreach ($prev as $t) {
         $t = (int) $t;
         if ($t > 0 && ($now - $t) < RL_WINDOW) {
@@ -111,19 +127,19 @@ function rate_limited($ip) {
     return $blocked;
 }
 
-$ip = $_SERVER['REMOTE_ADDR'] ?? '';
+$ip = server_field('REMOTE_ADDR');
 if ($ip !== '' && rate_limited($ip)) {
-    reply(429, ['success' => false, 'message' => 'rate_limit']);
+    reply(429, array('success' => false, 'message' => 'rate_limit'));
 }
 
 /* ─────────────────────────────────────────────
    5. Champs communs
 ───────────────────────────────────────────── */
-$type = ($_POST['type'] ?? 'contact') === 'reservation' ? 'reservation' : 'contact';
-$name = mb_substr(strip_tags(trim($_POST['name'] ?? '')), 0, 100);
+$type = post_field('type', 'contact') === 'reservation' ? 'reservation' : 'contact';
+$name = mb_substr(strip_tags(trim(post_field('name'))), 0, 100);
 
 if (mb_strlen($name) < 2) {
-    reply(400, ['success' => false, 'message' => 'invalid_data']);
+    reply(400, array('success' => false, 'message' => 'invalid_data'));
 }
 
 $to       = 'axelalvin20@gmail.com';
@@ -137,12 +153,12 @@ $headers .= "Content-Transfer-Encoding: 8bit\r\n";
 ───────────────────────────────────────────── */
 if ($type === 'contact') {
 
-    $email   = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-    $subject = mb_substr(strip_tags(trim($_POST['subject'] ?? '')), 0, 150);
-    $message = mb_substr(strip_tags(trim($_POST['message'] ?? '')), 0, 1000);
+    $email   = filter_var(trim(post_field('email')), FILTER_VALIDATE_EMAIL);
+    $subject = mb_substr(strip_tags(trim(post_field('subject'))), 0, 150);
+    $message = mb_substr(strip_tags(trim(post_field('message'))), 0, 1000);
 
     if (!$email || mb_strlen($subject) < 3 || mb_strlen($message) < 10) {
-        reply(400, ['success' => false, 'message' => 'invalid_data']);
+        reply(400, array('success' => false, 'message' => 'invalid_data'));
     }
 
     $body  = "Nouveau message depuis axeltagrou.fr\n";
@@ -166,40 +182,41 @@ if ($type === 'contact') {
 ───────────────────────────────────────────── */
 } else {
 
-    $phone  = trim($_POST['phone']  ?? '');
-    $date   = trim($_POST['date']   ?? '');
-    $time   = trim($_POST['time']   ?? '');
-    $guests = trim($_POST['guests'] ?? '');
+    $phone  = trim(post_field('phone'));
+    $date   = trim(post_field('date'));
+    $time   = trim(post_field('time'));
+    $guests = trim(post_field('guests'));
 
     // Téléphone : chiffres et séparateurs usuels uniquement
     if (!preg_match('/^[0-9+\s().\-]{6,20}$/', $phone)) {
-        reply(400, ['success' => false, 'message' => 'invalid_data']);
+        reply(400, array('success' => false, 'message' => 'invalid_data'));
     }
 
     // Date : format exact AAAA-MM-JJ, date réelle, et pas dans le passé
     $d = DateTime::createFromFormat('!Y-m-d', $date);
     if (!$d || $d->format('Y-m-d') !== $date) {
-        reply(400, ['success' => false, 'message' => 'invalid_data']);
+        reply(400, array('success' => false, 'message' => 'invalid_data'));
     }
     $today = new DateTime('today');
     if ($d < $today) {
-        reply(400, ['success' => false, 'message' => 'invalid_date']);
+        reply(400, array('success' => false, 'message' => 'invalid_date'));
     }
     // Garde-fou : pas de réservation à plus d'un an
-    $limit = (new DateTime('today'))->modify('+1 year');
+    $limit = new DateTime('today');
+    $limit->modify('+1 year');
     if ($d > $limit) {
-        reply(400, ['success' => false, 'message' => 'invalid_date']);
+        reply(400, array('success' => false, 'message' => 'invalid_date'));
     }
 
     // Heure : 00:00 à 23:59
     if (!preg_match('/^([01][0-9]|2[0-3]):[0-5][0-9]$/', $time)) {
-        reply(400, ['success' => false, 'message' => 'invalid_data']);
+        reply(400, array('success' => false, 'message' => 'invalid_data'));
     }
 
     // Nombre de couverts : liste blanche identique aux options du <select>
-    $allowedGuests = ['1', '2', '3', '4', '5', '6', '7', '8+'];
+    $allowedGuests = array('1', '2', '3', '4', '5', '6', '7', '8+');
     if (!in_array($guests, $allowedGuests, true)) {
-        reply(400, ['success' => false, 'message' => 'invalid_data']);
+        reply(400, array('success' => false, 'message' => 'invalid_data'));
     }
 
     $body  = "Nouvelle demande de réservation depuis axeltagrou.fr\n";
@@ -224,7 +241,7 @@ if ($type === 'contact') {
    7. Envoi
 ───────────────────────────────────────────── */
 if (@mail($to, $subj, $body, $headers)) {
-    reply(200, ['success' => true]);
+    reply(200, array('success' => true));
 }
 
-reply(500, ['success' => false, 'message' => 'send_error']);
+reply(500, array('success' => false, 'message' => 'send_error'));
