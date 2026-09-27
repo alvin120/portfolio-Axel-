@@ -252,6 +252,8 @@
     gap: 7px;
     padding: 8px 16px 10px;
     flex-shrink: 0;
+    max-height: 104px;   /* 8 suggestions : zone bornée + scroll */
+    overflow-y: auto;
 }
 
 .quick-btn {
