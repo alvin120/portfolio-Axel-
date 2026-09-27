@@ -1,0 +1,485 @@
+/* ═══════════════════════════════════════════════════════════════
+   THÈME « COZY » — couche de surcharge
+   Style : Nature Distilled (terracotta, sable, crème, argile)
+   Typo  : Newsreader (titres) · Nunito Sans (texte) · Caveat (accent)
+
+   POURQUOI UNE SURCHARGE PLUTÔT QU'UNE RÉÉCRITURE
+   Les pages portent 233 attributs data-i18n traduits en 8 langues.
+   Réécrire le balisage aurait détruit ces traductions. Ce fichier ne
+   touche donc aucun HTML : il redéfinit les jetons de design, que le
+   CSS existant consomme déjà via var() à 167 endroits, puis corrige
+   à la main les composants qui codaient leurs couleurs en dur.
+
+   À CHARGER EN DERNIER dans le <head>, après le <style> inline des
+   pages : à spécificité égale, c'est la dernière règle qui gagne.
+
+   Contrastes vérifiés par calcul, par usage et par taille de police.
+═══════════════════════════════════════════════════════════════ */
+
+/* ───────────────────────────────────────────────
+   1. JETONS — mode clair
+   Les noms d'origine sont conservés pour que le CSS
+   existant hérite du nouveau thème sans modification.
+─────────────────────────────────────────────── */
+:root {
+    /* Palette brute */
+    --cream:          #F5F0E1;
+    --cream-deep:     #EDE5D2;
+    --card:           #FFFCF7;
+    --sand:           #D4C4A8;   /* bordures décoratives */
+    --line:           #948976;   /* bordures de composants interactifs (3:1) */
+    --terracotta:     #C67B5C;   /* décor seulement */
+    --terracotta-ink: #B67155;   /* terracotta en texte ≥ 24px */
+    --terracotta-btn: #CC7F5F;   /* fond de bouton, texte --ink dessus */
+    --clay:           #9A4F16;   /* texte 5.26:1 sur crème · blanc dessus 7.7:1 */
+    --clay-deep:      #7A3E11;
+    --olive:          #5C6B34;
+    --ink:            #2E2A25;
+    --ink-soft:       #625A50;
+
+    /* Remappage des jetons historiques */
+    --primary-color:   var(--clay);
+    --secondary-color: var(--clay-deep);
+    --accent-color:    var(--olive);
+    --dark-bg:         var(--ink);
+    --light-bg:        var(--cream);
+    --text-primary:    var(--ink);
+    --text-secondary:  var(--ink-soft);
+    --border-color:    var(--sand);
+
+    /* Ombres réchauffées : teintées d'encre, pas de noir pur */
+    --shadow:    0 2px 8px rgba(46, 42, 37, 0.05), 0 8px 24px rgba(46, 42, 37, 0.06);
+    --shadow-lg: 0 4px 12px rgba(46, 42, 37, 0.07), 0 16px 40px rgba(46, 42, 37, 0.10);
+
+    --transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Texte posé sur les blocs inversés (CTA, pied de page, en-tête du chat).
+       Ces blocs prennent --ink en fond : ils s'inversent donc avec le thème,
+       et leur texte doit s'inverser avec eux. */
+    --on-invert-soft: rgba(242, 235, 221, 0.78);
+    --on-invert-film: rgba(242, 235, 221, 0.15);
+
+    /* Formes plus douces */
+    --r-sm: 12px;
+    --r-md: 20px;
+    --r-lg: 28px;
+}
+
+/* ───────────────────────────────────────────────
+   2. JETONS — mode sombre
+   Déclenché par la préférence système. Cozy sombre =
+   bruns chauds, jamais de gris bleuté.
+─────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cream:          #1F1B17;
+        --cream-deep:     #2A251F;
+        --card:           #2A251F;
+        --sand:           #473E34;
+        --line:           #7D7364;
+        --terracotta:     #D89A78;
+        --terracotta-ink: #E3A883;
+        --terracotta-btn: #E3A883;
+        --clay:           #E0A77E;   /* texte 8.0:1 sur le fond sombre */
+        --clay-deep:      #EFC3A2;
+        --olive:          #A9BC7C;
+        --ink:            #F2EBDD;
+        --ink-soft:       #BCB09D;
+
+        --shadow:    0 2px 8px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.30);
+        --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.40), 0 16px 40px rgba(0, 0, 0, 0.35);
+
+        /* Les blocs inversés deviennent clairs en mode sombre :
+           leur texte doit donc passer au foncé. */
+        --on-invert-soft: rgba(31, 27, 23, 0.78);
+        --on-invert-film: rgba(31, 27, 23, 0.12);
+    }
+}
+
+/* ───────────────────────────────────────────────
+   3. POLICES
+   Les 41 déclarations existantes codaient Space Grotesk,
+   Poppins, Inter, Georgia et arial en dur. On les remappe
+   sélecteur par sélecteur, à spécificité identique.
+─────────────────────────────────────────────── */
+
+/* Titres → Newsreader */
+.title h1, .présentation h1,
+.section-title,
+.experience-card h3, .competency-card h3, .project-card h3, .menu-card h3, .price,
+.restaurant-hero h2, .restaurant-tech-header h2, .tech-card h3, .tech-cta p,
+.reservation-section h2, .info-item h3,
+.chat-header-info h4,
+.hero-title, .stat-number, .about-photo-badge, .about-text h2,
+.services-section h2, .service-card h3,
+.why-intro h2, .why-card h3, .why-bottom-left h3,
+.cta-section h2 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+/* Texte → Nunito Sans */
+body, projet-body,
+.hero-subtitle, .about-text p,
+.form-group select, .form-group textarea,
+.i18n-btn, .i18n-option,
+.chat-bubble, .quick-btn, .chat-input, .chat-rate-warning {
+    font-family: 'Nunito Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Les trois pages qui imposaient un Georgia ou un arial hérité */
+.cours p, .langues p, .legal-block p { font-family: 'Nunito Sans', system-ui, sans-serif; }
+body p { font-family: 'Nunito Sans', system-ui, sans-serif; }
+
+/* Le dégradé de texte bleu d'origine n'a plus de sens : teinte pleine. */
+.gradient-text,
+.hero-title .gradient-text {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: currentColor;
+    color: var(--terracotta-ink);
+    font-style: italic;
+}
+
+/* ───────────────────────────────────────────────
+   4. FOND DE PAGE ET GRAIN
+─────────────────────────────────────────────── */
+body {
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+}
+
+/* Texture discrète : donne la « matière » du style.
+   SVG en data URI — autorisé par img-src 'self' data: dans la CSP. */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+    body::after { opacity: 0.06; }
+}
+
+/* ───────────────────────────────────────────────
+   5. EN-TÊTE, NAVIGATION, PIED DE PAGE
+─────────────────────────────────────────────── */
+header {
+    background: rgba(255, 252, 247, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--sand);
+    box-shadow: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    header { background: rgba(42, 37, 31, 0.9); }
+}
+
+.title h1 { color: var(--ink); }
+
+nav a {
+    color: var(--ink-soft);
+    border-radius: 999px;
+    transition: var(--transition);
+}
+
+nav a:hover, nav a:focus-visible { color: var(--ink); background: var(--cream-deep); }
+nav a.logo { color: var(--clay); }
+
+.menuBurguer span { background: var(--ink); }
+
+footer {
+    background: var(--ink);
+    color: var(--cream);
+    border-top: none;
+}
+
+footer p { color: var(--cream); }
+
+/* Anneau de focus visible partout : 3.36:1 sur crème */
+a:focus-visible, button:focus-visible,
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2.5px solid var(--terracotta-ink);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* ───────────────────────────────────────────────
+   6. BOUTONS
+   Le dégradé bleu d'origine devenait, transposé en
+   terracotta, insuffisant en contraste avec du texte
+   blanc (3.4:1). On passe donc en aplat d'argile.
+─────────────────────────────────────────────── */
+.btn-primary, .submit-btn, .why-cta-btn {
+    background: var(--clay);
+    background-image: none;
+    color: #FFFCF7;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.btn-primary:hover, .submit-btn:hover, .why-cta-btn:hover {
+    background: var(--ink);
+    color: #FFFCF7;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    border-radius: 999px;
+}
+
+.btn-outline:hover {
+    background: var(--card);
+    border-color: var(--terracotta);
+    color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+    .btn-primary, .submit-btn, .why-cta-btn { background: var(--clay); color: #1F1B17; }
+    .btn-primary:hover, .submit-btn:hover, .why-cta-btn:hover { background: var(--clay-deep); color: #1F1B17; }
+}
+
+/* ───────────────────────────────────────────────
+   7. CARTES ET BLOCS
+─────────────────────────────────────────────── */
+.service-card, .why-card, .experience-card, .competency-card,
+.project-card, .menu-card, .tech-card, .info-item, .stat-item,
+.contact-container, .about-photo, .legal-toc {
+    background: var(--card);
+    border: 1px solid var(--sand);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.service-card:hover, .why-card:hover, .experience-card:hover,
+.competency-card:hover, .project-card:hover, .menu-card:hover,
+.tech-card:hover {
+    border-color: var(--terracotta);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+
+.stat-number { color: var(--terracotta-ink); }
+.stat-label  { color: var(--ink-soft); }
+
+.service-icon, .why-icon, .competency-icon {
+    background: var(--cream-deep);
+    color: var(--clay);
+    border-radius: var(--r-sm);
+}
+
+/* Les trois variantes colorées des icônes « pourquoi » reviennent
+   dans la gamme chaude, en gardant trois teintes distinctes. */
+.why-icon--blue   { background: rgba(154, 79, 22, 0.12);  color: var(--clay); }
+.why-icon--purple { background: rgba(198, 123, 92, 0.16); color: #8C4A2F; }
+.why-icon--teal   { background: rgba(92, 107, 52, 0.14);  color: var(--olive); }
+
+.service-arrow, .why-hook strong { color: var(--clay); }
+.about-tag, .skill-tag, .chip {
+    background: var(--cream-deep);
+    border: 1px solid var(--sand);
+    color: var(--ink);
+    border-radius: 999px;
+}
+
+.why-badge {
+    background: var(--cream-deep);
+    color: var(--clay);
+    border: 1px solid var(--sand);
+}
+
+.why-list i, .fa-check-circle { color: var(--olive); }
+
+.cta-section, .why-bottom {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: var(--r-lg);
+}
+
+.cta-section h2, .why-bottom-left h3 { color: var(--cream); }
+.cta-section p, .why-bottom-left p   { color: var(--on-invert-soft); }
+
+/* Ce bouton est posé sur le bloc inversé, mais son fond terracotta reste
+   clair dans les deux thèmes : son texte doit donc rester foncé dans les
+   deux. Valeurs fixes volontairement — un jeton qui s'inverse le rendrait
+   illisible en mode sombre. */
+.cta-section .btn-primary, .why-bottom .why-cta-btn {
+    background: var(--terracotta-btn);
+    color: #241F1A;
+}
+
+.cta-section .btn-primary:hover, .why-bottom .why-cta-btn:hover {
+    background: #FFFCF7;
+    color: #241F1A;
+}
+
+/* ───────────────────────────────────────────────
+   8. FORMULAIRES
+─────────────────────────────────────────────── */
+.form-group input, .form-group textarea, .form-group select {
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    border-radius: var(--r-sm);
+}
+
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--clay);
+    background: var(--card);
+}
+
+.form-group label { color: var(--ink); }
+.field-error { color: #B3261E; }
+
+@media (prefers-color-scheme: dark) {
+    .field-error { color: #F2B8B5; }
+}
+
+/* ───────────────────────────────────────────────
+   9. SÉLECTEUR DE LANGUE
+   i18n.css codait ses couleurs en dur : on les reprend.
+─────────────────────────────────────────────── */
+.i18n-btn {
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+}
+
+.i18n-btn:hover { border-color: var(--clay); box-shadow: var(--shadow-lg); }
+.i18n-btn .fa-globe { color: var(--clay); }
+.i18n-chevron { color: var(--ink-soft); }
+
+.i18n-dropdown {
+    background: var(--card);
+    border: 1px solid var(--sand);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.i18n-option { color: var(--ink); border-radius: var(--r-sm); }
+.i18n-option:hover { background: var(--cream-deep); color: var(--clay); }
+.i18n-option.i18n-active { background: var(--cream-deep); color: var(--clay); font-weight: 700; }
+
+/* ───────────────────────────────────────────────
+   10. CHATBOT
+   27 couleurs en dur dans chatbox.css : toutes reprises.
+─────────────────────────────────────────────── */
+.chatbox-btn {
+    background: var(--clay);
+    background-image: none;
+    box-shadow: 0 6px 24px rgba(154, 79, 22, 0.35);
+}
+
+.chatbox-btn:hover { box-shadow: 0 10px 32px rgba(154, 79, 22, 0.45); }
+.chatbox-notif { background: #B3261E; }
+
+.chatbox-panel {
+    background: var(--card);
+    border: 1px solid var(--sand);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.chat-header {
+    background: var(--ink);
+    background-image: none;
+}
+
+.chat-header h4, .chat-header span { color: var(--cream); }
+.chat-avatar { background: var(--on-invert-film); color: var(--cream); }
+.chat-close { color: var(--cream); }
+.online-dot { background: #7BAE5A; }
+
+.bot .chat-bubble  { background: var(--cream-deep); color: var(--ink); }
+.user .chat-bubble { background: var(--clay); background-image: none; color: #FFFCF7; }
+.chat-bubble a     { color: var(--clay); }
+.user .chat-bubble a { color: #FFFCF7; text-decoration: underline; }
+.typing-dots span  { background: var(--ink-soft); }
+
+.chat-messages::-webkit-scrollbar-thumb { background: var(--sand); }
+
+.quick-btn {
+    background: var(--cream-deep);
+    color: var(--clay);
+    border: 1px solid var(--sand);
+    border-radius: 999px;
+}
+
+.quick-btn:hover { background: var(--clay); border-color: var(--clay); color: #FFFCF7; }
+
+.chat-input-row { border-top: 1px solid var(--sand); background: var(--card); }
+
+.chat-input {
+    background: var(--cream);
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    border-radius: 999px;
+}
+
+.chat-input:focus { border-color: var(--clay); background: var(--card); }
+.chat-input::placeholder { color: var(--ink-soft); }
+
+.chat-send { background: var(--clay); background-image: none; color: #FFFCF7; }
+.chat-send:hover { box-shadow: 0 4px 14px rgba(154, 79, 22, 0.35); }
+
+.chat-rate-warning {
+    background: var(--cream-deep);
+    border: 1px solid var(--sand);
+    color: var(--clay);
+}
+
+@media (prefers-color-scheme: dark) {
+    .user .chat-bubble { color: #1F1B17; }
+    .user .chat-bubble a { color: #1F1B17; }
+    .chat-send, .chatbox-btn { color: #1F1B17; }
+    .quick-btn:hover { color: #1F1B17; }
+}
+
+/* ───────────────────────────────────────────────
+   11. PAGES LÉGALES
+─────────────────────────────────────────────── */
+.legal-header h2 { color: var(--clay); font-family: 'Newsreader', Georgia, serif; }
+.legal-block h3  { font-family: 'Newsreader', Georgia, serif; border-bottom-color: var(--sand); }
+.legal-block h4  { font-family: 'Newsreader', Georgia, serif; }
+.legal-table th  { background: var(--cream-deep); font-family: 'Newsreader', Georgia, serif; }
+.legal-table th, .legal-table td { border-color: var(--sand); }
+.legal-callout   { background: var(--cream-deep); border-left-color: var(--clay); }
+.footer-legal a  { color: var(--cream); }
+
+/* ───────────────────────────────────────────────
+   12. ACCENT MANUSCRIT
+   Une seule occurrence par page, ajoutée via une classe.
+─────────────────────────────────────────────── */
+.hand {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--terracotta-ink);
+}
+
+/* ───────────────────────────────────────────────
+   13. MOUVEMENT
+─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .btn-primary:hover, .submit-btn:hover, .service-card:hover,
+    .why-card:hover, .project-card:hover { transform: none; }
+}
