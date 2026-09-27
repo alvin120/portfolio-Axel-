@@ -1,0 +1,300 @@
+/* ═══════════════════════════════════════════════════════════
+   DIRECTION « COZY » — proposition de refonte
+   Style : Nature Distilled (terracotta, sable, crème, grain)
+   Layout : Bento grid
+   Typo : Newsreader (titres) · Nunito Sans (texte) · Caveat (accent)
+
+   Fichier autonome : n'affecte aucune page existante.
+   Aucune dépendance, aucun framework — comme le reste du site.
+═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Nunito+Sans:wght@300;400;500;600;700&family=Caveat:wght@500;600&display=swap');
+
+/* ── Jetons de design ── */
+:root {
+    /* Palette Nature Distilled.
+       Trois déclinaisons de terracotta, choisies par usage plutôt que
+       par goût : la même teinte ne peut pas servir de décor, de texte
+       et de fond de bouton en respectant les contrastes.
+         --terracotta      décor uniquement (bordures, survol)
+         --terracotta-ink  terracotta employé comme texte (≥ 24px) et anneau de focus
+         --terracotta-btn  fond de bouton, avec du texte --ink dessus
+       Le petit texte n'utilise jamais de terracotta : il prend --clay. */
+    --cream:          #F5F0E1;
+    --cream-deep:     #EDE5D2;
+    --card:           #FFFCF7;
+    --sand:           #D4C4A8;   /* bordures décoratives (cartes, séparateurs) */
+    --line:           #948976;   /* bordures de composants interactifs : tient 3:1 */
+    --terracotta:     #C67B5C;
+    --terracotta-ink: #B67155;
+    --terracotta-btn: #CC7F5F;
+    --clay:           #9A4F16;   /* assombri pour tenir 4.5:1 sur crème et sur carte */
+    --olive:          #5C6B34;
+    --ink:            #2E2A25;
+    --ink-soft:       #625A50;
+
+    /* Typographie */
+    --font-title:  'Newsreader', Georgia, serif;
+    --font-body:   'Nunito Sans', system-ui, sans-serif;
+    --font-accent: 'Caveat', cursive;
+
+    /* Formes et profondeur */
+    --r-sm: 12px;
+    --r-md: 20px;
+    --r-lg: 28px;
+    --shadow-soft:  0 2px 8px rgba(46, 42, 37, 0.05), 0 8px 24px rgba(46, 42, 37, 0.06);
+    --shadow-lift:  0 4px 12px rgba(46, 42, 37, 0.07), 0 16px 40px rgba(46, 42, 37, 0.10);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Base ── */
+.cozy * { margin: 0; padding: 0; box-sizing: border-box; }
+
+.cozy {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* Grain : texture discrète qui donne le côté « matière » du style.
+   SVG en data URI, autorisé par img-src 'self' data: dans la CSP. */
+.cozy::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.cozy-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+
+.cozy h1, .cozy h2, .cozy h3 { font-family: var(--font-title); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; }
+
+.cozy a { color: var(--clay); }
+
+/* Accent manuscrit — usage volontairement rare */
+.hand { font-family: var(--font-accent); font-size: 1.45em; color: var(--terracotta-ink); font-weight: 600; }
+
+/* ── En-tête flottant ── */
+.cozy-header {
+    position: sticky;
+    top: 16px;
+    z-index: 30;
+    margin: 16px auto 0;
+    max-width: 1120px;
+    width: calc(100% - 32px);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 14px 12px 22px;
+    background: rgba(255, 252, 247, 0.88);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--sand);
+    border-radius: 999px;
+    box-shadow: var(--shadow-soft);
+}
+
+.cozy-logo { font-family: var(--font-title); font-size: 19px; font-weight: 600; margin-right: auto; white-space: nowrap; }
+.cozy-logo span { color: var(--terracotta-ink); }
+
+.cozy-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.cozy-nav a {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: background-color 200ms var(--ease), color 200ms var(--ease);
+}
+
+.cozy-nav a:hover,
+.cozy-nav a:focus-visible { background: var(--cream-deep); color: var(--ink); }
+
+.cozy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 24px;
+    min-height: 44px;              /* cible tactile confortable */
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background-color 220ms var(--ease), color 220ms var(--ease),
+                border-color 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+
+.cozy-btn--solid  { background: var(--clay); color: #FFFCF7; }
+.cozy-btn--solid:hover  { background: var(--ink); }
+.cozy-btn--ghost  { background: transparent; color: var(--ink); border-color: var(--line); }
+.cozy-btn--ghost:hover  { background: var(--card); border-color: var(--terracotta); }
+.cozy-btn--sm { padding: 9px 18px; font-size: 14px; }
+
+.cozy :focus-visible { outline: 2.5px solid var(--terracotta-ink); outline-offset: 3px; border-radius: 6px; }
+
+/* ── Hero ── */
+.hero { padding: 64px 0 40px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+
+.hero-tag {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 7px 16px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--sand);
+    font-size: 13.5px; font-weight: 600; color: var(--ink-soft);
+    margin-bottom: 22px;
+}
+
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--olive); flex-shrink: 0; }
+
+.hero h1 { font-size: clamp(38px, 5.6vw, 66px); margin-bottom: 20px; }
+.hero h1 em { font-style: italic; color: var(--terracotta-ink); }
+
+.hero-lead { font-size: 18.5px; color: var(--ink-soft); max-width: 46ch; margin-bottom: 30px; }
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.hero-portrait { position: relative; }
+
+.hero-portrait img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--r-lg) var(--r-lg) 120px var(--r-lg);  /* coin organique */
+    box-shadow: var(--shadow-lift);
+    display: block;
+}
+
+.hero-sticker {
+    position: absolute; bottom: 18px; left: -18px;
+    background: var(--card); border: 1px solid var(--sand);
+    border-radius: var(--r-md); padding: 11px 17px;
+    box-shadow: var(--shadow-soft); font-size: 15px;
+}
+
+/* ── Bento ── */
+.section-head { margin: 76px 0 26px; }
+.section-head h2 { font-size: clamp(27px, 3.6vw, 38px); }
+.section-head p { color: var(--ink-soft); margin-top: 7px; }
+
+.bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+.tile {
+    background: var(--card);
+    border: 1px solid var(--sand);
+    border-radius: var(--r-md);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 260ms var(--ease), border-color 260ms var(--ease);
+}
+
+.tile:hover { box-shadow: var(--shadow-lift); border-color: var(--terracotta); }
+
+.tile--w2 { grid-column: span 2; }
+.tile--w3 { grid-column: span 3; }
+.tile--w4 { grid-column: span 4; }
+
+.tile h3 { font-size: 20px; margin-bottom: 9px; }
+.tile p  { color: var(--ink-soft); font-size: 15.5px; }
+
+.tile-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--clay); margin-bottom: 12px;
+}
+
+.stat-n { font-family: var(--font-title); font-size: 46px; line-height: 1; color: var(--terracotta-ink); }
+.stat-l { font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+.chip {
+    padding: 6px 13px; border-radius: 999px;
+    background: var(--cream-deep); border: 1px solid var(--sand);
+    font-size: 13.5px; font-weight: 600; color: var(--ink);
+}
+
+.tile-icon { width: 22px; height: 22px; stroke: var(--clay); stroke-width: 1.8; fill: none; margin-bottom: 12px; }
+
+/* ── Projets ── */
+.work { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 16px; }
+
+.work-card {
+    display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--sand);
+    border-radius: var(--r-md); padding: 24px;
+    text-decoration: none; color: inherit;
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: box-shadow 260ms var(--ease), border-color 260ms var(--ease), background-color 260ms var(--ease);
+}
+
+.work-card:hover { box-shadow: var(--shadow-lift); border-color: var(--terracotta); background: #FFFDFA; }
+
+.work-num { font-family: var(--font-title); font-size: 13px; color: var(--clay); margin-bottom: 12px; }
+.work-card h3 { font-size: 19px; margin-bottom: 7px; }
+.work-card p  { font-size: 14.5px; color: var(--ink-soft); flex: 1; }
+
+.work-foot { display: flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13.5px; font-weight: 700; color: var(--clay); }
+.work-foot svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; transition: transform 240ms var(--ease); }
+.work-card:hover .work-foot svg { transform: translateX(4px); }
+
+/* ── Appel à l'action ── */
+.cta {
+    margin: 84px 0 0;
+    background: var(--ink); color: var(--cream);
+    border-radius: var(--r-lg); padding: 58px 44px; text-align: center;
+}
+
+.cta h2 { font-size: clamp(27px, 4vw, 40px); margin-bottom: 14px; color: var(--cream); }
+.cta p  { color: rgba(245, 240, 225, 0.75); max-width: 50ch; margin: 0 auto 28px; }
+.cta .cozy-btn--solid { background: var(--terracotta-btn); color: var(--ink); }
+.cta .cozy-btn--solid:hover { background: var(--cream); }
+.cta .cozy-btn--ghost { color: var(--cream); border-color: rgba(245, 240, 225, 0.42); }
+.cta .cozy-btn--ghost:hover { background: rgba(245, 240, 225, 0.1); border-color: var(--cream); }
+
+/* ── Pied de page ── */
+.cozy-footer { margin-top: 64px; padding: 32px 0 44px; border-top: 1px solid var(--sand); text-align: center; font-size: 14px; color: var(--ink-soft); }
+.cozy-footer nav { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 9px; }
+.cozy-footer a { color: var(--ink-soft); text-decoration: none; }
+.cozy-footer a:hover { color: var(--clay); text-decoration: underline; }
+
+/* ── Apparition au défilement ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 620ms var(--ease), transform 620ms var(--ease); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ── Adaptatif ── */
+@media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }
+    .hero-portrait { max-width: 400px; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .tile--w3, .tile--w4 { grid-column: span 2; }
+}
+
+@media (max-width: 620px) {
+    .cozy { font-size: 16px; }
+    .cozy-header { border-radius: var(--r-md); padding: 12px 16px; flex-wrap: wrap; }
+    .cozy-nav { order: 3; width: 100%; justify-content: flex-start; }
+    .cozy-nav a { padding: 7px 11px; font-size: 14px; }
+    .bento { grid-template-columns: 1fr; }
+    .tile--w2, .tile--w3, .tile--w4 { grid-column: span 1; }
+    .cta { padding: 40px 22px; }
+    .hero-sticker { left: 8px; }
+}
+
+/* ── Respect des préférences de mouvement ── */
+@media (prefers-reduced-motion: reduce) {
+    .cozy *, .cozy *::before, .cozy *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+}
