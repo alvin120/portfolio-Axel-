@@ -76,7 +76,8 @@ jobs:
             ! -name '*.bat' \
             ! -name '*.md' \
             ! -name '.gitignore' \
-            ! -name '.ovhconfig')
+            ! -name '.ovhconfig' \
+            ! -name 'stamp-assets.js')
 
           echo "Fichiers envoyés : $envoyes — échecs : $echecs"
 
