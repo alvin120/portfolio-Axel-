@@ -480,3 +480,41 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     .btn-primary:hover, .submit-btn:hover, .service-card:hover,
     .why-card:hover, .project-card:hover { transform: none; }
 }
+
+/* ───────────────────────────────────────────────
+   14. SECTION « À PROPOS » — photo
+   Trois corrections :
+   · sous 900px la grille passe en une colonne, et la photo prenait
+     alors toute la largeur : à 800px cela donnait un portrait de
+     750x937px. On la borne et on la centre.
+   · le recadrage 4/5 était centré ; le visage est légèrement au-dessus
+     du milieu, donc on remonte le point d'ancrage.
+   · le badge héritait d'un dégradé argile→olive devenu boueux : aplat,
+     comme les boutons.
+─────────────────────────────────────────────── */
+.about-photo-wrap img {
+    object-position: 50% 38%;
+    border-radius: var(--r-md);
+}
+
+.about-photo-badge {
+    background: var(--clay);
+    background-image: none;
+    color: #FFFCF7;
+    border-radius: var(--r-sm);
+    box-shadow: var(--shadow-lg);
+}
+
+@media (prefers-color-scheme: dark) {
+    .about-photo-badge { color: #1F1B17; }
+}
+
+/* La photo ne doit pas s'étirer quand la grille retombe sur une colonne */
+@media (max-width: 900px) {
+    .about-photo-wrap {
+        max-width: 340px;
+        margin-inline: auto;
+        width: 100%;
+    }
+    .about-photo-badge { right: -10px; }
+}
