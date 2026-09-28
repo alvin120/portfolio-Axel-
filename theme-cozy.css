@@ -516,5 +516,25 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
         margin-inline: auto;
         width: 100%;
     }
-    .about-photo-badge { right: -10px; }
+    /* sur petit écran le badge doit rester DANS la photo, sinon il est
+       rogné par le bord du viewport */
+    .about-photo-badge { right: 8px; bottom: 8px; }
 }
+
+/* ───────────────────────────────────────────────
+   15. HAUTEUR DES IMAGES — correctif indispensable
+   Les attributs width/height ajoutés sur les <img> (contre le
+   décalage de mise en page) créent un « indice de présentation »
+   height: 2560px. Or, dès que largeur ET hauteur sont définies,
+   le navigateur ignore aspect-ratio : la photo de la section
+   « À propos » s'étirait en bande verticale et chassait le texte.
+
+   Un indice de présentation a une priorité inférieure à n'importe
+   quelle règle d'auteur : cette ligne le neutralise partout, sans
+   toucher aux images dont la CSS fixe explicitement une hauteur
+   (le carrousel à 420px, par exemple), qui restent prioritaires.
+─────────────────────────────────────────────── */
+img { height: auto; }
+
+.about-section { align-items: center; }
+.about-photo-wrap { min-width: 0; }
