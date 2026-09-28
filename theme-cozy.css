@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
    THÈME « COZY » — couche de surcharge
    Style : Nature Distilled (terracotta, sable, crème, argile)
-   Typo  : Newsreader (titres) · Nunito Sans (texte) · Caveat (accent)
+   Typo  : Newsreader (titres) · Nunito Sans (texte)
 
    POURQUOI UNE SURCHARGE PLUTÔT QU'UNE RÉÉCRITURE
    Les pages portent 233 attributs data-i18n traduits en 8 langues.
@@ -458,17 +458,14 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .legal-table th, .legal-table td { border-color: var(--sand); }
 .legal-callout   { background: var(--cream-deep); border-left-color: var(--clay); }
 .footer-legal a  { color: var(--cream); }
-
 /* ───────────────────────────────────────────────
-   12. ACCENT MANUSCRIT
-   Une seule occurrence par page, ajoutée via une classe.
+   12. PAS D'ACCENT MANUSCRIT ICI
+   Caveat a été retiré de la requête de polices : il pesait 70 Ko
+   pour zéro usage. Deux raisons de ne pas le réintroduire ici —
+   data-i18n-text écrase le contenu de l'élément, donc un <span>
+   imbriqué disparaîtrait au changement de langue ; et la page
+   preview-cozy.html, qui l'utilise, charge sa propre feuille.
 ─────────────────────────────────────────────── */
-.hand {
-    font-family: 'Caveat', cursive;
-    font-size: 1.4em;
-    font-weight: 600;
-    color: var(--terracotta-ink);
-}
 
 /* ───────────────────────────────────────────────
    13. MOUVEMENT
