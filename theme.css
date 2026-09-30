@@ -420,6 +420,13 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     box-shadow: var(--shadow-lg);
 }
 
+/* Le menu passe de 8 à 10 langues, soit ~420px, et il s'ouvre vers le
+   haut : sur un écran peu haut il sortirait de la fenêtre. On le borne. */
+.i18n-dropdown {
+    max-height: min(60vh, 420px);
+    overflow-y: auto;
+}
+
 .i18n-option { color: var(--ink); border-radius: var(--r-sm); }
 .i18n-option:hover { background: var(--cream-deep); color: var(--clay); }
 .i18n-option.i18n-active { background: var(--cream-deep); color: var(--clay); font-weight: 700; }
