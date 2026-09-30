@@ -34,7 +34,7 @@
         {
             id: 'aide',
             keywords: ['aide', 'help', 'options', 'sujets', 'menu', 'que peux tu faire', 'de quoi peux tu parler', 'tu sais quoi'],
-            answer: '🧭 Je peux vous parler de :\n• 👤 Qui est Axel (parcours, formation, expériences)\n• 🌐 Sites web, 📱 apps mobiles, 🤖 intégration IA\n• 🎨 Maquettes UI/UX (Figma)\n• 🔍 SEO et 🔒 sécurité web\n• 💻 Technologies &amp; stack technique\n• 📂 Ses 8 réalisations (avec les liens)\n• 💰 Tarifs, ⏱️ délais, 🧩 déroulement d\'un projet\n• 🌍 Langues parlées &amp; disponibilité\n• ✈️ Ses 18 pays visités\n• 🍽️ Le restaurant de démonstration\n\nPosez-moi votre question !'
+            answer: '🧭 Je peux vous parler de :\n• 👤 Qui est Axel (parcours, formation, expériences)\n• 🌐 Sites web, 📱 apps mobiles, 🤖 intégration IA\n• 🎨 Maquettes UI/UX (Figma)\n• 🔍 SEO et 🔒 sécurité web\n• 💻 Technologies &amp; stack technique\n• 📂 Ses 8 réalisations (avec les liens)\n• 💰 Tarifs, ⏱️ délais, 🧩 déroulement d\'un projet\n• 🌍 Langues parlées &amp; disponibilité\n• ✈️ Ses 18 pays visités\n\nPosez-moi votre question !'
         },
 
         /* ── Identité & parcours ──────────────── */
@@ -276,25 +276,6 @@
             id: 'destinations-preferees',
             keywords: ['destination preferee', 'prefere', 'preferee', 'plus beau', 'coup de coeur', 'ibiza', 'vienne', 'rome', 'bratislava', 'oslo', 'buenos aires', 'schonbrunn'],
             answer: '⭐ Les coups de cœur d\'Axel :\n• 🇪🇸 <strong>Ibiza</strong> — le port et le centre historique\n• 🇦🇹 <strong>Vienne</strong> — le Parlement et le château de Schönbrunn\n• 🇮🇹 <strong>Rome</strong> — la Ville Éternelle\n• 🇸🇰 <strong>Bratislava</strong> — l\'Église Bleue, joyau Art Nouveau de 1913\n• 🇳🇴 <strong>Oslo</strong> — l\'Opéra sur le fjord (2008), au toit accessible\n• 🇦🇷 <strong>Buenos Aires</strong> — l\'Ambassade de France, style Beaux-Arts\n\n👉 <a href="voyages.html">Voir les photos</a>'
-        },
-
-        /* ── Restaurant de démonstration ──────── */
-        {
-            id: 'restaurant-demo',
-            boost: 1,
-            keywords: ['restaurant', 'menu', 'carte du restaurant', 'galette', 'galettes', 'crepe', 'crepes', 'manger', 'plat', 'specialite', 'creperie'],
-            answer: '🍽️ La section <strong>Restaurant</strong> du site est une démonstration de site de restauration, avec menu et réservation en ligne.\n\nAu menu :\n• Galette Fromage — 10 €\n• Galette Œufs (complet, salade verte) — 11 €\n• Crêpe Caramel maison — 8 €\n• Crêpe Banane-chocolat — 9 €\n\n👉 <a href="accueil.html">Voir le menu</a>'
-        },
-        {
-            id: 'reservation-table',
-            keywords: ['reserver', 'reservation', 'table', 'reserver une table', 'booking'],
-            answer: '📅 Le site inclut un <strong>formulaire de réservation de table</strong> (nom, téléphone, date, heure, nombre de personnes jusqu\'à 8+) — un exemple de ce qu\'Axel peut intégrer sur le site d\'un restaurant.\n\n👉 <a href="contact.html">Essayer le formulaire</a>'
-        },
-
-        {
-            id: 'donnees-personnelles',
-            keywords: ['rgpd', 'gdpr', 'donnees personnelles', 'donnee personnelle', 'vie privee', 'confidentialite', 'cookie', 'cookies', 'mentions legales', 'traceur', 'consentement', 'cnil'],
-            answer: '🔐 Ce site ne dépose <strong>aucun cookie</strong> et n\'utilise aucun outil de mesure d\'audience ni traceur publicitaire.\n\nSeules les informations que vous saisissez dans un formulaire sont collectées, uniquement pour vous répondre. Votre adresse IP est hachée — jamais stockée en clair — pendant 15 minutes, le temps de bloquer les robots de spam.\n\n• <a href="politique-confidentialite.html">Politique de confidentialité</a>\n• <a href="mentions-legales.html">Mentions légales</a>'
         },
 
         /* ── Méta ─────────────────────────────── */

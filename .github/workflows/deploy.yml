@@ -69,6 +69,7 @@ jobs:
             ! -path './.git/*' \
             ! -path './.github/*' \
             ! -path './.vercel/*' \
+              ! -path './demos/*' \
             ! -name '.env' \
             ! -name '.env.*' \
             ! -name 'deploy.ps1' \

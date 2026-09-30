@@ -1,0 +1,57 @@
+        <section class="reservation-section">
+            <div class="contact-container">
+                <h2 data-i18n-text="res_title">Réserver une Table</h2>
+                <p class="subtitle" data-i18n-text="res_sub">Souhaitez-vous réserver une table pour le restaurant ?</p>
+                
+                <form id="reservationForm" class="reservation-form" method="POST" action="send-mail.php" novalidate>
+                    <!-- Indique au serveur quel formulaire traite la requête -->
+                    <input type="hidden" name="type" value="reservation">
+
+                    <!-- Honeypot anti-bot (invisible pour les humains) -->
+                    <div class="honeypot" aria-hidden="true">
+                        <input type="text" name="website" id="res-website" tabindex="-1" autocomplete="off">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-name" data-i18n-label="res_name">Nom *</label>
+                            <input type="text" id="res-name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="res-phone" data-i18n-label="res_phone">Téléphone *</label>
+                            <input type="tel" id="res-phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-date" data-i18n-label="res_date">Date *</label>
+                            <input type="date" id="res-date" name="date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="res-time" data-i18n-label="res_time">Heure *</label>
+                            <input type="time" id="res-time" name="time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="res-guests" data-i18n-label="res_guests">Nombre de personnes *</label>
+                        <select id="res-guests" name="guests" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6">6 personnes</option>
+                            <option value="7">7 personnes</option>
+                            <option value="8+">8+ personnes</option>
+                        </select>
+                    </div>
+
+                    <div id="resAlert" role="status" aria-live="polite"></div>
+                    <button type="submit" class="submit-btn" id="resSubmitBtn" data-i18n-text="res_btn">Réserver</button>
+                </form>
+            </div>
+        </section>

@@ -1207,7 +1207,6 @@ const SELMAP = [
   { s:'nav a[href="experience.html"]',      k:'nav_exp' },
   { s:'nav a[href="comp\\e9tence.html"]',   k:'nav_skills' },
   { s:'nav a[href="voyages.html"]',         k:'nav_trips' },
-  { s:'nav a[href="accueil.html"]',         k:'nav_restaurant' },
   { s:'nav a[href="sites.html"]',           k:'nav_sites' },
   { s:'nav a[href="contact.html"]',         k:'nav_contact' },
   // Footer
