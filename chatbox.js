@@ -258,7 +258,7 @@
             id: 'linguaboost',
             boost: 1,
             keywords: ['linguaboost', 'lingua', 'apprentissage des langues', 'cours en ligne', 'exercices'],
-            answer: '🗣️ <strong>LinguaBoost</strong> — plateforme d\'apprentissage des langues en ligne, avec des cours interactifs et des exercices pour progresser rapidement.\n👉 <a href="https://linguaboost-gold-psi.vercel.app" target="_blank" rel="noopener">linguaboost-gold-psi.vercel.app</a>'
+            answer: '🗣️ <strong>LinguaBoost</strong> — plateforme d\'apprentissage des langues en ligne, avec des cours interactifs et des exercices pour progresser rapidement.\n👉 <a href="https://linguaboost-prototype.vercel.app/maquettes/accueil.html" target="_blank" rel="noopener">linguaboost-prototype.vercel.app</a>'
         },
 
         /* ── Voyages ──────────────────────────── */
