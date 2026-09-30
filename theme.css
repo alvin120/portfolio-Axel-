@@ -18,45 +18,47 @@
 
 
 /* ───────────────────────────────────────────────
-   1. JETONS — thème SOMBRE (valeur par défaut)
+   1. JETONS — thème CLAIR (valeur par défaut)
 
-   Palette reprise de « Landing | Designer portfolio »
-   (Purrweb, Dribbble) : fond bleu-nuit très sombre, ambre
-   et cyan en accents. Les deux accents sont mesurés sur la
-   maquette d'origine, pas approximés.
+   Accents repris de « Landing | Designer portfolio » (Purrweb,
+   Dribbble) : ambre #FFAB00 et cyan #00FFE0, mesurés sur la maquette.
+   Posés ici sur un fond clair, au service de la lisibilité.
 
-   Les NOMS de jetons sont ceux d'avant : les ~500 lignes de
-   composants plus bas continuent de fonctionner sans retouche.
-   Seules les valeurs changent. Le sombre est désormais le
-   défaut, le clair n'étant plus qu'une variante de repli.
+   L'ambre et le cyan vifs sont trop lumineux pour servir de texte sur
+   du blanc (1.90:1 et 1.28:1). Ils gardent donc deux rôles distincts :
+   assombris quand ils écrivent, vifs quand ils servent de fond.
+
+   Contrastes visés au-delà du minimum légal : corps ≈ 17:1,
+   texte secondaire ≈ 7.5:1, accents ≈ 5:1.
+
+   Les NOMS de jetons sont inchangés : les ~500 lignes de composants
+   plus bas continuent de fonctionner sans retouche.
 ─────────────────────────────────────────────── */
 :root {
     /* Surfaces */
-    --cream:          #0C0F17;   /* fond de page, mesuré sur la référence */
-    --cream-deep:     #1B2230;   /* surface secondaire : puces, survols */
-    --card:           #141A26;   /* cartes, légèrement décollées du fond */
-    --sand:           #262E3E;   /* bordures décoratives */
-    --line:           #636876;   /* bordures de composants interactifs : 3.44 sur le fond, 3.13 sur les cartes */
+    --cream:          #FAFBFC;   /* fond de page */
+    --cream-deep:     #F0F2F5;   /* puces, survols, surfaces secondaires */
+    --card:           #FFFFFF;   /* cartes */
+    --sand:           #E2E6EC;   /* bordures décoratives */
+    --line:           #89909C;   /* bordures de composants interactifs (3.10:1) */
 
-    /* Accents — ambre #FFAB00 et cyan #00FFE0 de la référence */
-    --terracotta:     #FFAB00;   /* décor : bordures au survol */
-    --terracotta-ink: #FFAB00;   /* accent en texte (10.10:1 sur le fond) */
-    --terracotta-btn: #FFAB00;   /* fond de bouton, texte --on-accent dessus */
-    --clay:           #FFAB00;   /* accent principal : texte ET fond de bouton */
-    --clay-deep:      #FFC44D;   /* survol */
-    --olive:          #00FFE0;   /* accent secondaire : coches, pastilles (14.94:1) */
+    /* Accents */
+    --terracotta:     #C28200;   /* décor : bordures au survol (3.12:1) */
+    --terracotta-ink: #946300;   /* accent en texte (5.01:1) */
+    --terracotta-btn: #FFAB00;   /* fond de bouton : l'ambre reste vif */
+    --clay:           #946300;   /* accent principal : texte ET fond de bouton */
+    --clay-deep:      #7A5200;   /* survol */
+    --olive:          #007A6C;   /* accent secondaire : coches (5.07:1) */
 
     /* Texte */
-    --ink:            #F5F7FA;
-    --ink-soft:       #99A2B5;
+    --ink:            #12151C;   /* 17.63:1 sur le fond */
+    --ink-soft:       #4C5262;   /* 7.53:1 */
 
-    /* Texte posé SUR un accent. L'ambre et le cyan sont clairs :
-       du blanc dessus tomberait à 1.90:1 et 1.28:1. Ce jeton évite
-       que la question se repose à chaque composant. */
-    --on-accent:      #0C0F17;
-    /* Texte sur l'ambre VIF, qui reste vif dans les deux thèmes :
+    /* Texte posé sur --clay (ambre assombri) : le blanc convient, 5.19:1 */
+    --on-accent:      #FFFFFF;
+    /* Texte posé sur l'ambre VIF, qui reste clair quel que soit le thème :
        toujours foncé, contrairement à --on-accent qui, lui, s'inverse. */
-    --on-vivid:       #0C0F17;
+    --on-vivid:       #12151C;
 
     /* Remappage des jetons historiques du site */
     --primary-color:   var(--clay);
@@ -68,16 +70,16 @@
     --text-secondary:  var(--ink-soft);
     --border-color:    var(--sand);
 
-    --shadow:    0 2px 8px rgba(0, 0, 0, 0.40), 0 8px 24px rgba(0, 0, 0, 0.32);
-    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.48), 0 16px 40px rgba(0, 0, 0, 0.40);
+    --shadow:    0 2px 8px rgba(18, 21, 28, 0.05), 0 8px 24px rgba(18, 21, 28, 0.06);
+    --shadow-lg: 0 4px 12px rgba(18, 21, 28, 0.07), 0 16px 40px rgba(18, 21, 28, 0.11);
 
     --transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 
     /* Blocs inversés (CTA, pied de page, en-tête du chat) : ils prennent
-       --ink en fond, donc ils deviennent CLAIRS sur ce thème sombre.
-       Leur texte doit donc être foncé. */
-    --on-invert-soft: rgba(12, 15, 23, 0.78);
-    --on-invert-film: rgba(12, 15, 23, 0.12);
+       --ink en fond, donc ils sont SOMBRES sur ce thème clair, et leur
+       texte doit être clair. */
+    --on-invert-soft: rgba(250, 251, 252, 0.80);
+    --on-invert-film: rgba(250, 251, 252, 0.15);
 
     --r-sm: 12px;
     --r-md: 20px;
@@ -85,43 +87,37 @@
 }
 
 /* ───────────────────────────────────────────────
-   2. JETONS — variante CLAIRE, en option explicite
-   Le sombre est l'identité du site : il s'applique à tout le monde,
-   sans dépendre du réglage système. Sans cela, la majorité des
-   visiteurs — dont le navigateur demande le clair par défaut —
-   n'aurait jamais vu la direction voulue.
-   Cette variante s'active en posant <html data-theme="light">.
-   L'ambre et le cyan vifs y deviennent illisibles en texte sur blanc
-   (1.9:1 et 1.3:1) : on les assombrit, et le texte sur accent
-   repasse au blanc.
+   2. JETONS — variante SOMBRE, en option explicite
+   La direction sombre de la référence reste disponible en posant
+   <html data-theme="dark">. Elle n'est pas branchée sur la préférence
+   système : le clair est le choix assumé du site.
 ─────────────────────────────────────────────── */
-:root[data-theme="light"] {
-        --cream:          #F7F8FA;
-        --cream-deep:     #EDEFF3;
-        --card:           #FFFFFF;
-        --sand:           #DDE1E8;
-        --line:           #818996;   /* 3.32 sur le fond, 3.53 sur blanc */
+:root[data-theme="dark"] {
+    --cream:          #0C0F17;
+    --cream-deep:     #1B2230;
+    --card:           #141A26;
+    --sand:           #262E3E;
+    --line:           #636876;
 
-        --terracotta:     #996700;
-        --terracotta-ink: #996700;   /* 4.60:1 sur le fond clair */
-        --terracotta-btn: #FFAB00;   /* reste vif : texte foncé dessus */
-        --clay:           #996700;   /* 4.89:1 sur blanc · blanc dessus 5.2:1 */
-        --clay-deep:      #7A5200;
-        --olive:          #008070;   /* 4.86:1 sur blanc */
+    --terracotta:     #FFAB00;
+    --terracotta-ink: #FFAB00;
+    --terracotta-btn: #FFAB00;
+    --clay:           #FFAB00;
+    --clay-deep:      #FFC44D;
+    --olive:          #00FFE0;
 
-        --ink:            #0C0F17;
-        --ink-soft:       #5A6478;
+    --ink:            #F5F7FA;
+    --ink-soft:       #99A2B5;
 
-        --on-accent:      #FFFFFF;   /* --clay est assombri ici : blanc dessus */
-        --on-vivid:       #0C0F17;   /* inchangé : l'ambre vif reste clair */
+    --on-accent:      #0C0F17;   /* l'ambre est vif ici : texte foncé dessus */
+    --on-vivid:       #0C0F17;
 
-        --shadow:    0 2px 8px rgba(12, 15, 23, 0.06), 0 8px 24px rgba(12, 15, 23, 0.07);
-        --shadow-lg: 0 4px 12px rgba(12, 15, 23, 0.08), 0 16px 40px rgba(12, 15, 23, 0.12);
+    --shadow:    0 2px 8px rgba(0, 0, 0, 0.40), 0 8px 24px rgba(0, 0, 0, 0.32);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.48), 0 16px 40px rgba(0, 0, 0, 0.40);
 
-        --on-invert-soft: rgba(245, 247, 250, 0.78);
-        --on-invert-film: rgba(245, 247, 250, 0.15);
-    }
-
+    --on-invert-soft: rgba(12, 15, 23, 0.78);
+    --on-invert-film: rgba(12, 15, 23, 0.12);
+}
 /* ───────────────────────────────────────────────
    3. POLICES
    Les 41 déclarations existantes codaient Space Grotesk,
@@ -209,13 +205,13 @@ body::after {
     inset: 0;
     z-index: 9990;
     pointer-events: none;
-    opacity: 0.06;
+    opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Le grain est plus marqué sur le thème sombre, qui est le défaut :
-   on l'atténue seulement pour le repli clair. */
-:root[data-theme="light"] body::after { opacity: 0.035; }
+/* Le grain est discret sur le thème clair, qui est le défaut ;
+   il supporte d'être plus marqué sur la variante sombre. */
+:root[data-theme="dark"] body::after { opacity: 0.06; }
 
 /* ───────────────────────────────────────────────
    5. EN-TÊTE, NAVIGATION, PIED DE PAGE
@@ -398,9 +394,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 }
 
 .form-group label { color: var(--ink); }
-.field-error { color: #F2B8B5; }
+.field-error { color: #B3261E; }
 
-:root[data-theme="light"] .field-error { color: #B3261E; }
+:root[data-theme="dark"] .field-error { color: #F2B8B5; }
 
 /* ───────────────────────────────────────────────
    9. SÉLECTEUR DE LANGUE
