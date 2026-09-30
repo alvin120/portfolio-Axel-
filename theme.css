@@ -16,28 +16,49 @@
    Contrastes vérifiés par calcul, par usage et par taille de police.
 ═══════════════════════════════════════════════════════════════ */
 
+
 /* ───────────────────────────────────────────────
-   1. JETONS — mode clair
-   Les noms d'origine sont conservés pour que le CSS
-   existant hérite du nouveau thème sans modification.
+   1. JETONS — thème SOMBRE (valeur par défaut)
+
+   Palette reprise de « Landing | Designer portfolio »
+   (Purrweb, Dribbble) : fond bleu-nuit très sombre, ambre
+   et cyan en accents. Les deux accents sont mesurés sur la
+   maquette d'origine, pas approximés.
+
+   Les NOMS de jetons sont ceux d'avant : les ~500 lignes de
+   composants plus bas continuent de fonctionner sans retouche.
+   Seules les valeurs changent. Le sombre est désormais le
+   défaut, le clair n'étant plus qu'une variante de repli.
 ─────────────────────────────────────────────── */
 :root {
-    /* Palette brute */
-    --cream:          #F5F0E1;
-    --cream-deep:     #EDE5D2;
-    --card:           #FFFCF7;
-    --sand:           #D4C4A8;   /* bordures décoratives */
-    --line:           #948976;   /* bordures de composants interactifs (3:1) */
-    --terracotta:     #C67B5C;   /* décor seulement */
-    --terracotta-ink: #B67155;   /* terracotta en texte ≥ 24px */
-    --terracotta-btn: #CC7F5F;   /* fond de bouton, texte --ink dessus */
-    --clay:           #9A4F16;   /* texte 5.26:1 sur crème · blanc dessus 7.7:1 */
-    --clay-deep:      #7A3E11;
-    --olive:          #5C6B34;
-    --ink:            #2E2A25;
-    --ink-soft:       #625A50;
+    /* Surfaces */
+    --cream:          #0C0F17;   /* fond de page, mesuré sur la référence */
+    --cream-deep:     #1B2230;   /* surface secondaire : puces, survols */
+    --card:           #141A26;   /* cartes, légèrement décollées du fond */
+    --sand:           #262E3E;   /* bordures décoratives */
+    --line:           #636876;   /* bordures de composants interactifs : 3.44 sur le fond, 3.13 sur les cartes */
 
-    /* Remappage des jetons historiques */
+    /* Accents — ambre #FFAB00 et cyan #00FFE0 de la référence */
+    --terracotta:     #FFAB00;   /* décor : bordures au survol */
+    --terracotta-ink: #FFAB00;   /* accent en texte (10.10:1 sur le fond) */
+    --terracotta-btn: #FFAB00;   /* fond de bouton, texte --on-accent dessus */
+    --clay:           #FFAB00;   /* accent principal : texte ET fond de bouton */
+    --clay-deep:      #FFC44D;   /* survol */
+    --olive:          #00FFE0;   /* accent secondaire : coches, pastilles (14.94:1) */
+
+    /* Texte */
+    --ink:            #F5F7FA;
+    --ink-soft:       #99A2B5;
+
+    /* Texte posé SUR un accent. L'ambre et le cyan sont clairs :
+       du blanc dessus tomberait à 1.90:1 et 1.28:1. Ce jeton évite
+       que la question se repose à chaque composant. */
+    --on-accent:      #0C0F17;
+    /* Texte sur l'ambre VIF, qui reste vif dans les deux thèmes :
+       toujours foncé, contrairement à --on-accent qui, lui, s'inverse. */
+    --on-vivid:       #0C0F17;
+
+    /* Remappage des jetons historiques du site */
     --primary-color:   var(--clay);
     --secondary-color: var(--clay-deep);
     --accent-color:    var(--olive);
@@ -47,54 +68,59 @@
     --text-secondary:  var(--ink-soft);
     --border-color:    var(--sand);
 
-    /* Ombres réchauffées : teintées d'encre, pas de noir pur */
-    --shadow:    0 2px 8px rgba(46, 42, 37, 0.05), 0 8px 24px rgba(46, 42, 37, 0.06);
-    --shadow-lg: 0 4px 12px rgba(46, 42, 37, 0.07), 0 16px 40px rgba(46, 42, 37, 0.10);
+    --shadow:    0 2px 8px rgba(0, 0, 0, 0.40), 0 8px 24px rgba(0, 0, 0, 0.32);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.48), 0 16px 40px rgba(0, 0, 0, 0.40);
 
     --transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 
-    /* Texte posé sur les blocs inversés (CTA, pied de page, en-tête du chat).
-       Ces blocs prennent --ink en fond : ils s'inversent donc avec le thème,
-       et leur texte doit s'inverser avec eux. */
-    --on-invert-soft: rgba(242, 235, 221, 0.78);
-    --on-invert-film: rgba(242, 235, 221, 0.15);
+    /* Blocs inversés (CTA, pied de page, en-tête du chat) : ils prennent
+       --ink en fond, donc ils deviennent CLAIRS sur ce thème sombre.
+       Leur texte doit donc être foncé. */
+    --on-invert-soft: rgba(12, 15, 23, 0.78);
+    --on-invert-film: rgba(12, 15, 23, 0.12);
 
-    /* Formes plus douces */
     --r-sm: 12px;
     --r-md: 20px;
     --r-lg: 28px;
 }
 
 /* ───────────────────────────────────────────────
-   2. JETONS — mode sombre
-   Déclenché par la préférence système. Cozy sombre =
-   bruns chauds, jamais de gris bleuté.
+   2. JETONS — variante CLAIRE, en option explicite
+   Le sombre est l'identité du site : il s'applique à tout le monde,
+   sans dépendre du réglage système. Sans cela, la majorité des
+   visiteurs — dont le navigateur demande le clair par défaut —
+   n'aurait jamais vu la direction voulue.
+   Cette variante s'active en posant <html data-theme="light">.
+   L'ambre et le cyan vifs y deviennent illisibles en texte sur blanc
+   (1.9:1 et 1.3:1) : on les assombrit, et le texte sur accent
+   repasse au blanc.
 ─────────────────────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --cream:          #1F1B17;
-        --cream-deep:     #2A251F;
-        --card:           #2A251F;
-        --sand:           #473E34;
-        --line:           #7D7364;
-        --terracotta:     #D89A78;
-        --terracotta-ink: #E3A883;
-        --terracotta-btn: #E3A883;
-        --clay:           #E0A77E;   /* texte 8.0:1 sur le fond sombre */
-        --clay-deep:      #EFC3A2;
-        --olive:          #A9BC7C;
-        --ink:            #F2EBDD;
-        --ink-soft:       #BCB09D;
+:root[data-theme="light"] {
+        --cream:          #F7F8FA;
+        --cream-deep:     #EDEFF3;
+        --card:           #FFFFFF;
+        --sand:           #DDE1E8;
+        --line:           #818996;   /* 3.32 sur le fond, 3.53 sur blanc */
 
-        --shadow:    0 2px 8px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.30);
-        --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.40), 0 16px 40px rgba(0, 0, 0, 0.35);
+        --terracotta:     #996700;
+        --terracotta-ink: #996700;   /* 4.60:1 sur le fond clair */
+        --terracotta-btn: #FFAB00;   /* reste vif : texte foncé dessus */
+        --clay:           #996700;   /* 4.89:1 sur blanc · blanc dessus 5.2:1 */
+        --clay-deep:      #7A5200;
+        --olive:          #008070;   /* 4.86:1 sur blanc */
 
-        /* Les blocs inversés deviennent clairs en mode sombre :
-           leur texte doit donc passer au foncé. */
-        --on-invert-soft: rgba(31, 27, 23, 0.78);
-        --on-invert-film: rgba(31, 27, 23, 0.12);
+        --ink:            #0C0F17;
+        --ink-soft:       #5A6478;
+
+        --on-accent:      #FFFFFF;   /* --clay est assombri ici : blanc dessus */
+        --on-vivid:       #0C0F17;   /* inchangé : l'ambre vif reste clair */
+
+        --shadow:    0 2px 8px rgba(12, 15, 23, 0.06), 0 8px 24px rgba(12, 15, 23, 0.07);
+        --shadow-lg: 0 4px 12px rgba(12, 15, 23, 0.08), 0 16px 40px rgba(12, 15, 23, 0.12);
+
+        --on-invert-soft: rgba(245, 247, 250, 0.78);
+        --on-invert-film: rgba(245, 247, 250, 0.15);
     }
-}
 
 /* ───────────────────────────────────────────────
    3. POLICES
@@ -132,16 +158,39 @@ body, projet-body,
 .cours p, .langues p, .legal-block p { font-family: 'Nunito Sans', system-ui, sans-serif; }
 body p { font-family: 'Nunito Sans', system-ui, sans-serif; }
 
-/* Le dégradé de texte bleu d'origine n'a plus de sens : teinte pleine. */
+/* QUATRE éléments du site remplissent leur texte avec un dégradé
+   --primary-color → --accent-color : .title h1, .hero-title .gradient-text,
+   .stat-number et .about-text h2 span. Avec cette palette, le dégradé va de
+   l'ambre au cyan et son milieu vire au VERT — le nom du site et les chiffres
+   s'affichaient en vert. En prime, -webkit-text-fill-color: transparent
+   neutralise toute règle `color` : il faut le rendre explicitement, sinon la
+   couleur qu'on pose n'a aucun effet.
+
+   Neutralisation commune aux quatre : */
 .gradient-text,
-.hero-title .gradient-text {
+.hero-title .gradient-text,
+.about-text h2 span,
+.stat-number,
+.title h1 {
     background: none;
     -webkit-background-clip: initial;
     background-clip: initial;
     -webkit-text-fill-color: currentColor;
+}
+
+/* Mots accentués : ambre italique, comme le « visual » de la référence. */
+.gradient-text,
+.hero-title .gradient-text,
+.about-text h2 span {
     color: var(--terracotta-ink);
     font-style: italic;
 }
+
+/* Les chiffres prennent l'accent, mais surtout pas l'italique. */
+.stat-number { color: var(--terracotta-ink); font-style: normal; }
+
+/* Le nom du site reste sobre, comme le wordmark blanc de la référence. */
+.title h1 { color: var(--ink); }
 
 /* ───────────────────────────────────────────────
    4. FOND DE PAGE ET GRAIN
@@ -160,27 +209,24 @@ body::after {
     inset: 0;
     z-index: 9990;
     pointer-events: none;
-    opacity: 0.035;
+    opacity: 0.06;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@media (prefers-color-scheme: dark) {
-    body::after { opacity: 0.06; }
-}
+/* Le grain est plus marqué sur le thème sombre, qui est le défaut :
+   on l'atténue seulement pour le repli clair. */
+:root[data-theme="light"] body::after { opacity: 0.035; }
 
 /* ───────────────────────────────────────────────
    5. EN-TÊTE, NAVIGATION, PIED DE PAGE
 ─────────────────────────────────────────────── */
 header {
-    background: rgba(255, 252, 247, 0.9);
+    background: color-mix(in srgb, var(--card) 90%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--sand);
     box-shadow: none;
 }
 
-@media (prefers-color-scheme: dark) {
-    header { background: rgba(42, 37, 31, 0.9); }
-}
 
 .title h1 { color: var(--ink); }
 
@@ -191,7 +237,17 @@ nav a {
 }
 
 nav a:hover, nav a:focus-visible { color: var(--ink); background: var(--cream-deep); }
-nav a.logo { color: var(--clay); }
+/* Onglet de la page courante : style.css lui met un fond --primary-color
+   avec du texte blanc, ce qui tombait à 1.90:1 sur l'ambre — et mon thème
+   avait aggravé le cas en passant ce texte en ambre, donc invisible.
+   Texte foncé sur l'accent : 10.10:1. */
+nav a.logo,
+nav a.logo:hover {
+    background-color: var(--clay);
+    color: var(--on-accent);
+}
+
+nav a.logo:hover { background-color: var(--clay-deep); }
 
 .menuBurguer span { background: var(--ink); }
 
@@ -220,7 +276,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .btn-primary, .submit-btn, .why-cta-btn {
     background: var(--clay);
     background-image: none;
-    color: #FFFCF7;
+    color: var(--on-accent);
     border-radius: 999px;
     box-shadow: var(--shadow);
     transition: var(--transition);
@@ -228,7 +284,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 
 .btn-primary:hover, .submit-btn:hover, .why-cta-btn:hover {
     background: var(--ink);
-    color: #FFFCF7;
+    color: var(--on-accent);
     box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
 }
@@ -245,17 +301,19 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     color: var(--ink);
 }
 
-@media (prefers-color-scheme: dark) {
-    .btn-primary, .submit-btn, .why-cta-btn { background: var(--clay); color: #1F1B17; }
-    .btn-primary:hover, .submit-btn:hover, .why-cta-btn:hover { background: var(--clay-deep); color: #1F1B17; }
-}
 
 /* ───────────────────────────────────────────────
    7. CARTES ET BLOCS
 ─────────────────────────────────────────────── */
+/* Toutes les surfaces qui codaient « background: white » en dur.
+   Liste établie par relevé exhaustif des feuilles et des <style> inline,
+   pas au jugé : c'est ce qui manquait qui rendait la section « À propos »
+   blanche avec du texte clair dessus. */
 .service-card, .why-card, .experience-card, .competency-card,
 .project-card, .menu-card, .tech-card, .info-item, .stat-item,
-.contact-container, .about-photo, .legal-toc {
+.contact-container, .about-photo, .legal-toc,
+.about-section, .présentation, .restaurant-hero,
+.reservation-section, .contact-section, .site-card, .country-item {
     background: var(--card);
     border: 1px solid var(--sand);
     border-radius: var(--r-md);
@@ -311,18 +369,17 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .cta-section h2, .why-bottom-left h3 { color: var(--cream); }
 .cta-section p, .why-bottom-left p   { color: var(--on-invert-soft); }
 
-/* Ce bouton est posé sur le bloc inversé, mais son fond terracotta reste
-   clair dans les deux thèmes : son texte doit donc rester foncé dans les
-   deux. Valeurs fixes volontairement — un jeton qui s'inverse le rendrait
-   illisible en mode sombre. */
+/* Ce bouton repose sur l'ambre VIF, qui ne s'assombrit dans aucun des deux
+   thèmes : son texte doit donc rester foncé dans les deux, d'où --on-vivid
+   et non --on-accent. Au survol, fond blanc fixe pour la même raison. */
 .cta-section .btn-primary, .why-bottom .why-cta-btn {
     background: var(--terracotta-btn);
-    color: #241F1A;
+    color: var(--on-vivid);
 }
 
 .cta-section .btn-primary:hover, .why-bottom .why-cta-btn:hover {
-    background: #FFFCF7;
-    color: #241F1A;
+    background: #FFFFFF;
+    color: var(--on-vivid);
 }
 
 /* ───────────────────────────────────────────────
@@ -341,11 +398,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 }
 
 .form-group label { color: var(--ink); }
-.field-error { color: #B3261E; }
+.field-error { color: #F2B8B5; }
 
-@media (prefers-color-scheme: dark) {
-    .field-error { color: #F2B8B5; }
-}
+:root[data-theme="light"] .field-error { color: #B3261E; }
 
 /* ───────────────────────────────────────────────
    9. SÉLECTEUR DE LANGUE
@@ -404,9 +459,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .online-dot { background: #7BAE5A; }
 
 .bot .chat-bubble  { background: var(--cream-deep); color: var(--ink); }
-.user .chat-bubble { background: var(--clay); background-image: none; color: #FFFCF7; }
+.user .chat-bubble { background: var(--clay); background-image: none; color: var(--on-accent); }
 .chat-bubble a     { color: var(--clay); }
-.user .chat-bubble a { color: #FFFCF7; text-decoration: underline; }
+.user .chat-bubble a { color: var(--on-accent); text-decoration: underline; }
 .typing-dots span  { background: var(--ink-soft); }
 
 .chat-messages::-webkit-scrollbar-thumb { background: var(--sand); }
@@ -418,7 +473,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     border-radius: 999px;
 }
 
-.quick-btn:hover { background: var(--clay); border-color: var(--clay); color: #FFFCF7; }
+.quick-btn:hover { background: var(--clay); border-color: var(--clay); color: var(--on-accent); }
 
 .chat-input-row { border-top: 1px solid var(--sand); background: var(--card); }
 
@@ -432,7 +487,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .chat-input:focus { border-color: var(--clay); background: var(--card); }
 .chat-input::placeholder { color: var(--ink-soft); }
 
-.chat-send { background: var(--clay); background-image: none; color: #FFFCF7; }
+.chat-send { background: var(--clay); background-image: none; color: var(--on-accent); }
 .chat-send:hover { box-shadow: 0 4px 14px rgba(154, 79, 22, 0.35); }
 
 .chat-rate-warning {
@@ -441,12 +496,6 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     color: var(--clay);
 }
 
-@media (prefers-color-scheme: dark) {
-    .user .chat-bubble { color: #1F1B17; }
-    .user .chat-bubble a { color: #1F1B17; }
-    .chat-send, .chatbox-btn { color: #1F1B17; }
-    .quick-btn:hover { color: #1F1B17; }
-}
 
 /* ───────────────────────────────────────────────
    11. PAGES LÉGALES
@@ -500,14 +549,11 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .about-photo-badge {
     background: var(--clay);
     background-image: none;
-    color: #FFFCF7;
+    color: var(--on-accent);
     border-radius: var(--r-sm);
     box-shadow: var(--shadow-lg);
 }
 
-@media (prefers-color-scheme: dark) {
-    .about-photo-badge { color: #1F1B17; }
-}
 
 /* La photo ne doit pas s'étirer quand la grille retombe sur une colonne */
 @media (max-width: 900px) {
