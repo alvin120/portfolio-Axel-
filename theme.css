@@ -587,3 +587,22 @@ img { height: auto; }
 
 .about-section { align-items: center; }
 .about-photo-wrap { min-width: 0; }
+
+/* ───────────────────────────────────────────────
+   CÉSURE CORÉENNE
+
+   Par défaut le navigateur traite le coréen comme le chinois
+   ou le japonais et coupe entre deux syllabes, au milieu d'un
+   mot. Or le coréen sépare ses mots par des espaces : keep-all
+   lui rend une césure correcte.
+
+   Réservé à :lang(ko) — appliqué au chinois ou au japonais,
+   qui n'ont pas d'espaces, il rendrait les lignes insécables
+   et ferait déborder les colonnes étroites.
+
+   i18n.js pose document.documentElement.lang à chaque bascule.
+─────────────────────────────────────────────── */
+:root:lang(ko) body {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}

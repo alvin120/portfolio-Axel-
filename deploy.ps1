@@ -15,7 +15,15 @@ $remote  = $env:FTP_REMOTE
 
 # Files and folders to deploy
 $extensions = @("*.html", "*.css", "*.js", "*.xml", "*.txt", "*.json", "*.jpg", "*.png", "*.gif", "*.svg", "*.ico", "*.webp", "*.htaccess")
-$exclude    = @(".git", ".github", ".vercel", ".env", "deploy.ps1", "node_modules", "*.py", "*.bat", "README.md")
+
+# NE JAMAIS deployer .ovhconfig : ce fichier a deja mis le site entier
+# hors ligne (501 sur toutes les pages). La version PHP se regle depuis
+# l'espace client OVH, pas par ce fichier.
+#
+# demos/ et stamp-assets.js sont des outils de travail : ils n'ont rien
+# a faire en production.
+$exclude    = @(".git", ".github", ".vercel", ".env", ".ovhconfig", "deploy.ps1",
+                "stamp-assets.js", "demos", "node_modules", "*.py", "*.bat", "README.md")
 
 Write-Host "Deploying to $server$remote ..." -ForegroundColor Cyan
 
@@ -45,6 +53,14 @@ Get-ChildItem -Recurse -File | Where-Object {
     !$skip
 } | ForEach-Object {
     $rel        = $_.FullName.Replace((Get-Location).Path + "\", "").Replace("\", "/")
+
+    # Garde-fou : meme si la liste d'exclusion changeait un jour,
+    # .ovhconfig ne doit jamais partir sur le serveur.
+    if ($_.Name -eq ".ovhconfig") {
+        Write-Host "  SKIP: .ovhconfig (ne doit jamais etre deploye)" -ForegroundColor Yellow
+        return
+    }
+
     $remoteFull = $remote + $rel
     Write-Host "  $rel" -ForegroundColor Gray
     if (Upload-File $_.FullName $remoteFull) { $count++ } else { $errors++ }
