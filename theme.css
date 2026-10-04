@@ -126,7 +126,7 @@
 ─────────────────────────────────────────────── */
 
 /* Titres → Newsreader */
-.title h1, .présentation h1,
+.title .brand, .présentation h1,
 .section-title,
 .experience-card h3, .competency-card h3, .project-card h3, .menu-card h3, .price,
 .restaurant-hero h2, .restaurant-tech-header h2, .tech-card h3, .tech-cta p,
@@ -155,7 +155,7 @@ body, projet-body,
 body p { font-family: 'Nunito Sans', system-ui, sans-serif; }
 
 /* QUATRE éléments du site remplissent leur texte avec un dégradé
-   --primary-color → --accent-color : .title h1, .hero-title .gradient-text,
+   --primary-color → --accent-color : .title .brand, .hero-title .gradient-text,
    .stat-number et .about-text h2 span. Avec cette palette, le dégradé va de
    l'ambre au cyan et son milieu vire au VERT — le nom du site et les chiffres
    s'affichaient en vert. En prime, -webkit-text-fill-color: transparent
@@ -167,7 +167,7 @@ body p { font-family: 'Nunito Sans', system-ui, sans-serif; }
 .hero-title .gradient-text,
 .about-text h2 span,
 .stat-number,
-.title h1 {
+.title .brand {
     background: none;
     -webkit-background-clip: initial;
     background-clip: initial;
@@ -186,7 +186,7 @@ body p { font-family: 'Nunito Sans', system-ui, sans-serif; }
 .stat-number { color: var(--terracotta-ink); font-style: normal; }
 
 /* Le nom du site reste sobre, comme le wordmark blanc de la référence. */
-.title h1 { color: var(--ink); }
+.title .brand { color: var(--ink); }
 
 /* ───────────────────────────────────────────────
    4. FOND DE PAGE ET GRAIN
@@ -224,7 +224,7 @@ header {
 }
 
 
-.title h1 { color: var(--ink); }
+.title .brand { color: var(--ink); }
 
 nav a {
     color: var(--ink-soft);
@@ -503,7 +503,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 /* ───────────────────────────────────────────────
    11. PAGES LÉGALES
 ─────────────────────────────────────────────── */
-.legal-header h2 { color: var(--clay); font-family: 'Newsreader', Georgia, serif; }
+.legal-header h1 { color: var(--clay); font-family: 'Newsreader', Georgia, serif; }
 .legal-block h3  { font-family: 'Newsreader', Georgia, serif; border-bottom-color: var(--sand); }
 .legal-block h4  { font-family: 'Newsreader', Georgia, serif; }
 .legal-table th  { background: var(--cream-deep); font-family: 'Newsreader', Georgia, serif; }
@@ -605,4 +605,25 @@ img { height: auto; }
 :root:lang(ko) body {
     word-break: keep-all;
     overflow-wrap: break-word;
+}
+
+/* ───────────────────────────────────────────────
+   LIEN LOCAL DANS « À PROPOS »
+
+   Renvoie vers la page de destination guyanaise. Discret dans la
+   colonne de texte, mais visible : c'est un lien contextuel, donc
+   le signal interne le plus fort vers cette page.
+─────────────────────────────────────────────── */
+.about-local-link {
+    margin: 4px 0 18px;
+    font-weight: 600;
+}
+.about-local-link a {
+    color: var(--clay);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.about-local-link a:hover,
+.about-local-link a:focus-visible {
+    color: var(--clay-deep);
 }

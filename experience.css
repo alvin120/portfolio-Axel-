@@ -37,7 +37,7 @@ body {
        transition: 0.5s;           
      } 
        
-       .title h1 {    
+       .title .brand {    
        text-align: center;
     color: lightblue ;
     text-shadow: 4px 4px 4px #159a4c;
