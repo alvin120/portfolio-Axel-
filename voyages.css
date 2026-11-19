@@ -1,0 +1,710 @@
+/* ═══════════════════════════════════════════════════════════════
+   PAGE VOYAGES — direction « Sunset Coast »
+   Ambiance open-world : ciel couchant magenta/orange, néon, titres
+   condensés (Anton), carte façon GPS. Inspiration d'époque, aucun
+   élément repris d'un jeu existant (ni logo, ni police, ni visuel).
+
+   Chaque destination porte sa propre GÉOGRAPHIE via deux couleurs,
+   --geo-a et --geo-b, posées par l'attribut data-geo :
+   littoral méditerranéen, plaine du Danube, fjord, estuaire…
+   Les pays visités sont colorés par CONTINENT, sur la carte comme
+   dans la liste, avec les mêmes trois teintes.
+
+   À charger APRÈS theme.css.
+═══════════════════════════════════════════════════════════════ */
+
+.page-voyages {
+    --sun-1: #FFE29A;
+    --sun-2: #FF9A3C;
+    --sun-3: #FF2E88;
+    --night-1: #12061F;
+    --night-2: #2A0B45;
+    --night-3: #4A1260;
+
+    /* Continents : mêmes teintes partout (carte, légende, liste) */
+    --cont-europe:   #22E3D2;
+    --cont-africa:   #FF9A3C;
+    --cont-samerica: #FF4FA0;
+
+    /* Versions « encre » lisibles sur fond clair (≥ 4.5:1 sur blanc) */
+    --cont-europe-ink:   #00756B;
+    --cont-africa-ink:   #A84B00;
+    --cont-samerica-ink: #B0105C;
+
+    --gps-bg: #0B0F1E;
+    --gps-line: rgba(34, 227, 210, 0.35);
+    --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+}
+
+:root[data-theme="dark"] .page-voyages {
+    --cont-europe-ink:   #22E3D2;
+    --cont-africa-ink:   #FFB067;
+    --cont-samerica-ink: #FF7DB8;
+}
+
+.page-voyages main { padding-top: 32px; }
+
+/* ───────────────────────────────────────────────
+   1. HÉROS — coucher de soleil sur la côte
+─────────────────────────────────────────────── */
+.vy-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--r-lg, 28px);
+    padding: 64px 48px 150px;
+    color: #fff;
+    isolation: isolate;
+    background:
+        linear-gradient(180deg,
+            var(--night-1) 0%,
+            var(--night-2) 28%,
+            var(--night-3) 46%,
+            #9B1B6E 60%,
+            var(--sun-3) 70%,
+            var(--sun-2) 80%,
+            var(--sun-1) 86%,
+            #0E5E6F 86.2%,
+            #07323F 100%);
+    box-shadow: 0 30px 60px -30px rgba(74, 18, 96, 0.65);
+}
+
+/* Soleil rayé, posé sur l'horizon */
+.vy-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 62%;
+    bottom: 13.8%;
+    width: min(340px, 52vw);
+    aspect-ratio: 1;
+    transform: translate(-50%, 50%);
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--sun-1) 0%, var(--sun-2) 45%, var(--sun-3) 100%);
+    -webkit-mask: repeating-linear-gradient(180deg, #000 0 14px, transparent 14px 19px);
+            mask: repeating-linear-gradient(180deg, #000 0 14px, transparent 14px 19px);
+    -webkit-mask-size: 100% 100%;
+    filter: drop-shadow(0 0 40px rgba(255, 46, 136, 0.7));
+    clip-path: inset(0 0 50% 0);
+}
+
+/* Reflets sur l'eau */
+.vy-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0; right: 0; bottom: 0;
+    height: 13.8%;
+    background:
+        repeating-linear-gradient(180deg, rgba(255, 154, 60, 0.55) 0 2px, transparent 2px 9px)
+        center / 38% 100% no-repeat;
+    -webkit-mask: linear-gradient(180deg, #000, transparent);
+            mask: linear-gradient(180deg, #000, transparent);
+    margin-left: 24%;
+}
+
+.vy-palms {
+    position: absolute;
+    z-index: -1;
+    bottom: 13%;
+    height: 72%;
+    width: auto;
+    color: #12061F;
+    pointer-events: none;
+}
+.vy-palms--left  { left: -2%; }
+.vy-palms--right { right: -3%; transform: scaleX(-1); height: 58%; }
+
+.vy-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sun-1);
+    margin: 0 0 14px;
+}
+.vy-kicker::before {
+    content: "";
+    width: 28px; height: 2px;
+    background: linear-gradient(90deg, var(--sun-3), var(--sun-1));
+}
+
+.page-voyages .section-title.vy-title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(56px, 11vw, 132px);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-align: left;
+    margin: 0 0 22px;
+    max-width: 9ch;
+    background: linear-gradient(180deg, #FFFFFF 0%, var(--sun-1) 45%, var(--sun-2) 75%, var(--sun-3) 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 4px 0 rgba(18, 6, 31, 0.55)) drop-shadow(0 0 24px rgba(255, 46, 136, 0.35));
+}
+
+.vy-intro {
+    max-width: 46ch;
+    margin: 0 0 28px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.vy-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.vy-stats li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(18, 6, 31, 0.55);
+    border: 1px solid rgba(255, 226, 154, 0.28);
+    -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+}
+.vy-stats strong {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--sun-1);
+}
+.vy-stats span {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ───────────────────────────────────────────────
+   2. TITRES DE SECTION
+─────────────────────────────────────────────── */
+.vy-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 72px 0 8px;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(30px, 4.6vw, 44px);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+}
+.vy-heading::after {
+    content: "";
+    flex: 1;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--sun-3), var(--sun-2), transparent);
+}
+.vy-sub {
+    margin: 0 0 28px;
+    color: var(--ink-soft);
+    font-size: 16px;
+}
+
+/* ───────────────────────────────────────────────
+   3. CARTE — écran GPS
+─────────────────────────────────────────────── */
+.vy-gps {
+    position: relative;
+    margin-top: 28px;
+    padding: 14px;
+    border-radius: var(--r-lg, 28px);
+    background: var(--gps-bg);
+    border: 1px solid #1E2742;
+    box-shadow: 0 0 0 1px rgba(255, 46, 136, 0.15), 0 24px 50px -24px rgba(11, 15, 30, 0.8);
+}
+
+.vy-gps-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
+    padding: 6px 8px 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9AA6C8;
+}
+.vy-gps-bar .vy-rec {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #E8ECF8;
+}
+.vy-gps-bar .vy-rec::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cont-samerica);
+    box-shadow: 0 0 10px var(--cont-samerica);
+    animation: vy-blink 1.6s ease-in-out infinite;
+}
+
+.vy-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.vy-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #C9D1EA;
+}
+.vy-legend li::before {
+    content: "";
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    background: var(--c);
+    box-shadow: 0 0 8px var(--c);
+}
+.vy-legend .is-off::before { background: #26304D; box-shadow: none; }
+
+#mapWrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 52%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 18px;
+}
+#map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    background: var(--gps-bg);
+}
+
+/* Fond OSM passé en « mode nuit » : aucun nouveau domaine dans la CSP */
+.page-voyages .leaflet-tile-pane {
+    filter: invert(1) hue-rotate(195deg) brightness(0.72) contrast(1.1) saturate(0.55);
+}
+.page-voyages .leaflet-container { background: var(--gps-bg); font-family: inherit; }
+
+/* Quadrillage de visée par-dessus la carte */
+#mapWrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 401;
+    pointer-events: none;
+    border-radius: 18px;
+    background:
+        linear-gradient(var(--gps-line), var(--gps-line)) center / 1px 100% no-repeat,
+        linear-gradient(var(--gps-line), var(--gps-line)) center / 100% 1px no-repeat,
+        radial-gradient(ellipse at center, transparent 55%, rgba(11, 15, 30, 0.75) 100%);
+    opacity: 0.55;
+}
+
+.vy-country { transition: fill-opacity 0.2s ease; }
+.vy-country--visited { filter: drop-shadow(0 0 6px var(--glow, transparent)); }
+
+.page-voyages .leaflet-bar a {
+    background: #141B31;
+    color: #E8ECF8;
+    border-bottom-color: #26304D;
+}
+.page-voyages .leaflet-bar a:hover { background: #1E2742; color: var(--cont-europe); }
+.page-voyages .leaflet-bar { border: 1px solid #26304D; }
+.page-voyages .leaflet-control-attribution {
+    background: rgba(11, 15, 30, 0.75);
+    color: #9AA6C8;
+}
+.page-voyages .leaflet-control-attribution a { color: #C9D1EA; }
+
+.page-voyages .leaflet-popup-content-wrapper,
+.page-voyages .leaflet-popup-tip,
+.page-voyages .leaflet-tooltip.vy-tip {
+    background: #141B31;
+    color: #E8ECF8;
+    border: 1px solid #2E3A5E;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.page-voyages .leaflet-tooltip.vy-tip { border-radius: 8px; font-family: var(--mono); font-size: 12px; }
+.page-voyages .leaflet-tooltip.vy-tip::before { display: none; }
+.page-voyages .leaflet-popup-content { margin: 12px 16px; font-size: 14px; }
+.vy-pop-name { font-family: var(--display); font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase; }
+.vy-pop-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #C9D1EA;
+}
+.vy-pop-tag::before {
+    content: "";
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--c, #26304D);
+}
+
+/* Balises de ville (waypoints) */
+.vy-waypoint {
+    width: 14px !important;
+    height: 14px !important;
+    margin: -7px 0 0 -7px !important;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--c);
+    box-shadow: 0 0 0 0 var(--c);
+    animation: vy-ping 2.4s ease-out infinite;
+}
+
+/* Raccourcis vers les villes, sous la carte */
+.vy-waypoints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 4px 4px;
+}
+.vy-waypoints button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid #26304D;
+    background: #141B31;
+    color: #E8ECF8;
+    font: 600 13px/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.vy-waypoints button::before {
+    content: "";
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 8px var(--c);
+}
+.vy-waypoints button:hover,
+.vy-waypoints button[aria-pressed="true"] {
+    border-color: var(--c);
+    background: #1B2442;
+    transform: translateY(-1px);
+}
+.vy-waypoints button:focus-visible {
+    outline: 2px solid var(--c);
+    outline-offset: 2px;
+}
+
+/* ───────────────────────────────────────────────
+   4. PAYS, groupés par continent
+─────────────────────────────────────────────── */
+.vy-continents {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 8px;
+}
+.vy-continent {
+    --c: var(--cont-europe);
+    --c-ink: var(--cont-europe-ink);
+    position: relative;
+    padding: 22px 22px 18px;
+    border-radius: var(--r-md, 20px);
+    background: var(--card);
+    border: 1px solid var(--sand);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+.vy-continent[data-continent="africa"]   { --c: var(--cont-africa);   --c-ink: var(--cont-africa-ink); }
+.vy-continent[data-continent="samerica"] { --c: var(--cont-samerica); --c-ink: var(--cont-samerica-ink); }
+.vy-continent::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    height: 4px;
+    background: var(--c);
+}
+.vy-continent h3 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--c-ink);
+}
+.vy-continent h3 small {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+.vy-continent ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.vy-continent li {
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--sand);
+    background: var(--cream-deep);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ───────────────────────────────────────────────
+   5. DESTINATIONS — une géographie par carte
+─────────────────────────────────────────────── */
+.vy-trips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.vy-trip {
+    --geo-a: #22E3D2;
+    --geo-b: #FF9A3C;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--r-md, 20px);
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--sand);
+    box-shadow: var(--shadow);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.vy-trip:hover {
+    transform: translateY(-4px);
+    border-color: var(--geo-a);
+    box-shadow: 0 22px 44px -22px var(--geo-b), var(--shadow);
+}
+
+/* Géographies */
+.vy-trip[data-geo="mediterranee"] { --geo-a: #12B5C2; --geo-b: #E9C46A; }  /* eau turquoise, sable */
+.vy-trip[data-geo="dalt-vila"]    { --geo-a: #D63B7A; --geo-b: #E8D2A6; }  /* bougainvillée, chaux */
+.vy-trip[data-geo="danube"]       { --geo-a: #C9A227; --geo-b: #2B5DA8; }  /* or impérial, Danube */
+.vy-trip[data-geo="jardins"]      { --geo-a: #E8B923; --geo-b: #3A7D44; }  /* jaune Schönbrunn, parterres */
+.vy-trip[data-geo="latium"]       { --geo-a: #C4572B; --geo-b: #E3A44B; }  /* terre cuite, ocre */
+.vy-trip[data-geo="danube-art"]   { --geo-a: #6FB3E0; --geo-b: #2E6FBF; }  /* bleu pastel Art nouveau */
+.vy-trip[data-geo="fjord"]        { --geo-a: #4BE3A8; --geo-b: #1D4E89; }  /* aurore, fjord profond */
+.vy-trip[data-geo="plata"]        { --geo-a: #74ACDF; --geo-b: #C8102E; }  /* celeste, rouge tango */
+
+.vy-trip-media {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    background: var(--geo-b);
+}
+.vy-trip-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.vy-trip:hover .vy-trip-media img { transform: scale(1.06); }
+
+/* Voile coloré par la géographie + lisibilité du titre */
+.vy-trip-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(10, 8, 20, 0) 35%, rgba(10, 8, 20, 0.82) 100%),
+        linear-gradient(135deg, var(--geo-a) 0%, transparent 45%, var(--geo-b) 100%);
+    opacity: 0.85;
+}
+
+.vy-coords {
+    position: absolute;
+    z-index: 2;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(10, 8, 20, 0.66);
+    color: #fff;
+    font: 600 11px/1 var(--mono);
+    letter-spacing: 0.06em;
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+}
+.vy-coords i { color: var(--geo-a); }
+
+.vy-trip-title {
+    position: absolute;
+    z-index: 2;
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.vy-trip-body {
+    position: relative;
+    flex: 1;
+    padding: 20px 22px 24px;
+}
+.vy-trip-body::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--geo-a), var(--geo-b));
+}
+
+.vy-trip-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 10px;
+}
+.vy-place {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+.vy-geo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--sand);
+    background: var(--cream-deep);
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-weight: 600;
+}
+.vy-geo::before {
+    content: "";
+    width: 10px; height: 10px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--geo-a) 50%, var(--geo-b) 50%);
+}
+
+.vy-trip-body p {
+    margin: 0;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    font-size: 15px;
+}
+
+/* ───────────────────────────────────────────────
+   6. APPEL FINAL — générique de fin
+─────────────────────────────────────────────── */
+.vy-outro {
+    position: relative;
+    margin-top: 72px;
+    padding: 48px 40px;
+    border-radius: var(--r-lg, 28px);
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    background:
+        radial-gradient(120% 140% at 50% 120%, var(--sun-2) 0%, var(--sun-3) 35%, var(--night-3) 65%, var(--night-1) 100%);
+}
+.vy-outro h3 {
+    margin: 0 0 12px;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--sun-1);
+}
+.vy-outro p {
+    max-width: 56ch;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+}
+
+/* ───────────────────────────────────────────────
+   7. ANIMATIONS
+─────────────────────────────────────────────── */
+@keyframes vy-blink { 50% { opacity: 0.25; } }
+@keyframes vy-ping {
+    0%   { box-shadow: 0 0 0 0 var(--c); }
+    70%  { box-shadow: 0 0 0 14px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .vy-waypoint, .vy-gps-bar .vy-rec::before { animation: none; }
+    .vy-trip, .vy-trip-media img, .vy-waypoints button { transition: none; }
+}
+
+/* ───────────────────────────────────────────────
+   8. RESPONSIVE
+─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .vy-continents { grid-template-columns: 1fr 1fr; }
+    .vy-continent[data-continent="europe"] { grid-column: 1 / -1; }
+    #mapWrapper { padding-bottom: 70%; }
+}
+
+@media (max-width: 640px) {
+    .page-voyages main { padding: 16px 16px 40px; }
+    .vy-hero { padding: 40px 22px 120px; border-radius: 22px; }
+    .vy-hero::before { left: 70%; }
+    .vy-palms--left { left: -14%; height: 60%; }
+    .vy-palms--right { display: none; }
+    .vy-intro { font-size: 15px; }
+    .vy-stats li { padding: 8px 12px; }
+    .vy-stats strong { font-size: 22px; }
+    .vy-heading { margin-top: 52px; }
+    .vy-gps { padding: 10px; border-radius: 22px; }
+    .vy-gps-bar { padding: 4px 4px 10px; }
+    #mapWrapper { padding-bottom: 100%; }
+    .vy-continents { grid-template-columns: 1fr; }
+    .vy-trips { grid-template-columns: 1fr; }
+    .vy-trip-media { height: 220px; }
+    .vy-trip-title { font-size: 30px; }
+    .vy-outro { padding: 36px 20px; }
+}
