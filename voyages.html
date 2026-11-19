@@ -23,185 +23,24 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;1,500&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=c7ba5deb">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,wght@0,500;1,500&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3152d054">
     <link rel="stylesheet" href="chatbox.css?v=621cb522">
-    <link rel="stylesheet" href="pages.css?v=b6e7974e">
+    <link rel="stylesheet" href="pages.css?v=103301dd">
     <link rel="stylesheet" href="i18n.css?v=a781add4">
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous">
 
-    <style>
-        #mapWrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-
-        #map {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .map-container {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-
-        .countries-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 12px;
-            margin-top: 30px;
-            margin-bottom: 50px;
-        }
-
-        .country-item {
-            background: white;
-            padding: 14px 16px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .country-item:hover {
-            transform: translateX(4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .country-item i {
-            color: var(--primary-color);
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .country-item span {
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* ── Responsive carte ── */
-        @media (max-width: 900px) {
-            #mapWrapper { padding-bottom: 70%; }
-        }
-
-        @media (max-width: 768px) {
-            #mapWrapper { padding-bottom: 80%; }
-
-            .map-container { padding: 12px; }
-
-            .countries-list {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 8px;
-            }
-
-            .country-item {
-                padding: 10px 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #mapWrapper { padding-bottom: 100%; }
-
-            .countries-list {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .country-item {
-                padding: 10px;
-                gap: 8px;
-            }
-
-            .country-item span { font-size: 13px; }
-            .country-item i { font-size: 13px; }
-        }
-
-        /* ── Styles de page ── */
-        .voyages-intro {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-
-        .voyages-heading {
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .voyages-heading--lg {
-            margin-top: 60px;
-        }
-
-        .voyages-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 50px;
-            font-size: 16px;
-        }
-
-        .voyages-cta {
-            text-align: center;
-            margin-top: 60px;
-            padding: 40px;
-            background: var(--light-bg);
-            border-radius: 12px;
-        }
-
-        .voyages-cta h3 {
-            color: var(--primary-color);
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .voyages-cta p {
-            color: var(--text-secondary);
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .voyages-heading { font-size: 19px; }
-            .voyages-cta { padding: 30px 20px; margin-top: 40px; }
-            .voyages-cta h3 { font-size: 20px; }
-            .voyages-subtitle { margin-bottom: 30px; font-size: 14px; }
-        }
-
-        @media (max-width: 480px) {
-            .voyages-heading { font-size: 17px; margin-top: 30px; }
-            .voyages-heading--lg { margin-top: 40px; }
-            .voyages-cta { padding: 20px 15px; }
-            .voyages-cta h3 { font-size: 18px; }
-        }
-    </style>
     <link rel="stylesheet" href="theme.css?v=de28477a">
+    <link rel="stylesheet" href="voyages.css?v=559679fb">
     
-    <script defer src="script.js?v=059d1cc0"></script>
-    <script defer src="i18n.js?v=70f7e3ee"></script>
+    <script defer src="script.js?v=8989bb23"></script>
+    <script defer src="i18n.js?v=c6c3b8b3"></script>
 
     <title>Voyages - Axel Portfolio</title>
 </head>
-<body>
+<body class="page-voyages">
     <header>
         <div class="menuBurguer">
             <span></span>
@@ -223,213 +62,199 @@
 
     <main>
         <section>
-            <h1 class="section-title" data-i18n-text="trips_title">Mes Voyages</h1>
-            <p class="voyages-intro" data-i18n-text="trips_intro">
-                J'ai eu la chance de visiter 18 pays sur 3 continents. Découvrez mes destinations en bleu sur la carte ci-dessous.
-            </p>
+            <div class="vy-hero">
+                <svg class="vy-palms vy-palms--left" viewBox="0 0 220 400" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M118 400c-4-70-2-150 10-230l8 1c-10 80-11 158-7 229z"/><path d="M132 168c-30-30-78-36-120-18 40-4 76 6 104 30zM132 168c-8-44-40-78-86-92 34 22 58 52 72 96zM132 168c18-40 54-62 98-62-38 14-66 38-84 72zM132 168c36-12 74-2 98 26-30-14-62-18-92-10zM132 168c-36 6-66 32-80 70 22-26 50-44 84-52zM132 168c4-42 28-80 66-104-24 32-40 66-50 106z"/></g></svg>
+                <svg class="vy-palms vy-palms--right" viewBox="0 0 220 400" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M118 400c-4-70-2-150 10-230l8 1c-10 80-11 158-7 229z"/><path d="M132 168c-30-30-78-36-120-18 40-4 76 6 104 30zM132 168c-8-44-40-78-86-92 34 22 58 52 72 96zM132 168c18-40 54-62 98-62-38 14-66 38-84 72zM132 168c36-12 74-2 98 26-30-14-62-18-92-10zM132 168c-36 6-66 32-80 70 22-26 50-44 84-52zM132 168c4-42 28-80 66-104-24 32-40 66-50 106z"/></g></svg>
+                <p class="vy-kicker" data-i18n-text="trips_kicker">Carnet de route</p>
+                <h1 class="section-title vy-title" data-i18n-text="trips_title">Mes Voyages</h1>
+                <p class="vy-intro" data-i18n-text="trips_intro">J'ai eu la chance de visiter 18 pays sur 3 continents. Chaque continent a sa couleur sur la carte ci-dessous.</p>
+                <ul class="vy-stats">
+                    <li><strong>18</strong><span data-i18n-text="trips_stat_countries">pays</span></li>
+                    <li><strong>3</strong><span data-i18n-text="trips_stat_continents">continents</span></li>
+                    <li><strong>8</strong><span data-i18n-text="trips_stat_spots">coups de cœur</span></li>
+                </ul>
+            </div>
 
-            <div class="map-container">
+            <div class="vy-gps">
+                <div class="vy-gps-bar">
+                    <span class="vy-rec">GPS · 18 / 195</span>
+                    <ul class="vy-legend">
+                        <li style="--c: var(--cont-europe)" data-legend="europe" data-i18n-text="cont_europe">Europe</li>
+                        <li style="--c: var(--cont-africa)" data-legend="africa" data-i18n-text="cont_africa">Afrique</li>
+                        <li style="--c: var(--cont-samerica)" data-legend="samerica" data-i18n-text="cont_samerica">Amérique du Sud</li>
+                        <li class="is-off" data-legend="off" data-i18n-text="trips_unvisited">Non visité</li>
+                    </ul>
+                </div>
                 <div id="mapWrapper">
-                    <div id="map"></div>
+                    <div id="map" role="region" aria-label="Carte des pays visités"></div>
+                </div>
+                <div class="vy-waypoints">
+                    <button type="button" data-waypoint="ibiza" aria-pressed="false">Ibiza</button>
+                    <button type="button" data-waypoint="roma" aria-pressed="false">Roma</button>
+                    <button type="button" data-waypoint="wien" aria-pressed="false">Wien</button>
+                    <button type="button" data-waypoint="bratislava" aria-pressed="false">Bratislava</button>
+                    <button type="button" data-waypoint="oslo" aria-pressed="false">Oslo</button>
+                    <button type="button" data-waypoint="buenosaires" aria-pressed="false">Buenos Aires</button>
+                    <button type="button" data-waypoint="cayenne" aria-pressed="false">Cayenne</button>
                 </div>
             </div>
 
-            <h3 class="voyages-heading" data-i18n-text="trips_countries">Pays Visités</h3>
-            <div class="countries-list">
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>France</span>
+            <h2 class="vy-heading" data-i18n-text="trips_countries">Pays Visités</h2>
+            <div class="vy-continents">
+                <div class="vy-continent" data-continent="europe">
+                    <h3><span data-i18n-text="cont_europe">Europe</span><small>12</small></h3>
+                    <ul>
+                        <li>France</li>
+                        <li>Espagne</li>
+                        <li>Royaume-Uni</li>
+                        <li>Italie</li>
+                        <li>Suisse</li>
+                        <li>Belgique</li>
+                        <li>Vatican</li>
+                        <li>Monaco</li>
+                        <li>Norvège</li>
+                        <li>Allemagne</li>
+                        <li>Autriche</li>
+                        <li>Slovaquie</li>
+                    </ul>
                 </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Espagne</span>
+                <div class="vy-continent" data-continent="africa">
+                    <h3><span data-i18n-text="cont_africa">Afrique</span><small>03</small></h3>
+                    <ul>
+                        <li>Gabon</li>
+                        <li>Côte d'Ivoire</li>
+                        <li>Cameroun</li>
+                    </ul>
                 </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Royaume-Uni</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Italie</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Suisse</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Belgique</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Vatican</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Monaco</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Norvège</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Allemagne</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Autriche</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Slovaquie</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Gabon</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Côte d'Ivoire</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Cameroun</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Suriname</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Argentine</span>
-                </div>
-                <div class="country-item">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Brésil</span>
+                <div class="vy-continent" data-continent="samerica">
+                    <h3><span data-i18n-text="cont_samerica">Amérique du Sud</span><small>03</small></h3>
+                    <ul>
+                        <li>Suriname</li>
+                        <li>Argentine</li>
+                        <li>Brésil</li>
+                    </ul>
                 </div>
             </div>
 
-            <h3 class="voyages-heading voyages-heading--lg" data-i18n-text="trips_favorites">Destinations Préférées</h3>
-            <p class="voyages-subtitle" data-i18n-text="trips_fav_sub">
-                Voici quelques-unes de mes destinations préférées.
-            </p>
+            <h2 class="vy-heading" data-i18n-text="trips_favorites">Destinations Préférées</h2>
+            <p class="vy-sub" data-i18n-text="trips_fav_sub">Voici quelques-unes de mes destinations préférées.</p>
 
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
+            <div class="vy-trips">
+                <article class="vy-trip" data-geo="mediterranee">
+                    <div class="vy-trip-media">
                         <img src="./img/imgibiza2.jpg" alt="Port d'Ibiza" width="1920" height="1440" loading="eager" decoding="async" fetchpriority="high">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>38.909°N · 1.437°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip1_h3">Port d'Ibiza</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Ibiza, Espagne
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Ibiza, Espagne</span>
+                            <span class="vy-geo" data-i18n-text="geo1">Littoral méditerranéen</span>
                         </div>
-                        <h3 data-i18n-text="trip1_h3">Port d'Ibiza</h3>
                         <p data-i18n-text="trip1_p">J'ai visité le magnifique port d'Ibiza et ses paysages côtiers enchanteurs.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="dalt-vila">
+                    <div class="vy-trip-media">
                         <img src="./img/imgibiza3.jpg" alt="Centre d'Ibiza" width="1920" height="2560" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>38.907°N · 1.436°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip2_h3">Le Centre Historique</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Centre d'Ibiza, Espagne
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Ibiza, Espagne</span>
+                            <span class="vy-geo" data-i18n-text="geo2">Ville haute fortifiée</span>
                         </div>
-                        <h3 data-i18n-text="trip2_h3">Le Centre Historique</h3>
                         <p data-i18n-text="trip2_p">Exploration du centre historique d'Ibiza avec ses ruelles pittoresques et son charme authentique.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="danube">
+                    <div class="vy-trip-media">
                         <img src="./img/imgvienne1.jpg" alt="Parlement de Vienne" width="1920" height="1440" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>48.208°N · 16.359°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip3_h3">Parlement de Vienne</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Vienne, Autriche
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Vienne, Autriche</span>
+                            <span class="vy-geo" data-i18n-text="geo3">Plaine du Danube</span>
                         </div>
-                        <h3 data-i18n-text="trip3_h3">Parlement de Vienne</h3>
                         <p data-i18n-text="trip3_p">Architecture impressionnante du Parlement autrichien, symbole de la beauté viennoise.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="jardins">
+                    <div class="vy-trip-media">
                         <img src="./img/imgvienne2.jpg" alt="Château de Vienne" width="1920" height="1440" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>48.185°N · 16.312°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip4_h3">Château de Schönbrunn</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Vienne, Autriche
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Vienne, Autriche</span>
+                            <span class="vy-geo" data-i18n-text="geo4">Jardins impériaux</span>
                         </div>
-                        <h3 data-i18n-text="trip4_h3">Château de Schönbrunn</h3>
                         <p data-i18n-text="trip4_p">Visite du majestueux château de Schönbrunn et de ses magnifiques jardins.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="latium">
+                    <div class="vy-trip-media">
                         <img src="./img/rome.jpg" alt="Rome" width="1920" height="1440" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>41.890°N · 12.492°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip5_h3">Rome - Ville Éternelle</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Rome, Italie
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Rome, Italie</span>
+                            <span class="vy-geo" data-i18n-text="geo5">Collines du Tibre</span>
                         </div>
-                        <h3 data-i18n-text="trip5_h3">Rome - Ville Éternelle</h3>
                         <p data-i18n-text="trip5_p">Découverte des monuments historiques et de la richesse culturelle de Rome.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="danube-art">
+                    <div class="vy-trip-media">
                         <img src="./img/bratislava.jpg" alt="Église Bleue de Bratislava" width="1920" height="1440" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>48.144°N · 17.117°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip6_h3">L'Église Bleue de Bratislava</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Bratislava, Slovaquie
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Bratislava, Slovaquie</span>
+                            <span class="vy-geo" data-i18n-text="geo6">Rives du Danube</span>
                         </div>
-                        <h3 data-i18n-text="trip6_h3">L'Église Bleue de Bratislava</h3>
                         <p data-i18n-text="trip6_p">Joyau de l'Art Nouveau, l'Église Sainte-Élisabeth de Bratislava — surnommée "l'Église Bleue" — séduit par sa façade d'un bleu pastel unique, ses ornements en céramique et sa tour d'horloge élancée. Construite en 1913, elle est l'un des monuments les plus emblématiques et photographiés de la capitale slovaque.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="fjord">
+                    <div class="vy-trip-media">
                         <img src="./img/oslo.jpg" alt="Opéra d'Oslo" width="1920" height="1440" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>59.908°N · 10.753°E</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip7_h3">L'Opéra d'Oslo</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Oslo, Norvège
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Oslo, Norvège</span>
+                            <span class="vy-geo" data-i18n-text="geo7">Fjord d'Oslo</span>
                         </div>
-                        <h3 data-i18n-text="trip7_h3">L'Opéra d'Oslo</h3>
                         <p data-i18n-text="trip7_p">Chef-d'œuvre de l'architecture contemporaine, l'Opéra d'Oslo s'avance sur les eaux du fjord tel un iceberg de marbre blanc. Inauguré en 2008, il offre depuis son toit accessible une vue panoramique imprenable sur la ville et son port, mêlant art, modernité et nature scandinave.</p>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
+                </article>
+                <article class="vy-trip" data-geo="plata">
+                    <div class="vy-trip-media">
                         <img src="./img/buenosaires.jpg" alt="Ambassade de France à Buenos Aires" width="1920" height="1440" loading="lazy" decoding="async">
+                        <span class="vy-coords"><i class="fas fa-location-crosshairs" aria-hidden="true"></i>34.592°S · 58.378°W</span>
+                        <h3 class="vy-trip-title" data-i18n-text="trip8_h3">Ambassade de France</h3>
                     </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Buenos Aires, Argentine
+                    <div class="vy-trip-body">
+                        <div class="vy-trip-meta">
+                            <span class="vy-place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Buenos Aires, Argentine</span>
+                            <span class="vy-geo" data-i18n-text="geo8">Estuaire du Río de la Plata</span>
                         </div>
-                        <h3 data-i18n-text="trip8_h3">Ambassade de France</h3>
                         <p data-i18n-text="trip8_p">Face au Palais San Martín, cette demeure de style Beaux-Arts aux balcons en fer forgé et aux ornements sculptés incarne l'élégance française au cœur de Buenos Aires. Un symbole architectural remarquable qui rappelle les liens historiques forts entre la France et l'Argentine.</p>
                     </div>
-                </div>
+                </article>
             </div>
 
-            <div class="voyages-cta">
+            <div class="vy-outro">
                 <h3 data-i18n-text="trips_cta_h3">Passionné par les Voyages</h3>
                 <p data-i18n-text="trips_cta_p">Mes voyages m'ont permis d'élargir mes horizons, de découvrir différentes cultures et de créer des souvenirs inoubliables sur 3 continents.</p>
             </div>
@@ -451,7 +276,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" integrity="sha384-9dCJK6nh7skY14HrcvlLYlFga9/MehJjL9ONWRflmiXNRuf8p2jiF4Y5PR881PTq" crossorigin="anonymous"></script>
     
-    <script src="voyages-map.js?v=a492fbf8"></script>
+    <script src="voyages-map.js?v=b18a9c55"></script>
     <script src="chatbox.js?v=a498bb5c"></script>
 </body>
 </html>
